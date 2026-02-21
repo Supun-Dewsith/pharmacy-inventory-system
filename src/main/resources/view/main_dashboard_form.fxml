@@ -74,8 +74,8 @@
             </Label>
             <TableView fx:id="tblLowStock" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <columns>
-                  <TableColumn fx:id="colMedication" prefWidth="158.0" text="Medication" />
-                  <TableColumn fx:id="colQtyOnHand" prefWidth="140.0" text="On Hand" />
+                  <TableColumn fx:id="colMedicineCodeLowStock" prefWidth="158.0" text="Medicine Code" />
+                  <TableColumn fx:id="colStock" prefWidth="140.0" text="Stock" />
                   <TableColumn fx:id="colMinLevel" prefWidth="103.0" text="Min Level" />
                   <TableColumn fx:id="colSuplier" text="Supplier" />
                </columns>
@@ -89,7 +89,7 @@
             <TableView fx:id="tblExpiryWatchlist" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                <columns>
                   <TableColumn fx:id="colBatch" prefWidth="158.0" text="Batch" />
-                  <TableColumn fx:id="colName" prefWidth="140.0" text="Name" />
+                  <TableColumn fx:id="colMedicineCodeExpiry" prefWidth="140.0" text="Medicine Code" />
                   <TableColumn fx:id="colExpiryDate" prefWidth="103.0" text="Expiry Date" />
                   <TableColumn fx:id="colValue" text="Value ($)" />
                </columns>
@@ -111,7 +111,7 @@
             <TableView fx:id="tblRecentActivityLog" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <columns>
                   <TableColumn fx:id="colActivity" prefWidth="266.0" text="Activity" />
-                  <TableColumn fx:id="colDelete" prefWidth="133.0" text="Date" />
+                  <TableColumn fx:id="colDate" prefWidth="133.0" text="Date" />
                   <TableColumn fx:id="colTime" prefWidth="91.0" text="Time" />
                </columns>
                <columnResizePolicy>

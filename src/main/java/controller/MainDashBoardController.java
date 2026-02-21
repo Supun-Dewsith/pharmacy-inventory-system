@@ -5,14 +5,28 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.MedicineDTO;
+import model.RecentActivityDTO;
+import model.tm.ExpiryWatchListTM;
+import model.tm.LowStockTM;
+import model.tm.RecentAcitvityLogTM;
+import service.ServiceFactory;
+import service.custom.MainDashBoardService;
+import util.ServiceType;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainDashBoardController implements Initializable {
+    private final MainDashBoardService mainDashBoardService = ServiceFactory.getInstance().getServiceType(ServiceType.MAINDASHBOARD);
 
     @FXML
     private BarChart<String, Number> bussyHourAnalysistBarChart;
@@ -30,22 +44,22 @@ public class MainDashBoardController implements Initializable {
     private TableColumn<?, ?> colBatch;
 
     @FXML
-    private TableColumn<?, ?> colDelete;
+    private TableColumn<?, ?> colDate;
 
     @FXML
     private TableColumn<?, ?> colExpiryDate;
 
     @FXML
-    private TableColumn<?, ?> colMedication;
+    private TableColumn<LowStockTM, String> colMedicineCodeLowStock;
 
     @FXML
     private TableColumn<?, ?> colMinLevel;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<ExpiryWatchListTM, String> colMedicineCodeExpiry;
 
     @FXML
-    private TableColumn<?, ?> colQtyOnHand;
+    private TableColumn<?, ?> colStock;
 
     @FXML
     private TableColumn<?, ?> colSuplier;
@@ -75,22 +89,108 @@ public class MainDashBoardController implements Initializable {
     private AreaChart<String, Number> salesPerfomanceAreaChart;
 
     @FXML
-    private TableView<?> tblExpiryWatchlist;
+    private TableView<ExpiryWatchListTM> tblExpiryWatchlist;
 
     @FXML
-    private TableView<?> tblLowStock;
+    private TableView<LowStockTM> tblLowStock;
 
     @FXML
-    private TableView<?> tblRecentActivityLog;
+    private TableView<RecentAcitvityLogTM> tblRecentActivityLog;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mapTblLowStock();
+        mapTblExpiryWatchlist();
+        mapRecntActivityTable();
+        loadLowStockTable();
+        loadExpiryWatchListTable();
+        loadRecentActivityTable();
         loadPieCharts();
         loadBusyHourAnalysistBarChart();
         setPrescriptionBottlneckTrackerBarChart();
         setSalesPerfomanceAreaChart();
     }
+
+    private void loadRecentActivityTable(){
+        try {
+            List<RecentActivityDTO> allActivity = mainDashBoardService.getAllActivity();
+            List<RecentAcitvityLogTM> recentAcitvityLogTMS = new ArrayList<>();
+
+            allActivity.forEach(recentActivityDTO -> {
+                recentAcitvityLogTMS.add(new RecentAcitvityLogTM(
+                        recentActivityDTO.getActicity(),
+                        recentActivityDTO.getDate(),
+                        recentActivityDTO.getTime()
+                ));
+            });
+            tblRecentActivityLog.setItems(FXCollections.observableArrayList(recentAcitvityLogTMS));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void loadExpiryWatchListTable(){
+        try {
+            List<MedicineDTO> all = mainDashBoardService.getAll();
+            List<ExpiryWatchListTM> expiryWatchListTMS = new ArrayList<>();
+            all.forEach(medicineDTO -> {
+                expiryWatchListTMS.add(new ExpiryWatchListTM(
+                        medicineDTO.getBatchNumber(),
+                        medicineDTO.getItemCode(),
+                        medicineDTO.getExpiryDate(),
+                        medicineDTO.getUnitPrice()
+                ));
+            });
+            tblExpiryWatchlist.setItems(FXCollections.observableArrayList(expiryWatchListTMS));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadLowStockTable(){
+        try {
+            List<MedicineDTO> all = mainDashBoardService.getAll();
+            List<LowStockTM> lowStockTMS = new ArrayList<>();
+
+            all.forEach(medicineDTO -> {
+                lowStockTMS.add(new LowStockTM(
+                        medicineDTO.getItemCode(),
+                        medicineDTO.getStock(),
+                        medicineDTO.getMinLevel(),
+                        medicineDTO.getSupplierId()
+                ));
+            }
+            );
+            tblLowStock.setItems(FXCollections.observableArrayList(lowStockTMS));
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+        }
+    }
+
+    private void mapRecntActivityTable(){
+        colActivity.setCellValueFactory(new PropertyValueFactory<>("acticity"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+    }
+
+    private void mapTblExpiryWatchlist(){
+        colBatch.setCellValueFactory(new PropertyValueFactory<>("batch"));
+        colMedicineCodeExpiry.setCellValueFactory(new PropertyValueFactory<>("medCode"));
+        colExpiryDate.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
+        colValue.setCellValueFactory(new PropertyValueFactory<>("value"));
+    }
+
+    private void mapTblLowStock(){
+        colMedicineCodeLowStock.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
+        colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        colMinLevel.setCellValueFactory(new PropertyValueFactory<>("minLevel"));
+        colSuplier.setCellValueFactory(new PropertyValueFactory<>("suplier"));
+    }
+
+
 
     private void setSalesPerfomanceAreaChart(){
         //dummy data
