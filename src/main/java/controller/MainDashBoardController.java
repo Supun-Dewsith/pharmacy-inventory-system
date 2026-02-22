@@ -1,5 +1,8 @@
 package controller;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,8 +13,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.MedicineDTO;
-import model.RecentActivityDTO;
+import javafx.util.Duration;
+import model.dto.ChartAreaDTO;
+import model.dto.MedicineDTO;
+import model.dto.RecentActivityDTO;
+import model.dto.SaleDTO;
 import model.tm.ExpiryWatchListTM;
 import model.tm.LowStockTM;
 import model.tm.RecentAcitvityLogTM;
@@ -19,11 +25,15 @@ import service.ServiceFactory;
 import service.custom.MainDashBoardService;
 import util.ServiceType;
 
+import javax.swing.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainDashBoardController implements Initializable {
     private final MainDashBoardService mainDashBoardService = ServiceFactory.getInstance().getServiceType(ServiceType.MAINDASHBOARD);
@@ -100,16 +110,49 @@ public class MainDashBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadDateAndTime();
         mapTblLowStock();
         mapTblExpiryWatchlist();
         mapRecntActivityTable();
         loadLowStockTable();
         loadExpiryWatchListTable();
         loadRecentActivityTable();
-        loadPieCharts();
+        loadStockPieCharts();
+        loadSalsePieChart();
         loadBusyHourAnalysistBarChart();
         setPrescriptionBottlneckTrackerBarChart();
         setSalesPerfomanceAreaChart();
+        loadCriticleAlerts();
+    }
+
+    private void loadCriticleAlerts(){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4),event -> {
+            lblPendingValidations.setText(""+new Random().nextInt(100));
+            lblOutOfStockCount.setText(""+new Random().nextInt(100));
+            double temp = 20.0+ new Random().nextDouble(5);
+            lblColdChainTempratireAlert.setText(String.format("%.1f°C",temp));
+        }));
+
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+    private void loadDateAndTime(){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //lblDate.setText(simpleDateFormat.format(date));
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            LocalTime now = LocalTime.now();
+            //lblTime.setText(now.format(dateTimeFormatter));
+            lblDateTime.setText(simpleDateFormat.format(date)+" | "+now.format(dateTimeFormatter));
+        }), new KeyFrame(Duration.seconds(1))
+        );
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
     }
 
     private void loadRecentActivityTable(){
@@ -193,24 +236,33 @@ public class MainDashBoardController implements Initializable {
 
 
     private void setSalesPerfomanceAreaChart(){
-        //dummy data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        series.getData().add(new XYChart.Data<>("Jan", 1200));
-        series.getData().add(new XYChart.Data<>("Feb", 1800));
-        series.getData().add(new XYChart.Data<>("Mar", 1500));
-        series.getData().add(new XYChart.Data<>("Apr", 2500));
-        series.getData().add(new XYChart.Data<>("May", 1200));
-        series.getData().add(new XYChart.Data<>("Jun", 1800));
-        series.getData().add(new XYChart.Data<>("Jul", 1500));
-        series.getData().add(new XYChart.Data<>("Sep", 2500));
-        series.getData().add(new XYChart.Data<>("Oct", 1200));
-        series.getData().add(new XYChart.Data<>("Nov", 1800));
-        series.getData().add(new XYChart.Data<>("Dec", 1500));
-        series.getData().add(new XYChart.Data<>("Jan", 2500));
+        List<SaleDTO> allSalseData = null;
+        try {
+            allSalseData = mainDashBoardService.getAllSalseData();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        Map<LocalDate, Double> revanuePerDay = allSalseData.stream()
+                .collect(Collectors.groupingBy(
+                        SaleDTO::getDate, Collectors.summingDouble(s -> s.getSoldPrice() * s.getSoldQty())
+                ));
+
+        List<ChartAreaDTO> chartAreaDTOS = revanuePerDay.entrySet().stream()
+                .map(entry -> new ChartAreaDTO(entry.getKey().toString(), entry.getValue()))
+                .sorted(Comparator.comparing(ChartAreaDTO::getPeriod))
+                .collect(Collectors.toList());
+
+        chartAreaDTOS.forEach(chartAreaDTO -> {
+            series.getData().add(new XYChart.Data<>(chartAreaDTO.getPeriod(),chartAreaDTO.getTotalSales()));
+        });
         salesPerfomanceAreaChart.setLegendVisible(false);
+        salesPerfomanceAreaChart.setCreateSymbols(false);
         salesPerfomanceAreaChart.getData().add(series);
     }
+
 
     private void setPrescriptionBottlneckTrackerBarChart(){
         XYChart.Series<String,Number> series = new XYChart.Series<>();
@@ -228,6 +280,7 @@ public class MainDashBoardController implements Initializable {
     private void loadBusyHourAnalysistBarChart(){
         //dummy data
         XYChart.Series<String,Number> series = new XYChart.Series<>();
+
         series.getData().add(new XYChart.Data<>("6 AM",25));
         series.getData().add(new XYChart.Data<>("7 AM", 80));
         series.getData().add(new XYChart.Data<>("8 AM", 75));
@@ -246,26 +299,44 @@ public class MainDashBoardController implements Initializable {
         bussyHourAnalysistBarChart.getData().add(series);
     }
 
-    private void loadPieCharts(){
-        ObservableList<PieChart.Data> piChartData1 = FXCollections.observableArrayList(
-                //dummy data
-                new PieChart.Data("ABC",1000),
-                new PieChart.Data("DEF",5000),
-                new PieChart.Data("HIJ",2000)
-
-        );
+    public void loadSalsePieChart(){
+        ObservableList<PieChart.Data> piChartData = FXCollections.observableArrayList();
+        try {
+            List<MedicineDTO> medicineDTOS = mainDashBoardService.getAll();
+            Map<String, Integer> collection = medicineDTOS.stream()
+                    .collect(Collectors.groupingBy(
+                            MedicineDTO::getCategory,
+                            Collectors.summingInt(stock -> stock.getStock())
+                    ));
+            collection.entrySet().stream()
+                    .forEach(entry -> piChartData.add(new PieChart.Data(entry.getKey().toString(),entry.getValue())));
+            categuryBreakdownPieChart.setData(piChartData);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         categuryBreakdownPieChart.setLegendVisible(false);
-        categuryBreakdownPieChart.setData(piChartData1);
-
-        ObservableList<PieChart.Data> piChartData2 = FXCollections.observableArrayList(
-                //dummy data
-                new PieChart.Data("ABC",200),
-                new PieChart.Data("DEF",60),
-                new PieChart.Data("HIJ",40)
-
-        );
-        categuryBreakdownPieChartInSales.setLegendVisible(false);
-        categuryBreakdownPieChartInSales.setData(piChartData2);
+        categuryBreakdownPieChart.setData(piChartData);
     }
 
+    private void loadStockPieCharts(){
+        try {
+            List<SaleDTO> allSalseData = mainDashBoardService.getAllSalseData();
+            LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
+            Map<String, Double> collect = allSalseData.stream()
+                    //i used !isBefore because isAfter exclude last day
+                    .filter(saleDTO -> !saleDTO.getDate().isBefore(sevenDaysAgo))
+                    .collect(Collectors.groupingBy(
+                            SaleDTO::getCategory,
+                            Collectors.summingDouble(salse -> salse.getSoldQty())
+                    ));
+
+            ObservableList<PieChart.Data> piChartData1 = FXCollections.observableArrayList();
+            collect.entrySet().stream()
+                    .forEach(entry -> piChartData1.add(new PieChart.Data(entry.getKey().toString(),entry.getValue())));
+            categuryBreakdownPieChartInSales.setData(piChartData1);
+            categuryBreakdownPieChartInSales.setLegendVisible(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

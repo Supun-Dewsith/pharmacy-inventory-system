@@ -1,4 +1,4 @@
-package model;
+package model.dto;
 
 import lombok.*;
 
@@ -10,8 +10,12 @@ import java.time.LocalTime;
 @Setter
 @Getter
 @ToString
-public class RecentActivityDTO {
-    private String acticity;
+public class SaleDTO {
+    private String saleId;
+    private String itemCode;
+    private String category;
+    private double soldPrice;
+    private int soldQty;
     private LocalDate date;
     private LocalTime time;
 }

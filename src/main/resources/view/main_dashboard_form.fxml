@@ -231,7 +231,7 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label prefHeight="17.0" prefWidth="511.0" text="Sales Category Breakdown (today)" GridPane.columnIndex="1">
+                        <Label prefHeight="17.0" prefWidth="511.0" text="Sales by Category (Last 7 days)" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -279,7 +279,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </BarChart>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Sales Performance" GridPane.rowIndex="2">
+                  <Label prefHeight="17.0" prefWidth="511.0" text="Sales Performance(Last 100 days)" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

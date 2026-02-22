@@ -1,4 +1,4 @@
-package model;
+package model.tm;
 
 import lombok.*;
 
@@ -9,8 +9,11 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-public class MedicineDTO {
-    private String itemCode;
+public class MedicineTM {
+
+    private String medCode;
+    private String medName;
+    private String brand;
     private String batchNumber;
     private String description;
     private String category;
@@ -21,5 +24,5 @@ public class MedicineDTO {
     private String packSize;
     private LocalDate expiryDate;
     private String supplierId;
-    private int reorderLevel;
 }
+
