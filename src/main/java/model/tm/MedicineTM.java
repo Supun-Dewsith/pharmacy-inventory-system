@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class MedicineTM {
-
     private String medCode;
     private String medName;
     private String brand;

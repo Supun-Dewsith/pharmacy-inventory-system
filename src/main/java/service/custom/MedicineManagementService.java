@@ -10,4 +10,6 @@ public interface MedicineManagementService extends SuperService {
     public List<MedicineDTO> getAllMed() throws SQLException;
 
     boolean addNewMedicine(MedicineDTO medicineDTO);
+    boolean updateMedicine(MedicineDTO medicineDTO);
+
 }

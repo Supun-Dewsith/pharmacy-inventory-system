@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import lombok.Getter;
 import model.dto.MedicineDTO;
 import model.tm.MedicineTM;
 import service.ServiceFactory;
@@ -56,22 +57,20 @@ public class MedicineManagementController implements Initializable {
     @FXML
     private JFXTextField txtSearch;
 
+    @Getter
+    private MedicineTM selectedRow;
+
     @FXML
     void btnAddNewMedicineOnAction(ActionEvent event) {
-
         gridPane.getChildren().removeIf(node ->
                 GridPane.getColumnIndex(node) != null  &&  GridPane.getColumnIndex(node) == 1
         );
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_new_medicine_form.fxml"));
         try {
             Parent screen = loader.load();
             AddNewMedicineFormController controller = loader.getController();
             controller.setMedicineManagementController(this);
-            //MedicineDTO medData = controller.getMedData();
-
             gridPane.add(screen,1,0);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -84,6 +83,19 @@ public class MedicineManagementController implements Initializable {
 
     @FXML
     void btnEditOnAction(ActionEvent event) {
+        gridPane.getChildren().removeIf(node ->
+                GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node)==1
+        );
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/edit_med_form.fxml"));
+        try {
+            Parent screen = loader.load();
+            EditMedFormController controller = loader.getController();
+            controller.setMedicineManagementController(this);
+            controller.updateTxtFields();
+            gridPane.add(screen,1,0);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -96,6 +108,10 @@ public class MedicineManagementController implements Initializable {
         return medicineManagementService.addNewMedicine(medicineDTO);
     }
 
+    public boolean updateMedicine(MedicineDTO medicineDTO){
+        return medicineManagementService.updateMedicine(medicineDTO);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mapTable();
@@ -105,9 +121,15 @@ public class MedicineManagementController implements Initializable {
             if(newValue!=null){
                 System.out.println(newValue.getMedCode());
                 updateDetailView(newValue);
+                updateSelectedRow(newValue);
             }
         } );
     }
+
+    private void updateSelectedRow(MedicineTM medicineTM){
+        selectedRow=medicineTM;
+    }
+
 
     private void updateDetailView(MedicineTM newValue){
 

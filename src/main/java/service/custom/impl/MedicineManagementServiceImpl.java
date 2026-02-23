@@ -31,4 +31,11 @@ public class MedicineManagementServiceImpl implements MedicineManagementService 
         System.out.println(medicineDTO.toString());
         return false;
     }
+
+    @Override
+    public boolean updateMedicine(MedicineDTO medicineDTO) {
+        System.out.println(medicineDTO.toString());
+        return false;
+    }
+
 }
