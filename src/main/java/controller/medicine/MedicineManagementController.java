@@ -62,6 +62,10 @@ public class MedicineManagementController implements Initializable {
 
     @FXML
     void btnAddNewMedicineOnAction(ActionEvent event) {
+        setAddNewMedForm();
+    }
+
+    public void setAddNewMedForm(){
         gridPane.getChildren().removeIf(node ->
                 GridPane.getColumnIndex(node) != null  &&  GridPane.getColumnIndex(node) == 1
         );
@@ -96,7 +100,6 @@ public class MedicineManagementController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @FXML

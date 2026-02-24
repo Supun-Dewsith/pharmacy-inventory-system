@@ -1,16 +1,14 @@
 package controller;
 
+import controller.medicine.MedicineManagementController;
+import controller.suplier.SuplierManagementFormController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class ScreenSelectorDashboardController {
 
@@ -29,7 +27,10 @@ public class ScreenSelectorDashboardController {
 
     public void btnMedicineManagementOnAction(ActionEvent actionEvent) {
         try {
-            Parent screen = FXMLLoader.load(getClass().getResource("/view/medicine_management_form.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/medicine_management_form.fxml"));
+            Parent screen = loader.load();
+            MedicineManagementController controller = loader.getController();
+            controller.setAddNewMedForm();
             borderPane.setCenter(screen);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -57,7 +58,11 @@ public class ScreenSelectorDashboardController {
 
     public void btnSuplierManagementOnAction(ActionEvent actionEvent) {
         try {
-            Parent screen = FXMLLoader.load(getClass().getResource("/view/suplier_management_form.fxml"));
+            //Parent screen = FXMLLoader.load(getClass().getResource("/view/suplier_management_form.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/suplier_management_form.fxml"));
+            Parent screen = loader.load();
+            SuplierManagementFormController controller = loader.getController();
+            controller.setAddNewSuplierForm();
             borderPane.setCenter(screen);
         } catch (IOException e) {
             throw new RuntimeException(e);

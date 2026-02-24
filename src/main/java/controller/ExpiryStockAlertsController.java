@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.MedicineDTO;
@@ -16,6 +17,7 @@ import util.ServiceType;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -56,7 +58,7 @@ public class ExpiryStockAlertsController implements Initializable {
     private TableColumn<?, ?> colLowStockName;
 
     @FXML
-    private TableColumn<?, ?> colLowStockPrice;
+    private TableColumn<?, ?> colMinStock;
 
     @FXML
     private TableColumn<?, ?> colStock;
@@ -87,7 +89,7 @@ public class ExpiryStockAlertsController implements Initializable {
                     medicineDTO.getMedName(),
                     medicineDTO.getBrand(),
                     medicineDTO.getCategory(),
-                    medicineDTO.getBuyingPrice(),
+                    medicineDTO.getMinLevel(),
                     medicineDTO.getStock()
             ));
         });
@@ -120,6 +122,54 @@ public class ExpiryStockAlertsController implements Initializable {
         tblExpiringItems.setItems(FXCollections.observableArrayList(sortedList));
     }
 
+    private void colouringRows(){
+        tblExpiringItems.setRowFactory(tv->new TableRow<ExpiringMedTM>(){
+            @Override
+            protected void updateItem(ExpiringMedTM expiringMedTM, boolean empty){
+                super.updateItem(expiringMedTM,empty);
+
+                if(expiringMedTM == null || empty){
+                    setStyle("");
+                }else{
+                    LocalDate now = LocalDate.now();
+                    LocalDate expiryDate = expiringMedTM.getExpiryDate();
+
+                    if(expiryDate.isBefore(now)){
+                        setStyle("-fx-background-color: #ff7675;");
+                    }else if(expiryDate.isBefore(now.plusMonths(3))){
+                        setStyle("-fx-background-color: #fab1a0;");
+                    }else if(expiryDate.isBefore(now.plusMonths(6))){
+                        setStyle("-fx-background-color: #ffeaa7;");
+                    }else{
+                        setStyle("");
+                    }
+                }
+            }
+        });
+
+        tblLowStockItems.setRowFactory(tv->new TableRow<LowStockMedTM>(){
+            @Override
+            protected void updateItem(LowStockMedTM lowStockMedTM,boolean empty){
+                super.updateItem(lowStockMedTM,empty);
+
+                if(lowStockMedTM==null||empty){
+                    setStyle("");
+                }else{
+                    Integer minStock = lowStockMedTM.getMinStock();
+                    Integer currentStock = lowStockMedTM.getStock();
+                    double stockPresentage = currentStock/(double)minStock*100;
+
+                    if(stockPresentage<50){
+                        setStyle("-fx-background-color: #ff7675;");
+                    }else if(stockPresentage<100){
+                        setStyle("-fx-background-color: #fab1a0;");
+                    }else{
+                        setStyle("");
+                    }
+                }
+            }
+        });
+    }
 
     private void mapExpiringTable(){
         colExpiredMedCode.setCellValueFactory(new PropertyValueFactory<>("medCode"));
@@ -135,7 +185,7 @@ public class ExpiryStockAlertsController implements Initializable {
         colLowStockName.setCellValueFactory(new PropertyValueFactory<>("medName"));
         colLowStockBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
         colLowStockCategury.setCellValueFactory(new PropertyValueFactory<>("Category"));
-        colLowStockPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colMinStock.setCellValueFactory(new PropertyValueFactory<>("minStock"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
     }
 
@@ -143,7 +193,9 @@ public class ExpiryStockAlertsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mapExpiringTable();
         mapLowStockTable();
+        colouringRows();
         loadExpiringTable();
         loadLowStockTable();
+
     }
 }

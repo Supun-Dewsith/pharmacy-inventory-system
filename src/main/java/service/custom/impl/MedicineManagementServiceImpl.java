@@ -13,6 +13,7 @@ public class MedicineManagementServiceImpl implements MedicineManagementService 
     public List<MedicineDTO> getAllMed() throws SQLException {
         List<MedicineDTO> medicineList = new ArrayList<>();
 
+        //test data
         medicineList.add(new MedicineDTO("MED-101", "Amoxicillin", "Amoxil", "BN-7721", "500mg Capsules", "Antibiotic", 15.50, 10.00, 450, 50, "10x10 Blister", LocalDate.of(2027, 5, 12), "SUP-001"));
         medicineList.add(new MedicineDTO("MED-102", "Paracetamol", "Panadol", "L-4409", "500mg Tablets", "Analgesic", 4.25, 2.10, 1200, 100, "1000 Bulk Pack", LocalDate.of(2026, 12, 1), "SUP-002"));
         medicineList.add(new MedicineDTO("MED-103", "Cetirizine", "Zyrtec", "BN-9902", "10mg Tablets", "Antihistamine", 12.00, 7.50, 300, 30, "30 Tabs Pack", LocalDate.of(2027, 2, 15), "SUP-001"));

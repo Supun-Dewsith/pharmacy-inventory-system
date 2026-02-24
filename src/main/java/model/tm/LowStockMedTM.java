@@ -14,6 +14,6 @@ public class LowStockMedTM {
     private String medName;
     private String brand;
     private String Category;
-    private Double price;
+    private Integer minStock;
     private Integer stock;
 }

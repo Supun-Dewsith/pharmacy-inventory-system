@@ -65,7 +65,7 @@
                   <TableColumn fx:id="colLowStockName" prefWidth="331.0" text="Med Name" />
                   <TableColumn fx:id="colLowStockBrand" prefWidth="215.0" text="Brand" />
                   <TableColumn fx:id="colLowStockCategury" prefWidth="168.0" text="Category" />
-                  <TableColumn fx:id="colLowStockPrice" prefWidth="159.0" text="Price" />
+                  <TableColumn fx:id="colMinStock" prefWidth="159.0" text="Min Stock" />
                   <TableColumn fx:id="colStock" prefWidth="150.0" text="Stock" />
                </columns>
                <columnResizePolicy>
@@ -138,12 +138,12 @@
                   </Label>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1">
                     <buttons>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7675" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
                         <Label text="Expired" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff9200" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                        <Label text="Below One Month" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe400" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                        <Label text="Below 3 Months" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fab1a0" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+                        <Label text="Below 3 Month" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffeaa7" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+                        <Label text="Below 6 Months" />
                     </buttons>
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -162,9 +162,9 @@
                <children>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <buttons>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7675" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
                         <Label text="Too low (below 50% of min)" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff9200" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fab1a0" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
                         <Label text="Low (below min)" />
                      </buttons>
                   </ButtonBar>
