@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="703.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.medicine.EditMedFormController">
+   <children>
+      <Label text="Edit Medicine">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="10.0" top="20.0" />
+         </VBox.margin>
+      </Label>
+      <JFXTextField fx:id="txtMedName" promptText="Med Name">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtMedCode" promptText="Med Code">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtBrand" promptText="Brand">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtBatchNumber" promptText="Batch Nimber">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtCategury" promptText="Categury">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtUnitPrice" promptText="Unit Price">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtBuyingPrice" promptText="Buying Price">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtStock" promptText="Stock">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtMinLevel" promptText="Min Level">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtPackSize" promptText="Pack Size">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <JFXTextField fx:id="txtSuplierId" promptText="Suplier ID">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </JFXTextField>
+      <DatePicker fx:id="dateExpiryDate" prefHeight="25.0" prefWidth="353.0" promptText="Expiry Date">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </DatePicker>
+      <JFXTextArea fx:id="txtDescription" prefHeight="164.0" prefWidth="330.0" promptText="Description" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="10.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </JFXTextArea>
+      <VBox alignment="CENTER" prefHeight="32.0" prefWidth="307.0">
+         <children>
+            <JFXButton onAction="#btnEditMedicineOnAction" prefHeight="25.0" prefWidth="110.0" text="Confirm" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+   </children>
+</VBox>
