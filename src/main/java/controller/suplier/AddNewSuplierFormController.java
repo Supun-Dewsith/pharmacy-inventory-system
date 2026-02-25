@@ -40,7 +40,7 @@ public class AddNewSuplierFormController {
 
     private void getSuplierInfo(){
         suplierManagementFormController.addNewSuplier(new SuplierDTO(
-                (long)1.0,
+                null,
                 txtSupplierName.getText(),
                 txtContactPerson.getText(),
                 txtPhone.getText(),
@@ -50,7 +50,6 @@ public class AddNewSuplierFormController {
                 new ArrayList<OrderDTO>()
         ));
     }
-
 
     private boolean isInputValid() {
         StringBuilder errorMessage = new StringBuilder();

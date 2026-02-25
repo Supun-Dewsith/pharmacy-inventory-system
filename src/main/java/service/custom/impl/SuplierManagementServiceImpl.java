@@ -61,11 +61,14 @@ public class SuplierManagementServiceImpl implements SuplierManagementService {
 
     @Override
     public boolean addNewSuplier(SuplierDTO suplierDTO) {
+        System.out.println(suplierDTO.toString());
         return false;
     }
 
     @Override
-    public boolean updateSuplier(SuplierDTO suplierDTO) {
+    public boolean updateSuplier(SuplierDTO updatedSuplierDTO) {
+        System.out.println(updatedSuplierDTO.toString());
+
         return false;
     }
 

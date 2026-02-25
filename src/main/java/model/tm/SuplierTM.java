@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @ToString
 public class SuplierTM {
+    private Long id;
     private String name;
     private String contactPerson;
     private String phone;

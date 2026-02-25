@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -93,6 +94,11 @@ public class SuplierManagementFormController implements Initializable {
         suplierManagementService.addNewSuplier(suplierDTO);
     }
 
+    protected void updateSuplier(SuplierDTO updatedSuplierDTO){
+        suplierManagementService.updateSuplier(updatedSuplierDTO);
+    }
+
+
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
 
@@ -110,6 +116,15 @@ public class SuplierManagementFormController implements Initializable {
             EditSupplierFormController controller = loader.getController();
             controller.setSuplierManagementFormController(this);
             controller.updateTxtFields();
+            if (selectedRow==null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid");
+                alert.setHeaderText("Please select Supplier");
+                alert.setContentText("Please select Supplier before pressing edit button!");
+                alert.showAndWait();
+                return;
+            }
+            controller.setCurrentSuplierId(getSelectedRow().getId());
             gridPane.add(screen,1,0);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -152,6 +167,7 @@ public class SuplierManagementFormController implements Initializable {
         ObservableList<SuplierTM> suplierTMS = FXCollections.observableArrayList();
         suplierData.forEach(suplierDTO -> {
             suplierTMS.add(new SuplierTM(
+                    suplierDTO.getId(),
                     suplierDTO.getName(),
                     suplierDTO.getContactPerson(),
                     suplierDTO.getPhone(),

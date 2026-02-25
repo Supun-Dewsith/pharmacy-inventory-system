@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -96,6 +97,15 @@ public class MedicineManagementController implements Initializable {
             EditMedFormController controller = loader.getController();
             controller.setMedicineManagementController(this);
             controller.updateTxtFields();
+            if(selectedRow==null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid");
+                alert.setHeaderText("Please select Medicine");
+                alert.setContentText("Please select Medicine before pressing edit button!");
+                alert.showAndWait();
+                return;
+            }
+            controller.setCurrentMedId(getSelectedRow().getId());
             gridPane.add(screen,1,0);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -160,6 +170,7 @@ public class MedicineManagementController implements Initializable {
 
             allMed.forEach(medicineDTO -> {
                 medicineTMS.add(new MedicineTM(
+                        medicineDTO.getId(),
                         medicineDTO.getItemCode(),
                         medicineDTO.getMedName(),
                         medicineDTO.getBrand(),

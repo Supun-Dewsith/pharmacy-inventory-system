@@ -132,6 +132,7 @@ public class BillingController implements Initializable {
 
             allMed.forEach(medicineDTO -> {
                 medicineTMS.add(new MedicineTM(
+                        medicineDTO.getId(),
                         medicineDTO.getItemCode(),
                         medicineDTO.getMedName(),
                         medicineDTO.getBrand(),
