@@ -47,7 +47,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Label prefHeight="67.0" text="Delivery Details (click order to see more details)" GridPane.rowIndex="1">
+            <Label prefHeight="67.0" text="Delivery Details (click suplierOrder to see more details)" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

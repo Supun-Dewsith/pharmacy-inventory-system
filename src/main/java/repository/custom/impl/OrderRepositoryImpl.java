@@ -1,6 +1,6 @@
 package repository.custom.impl;
 
-import model.entity.Order;
+import model.entity.SuplierOrder;
 import repository.custom.OrderRepository;
 
 import java.sql.SQLException;
@@ -8,12 +8,12 @@ import java.util.List;
 
 public class OrderRepositoryImpl implements OrderRepository {
     @Override
-    public boolean create(Order order) throws SQLException {
+    public boolean create(SuplierOrder suplierOrder) throws SQLException {
         return false;
     }
 
     @Override
-    public boolean update(Order order) throws SQLException {
+    public boolean update(SuplierOrder suplierOrder) throws SQLException {
         return false;
     }
 
@@ -23,12 +23,12 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order getById(Long aLong) throws SQLException {
+    public SuplierOrder getById(Long aLong) throws SQLException {
         return null;
     }
 
     @Override
-    public List<Order> getAll() throws SQLException {
+    public List<SuplierOrder> getAll() throws SQLException {
         return List.of();
     }
 }

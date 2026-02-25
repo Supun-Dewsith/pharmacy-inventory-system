@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Order {
+public class SuplierOrder {
     private Long orderID;
     private Long suplierID;
     private LocalDate orderDate;
