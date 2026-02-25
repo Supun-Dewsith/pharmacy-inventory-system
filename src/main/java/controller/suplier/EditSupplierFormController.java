@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class EditSupplierFormController implements Initializable {
+public class EditSupplierFormController{
     @FXML
     private JFXTextField txtContactPerson;
 
@@ -35,7 +35,7 @@ public class EditSupplierFormController implements Initializable {
     @Setter
     private SuplierManagementFormController suplierManagementFormController;
 
-    @Setter(AccessLevel.PRIVATE)
+    @Setter
     @Getter(AccessLevel.PRIVATE)
     private Long currentSuplierId;
 
@@ -112,9 +112,4 @@ public class EditSupplierFormController implements Initializable {
         }
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setCurrentSuplierId(suplierManagementFormController.getSelectedRow().getId());
-    }
 }
