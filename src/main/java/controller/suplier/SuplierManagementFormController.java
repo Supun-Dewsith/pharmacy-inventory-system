@@ -93,6 +93,11 @@ public class SuplierManagementFormController implements Initializable {
         suplierManagementService.addNewSuplier(suplierDTO);
     }
 
+    protected void updateSuplier(SuplierDTO suplierDTO){
+        suplierManagementService.updateSuplier(suplierDTO);
+    }
+
+
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
 

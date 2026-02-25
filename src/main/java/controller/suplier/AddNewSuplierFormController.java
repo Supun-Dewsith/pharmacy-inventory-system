@@ -51,7 +51,6 @@ public class AddNewSuplierFormController {
         ));
     }
 
-
     private boolean isInputValid() {
         StringBuilder errorMessage = new StringBuilder();
 
