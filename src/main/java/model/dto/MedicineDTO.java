@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class MedicineDTO {
+    private Long Id;
     private String itemCode;
     private String medName;
     private String brand;

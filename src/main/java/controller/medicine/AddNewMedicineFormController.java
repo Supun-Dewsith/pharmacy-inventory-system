@@ -60,6 +60,7 @@ public class AddNewMedicineFormController {
 
     public MedicineDTO getMedData(){
         return new MedicineDTO(
+                null,
                 txtMedCode.getText(),
                 txtMedName.getText(),
                 txtBrand.getText(),

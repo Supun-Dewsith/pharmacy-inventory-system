@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.Setter;
 import model.dto.MedicineDTO;
 import model.tm.MedicineTM;
@@ -58,6 +60,10 @@ public class EditMedFormController {
     @Setter
     private MedicineManagementController medicineManagementController;
 
+    @Setter
+    @Getter(AccessLevel.PRIVATE)
+    private Long currentMedId;
+
     public void btnEditMedicineOnAction(ActionEvent actionEvent) {
         if(!isInputValid()){
             return;
@@ -91,6 +97,7 @@ public class EditMedFormController {
 
     public MedicineDTO getMedData() {
         return new MedicineDTO(
+                getCurrentMedId(),
                 txtMedCode.getText(),
                 txtMedName.getText(),
                 txtBrand.getText(),
