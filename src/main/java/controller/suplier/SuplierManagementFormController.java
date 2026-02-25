@@ -93,8 +93,8 @@ public class SuplierManagementFormController implements Initializable {
         suplierManagementService.addNewSuplier(suplierDTO);
     }
 
-    protected void updateSuplier(SuplierDTO suplierDTO){
-        suplierManagementService.updateSuplier(suplierDTO);
+    protected void updateSuplier(SuplierDTO updatedSuplierDTO){
+        suplierManagementService.updateSuplier(updatedSuplierDTO);
     }
 
 
@@ -157,6 +157,7 @@ public class SuplierManagementFormController implements Initializable {
         ObservableList<SuplierTM> suplierTMS = FXCollections.observableArrayList();
         suplierData.forEach(suplierDTO -> {
             suplierTMS.add(new SuplierTM(
+                    suplierDTO.getId(),
                     suplierDTO.getName(),
                     suplierDTO.getContactPerson(),
                     suplierDTO.getPhone(),

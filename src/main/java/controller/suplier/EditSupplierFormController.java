@@ -3,15 +3,20 @@ package controller.suplier;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.Setter;
 import model.dto.OrderDTO;
 import model.dto.SuplierDTO;
 import model.tm.SuplierTM;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class EditSupplierFormController {
+public class EditSupplierFormController implements Initializable {
     @FXML
     private JFXTextField txtContactPerson;
 
@@ -29,6 +34,10 @@ public class EditSupplierFormController {
 
     @Setter
     private SuplierManagementFormController suplierManagementFormController;
+
+    @Setter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.PRIVATE)
+    private Long currentSuplierId;
 
     @FXML
     void btnUpdateSuplierOnAction(ActionEvent event) {
@@ -52,12 +61,12 @@ public class EditSupplierFormController {
     }
 
     private void getSuplierInfo(){
-        suplierManagementFormController.addNewSuplier(new SuplierDTO(
-                (long)1.0,
+        suplierManagementFormController.updateSuplier(new SuplierDTO(
+                getCurrentSuplierId(),
                 txtSupplierName.getText(),
                 txtContactPerson.getText(),
                 txtPhone.getText(),
-                1,
+                0,
                 txtEmail.getText(),
                 txtStatus.getText(),
                 new ArrayList<OrderDTO>()
@@ -104,5 +113,8 @@ public class EditSupplierFormController {
     }
 
 
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setCurrentSuplierId(suplierManagementFormController.getSelectedRow().getId());
+    }
 }
