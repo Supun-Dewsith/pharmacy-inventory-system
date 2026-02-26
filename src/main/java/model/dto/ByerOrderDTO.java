@@ -1,6 +1,7 @@
-package model.entity;
+package model.dto;
 
 import lombok.*;
+import model.entity.Medicine;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,10 +12,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class BuyerOrder {
-    private Long Id;
+public class ByerOrderDTO {
     private String code;
-    private Double totalPrice;
+    private double totalPrice;
     private LocalDate date;
     private LocalTime time;
     private List<Medicine> cart;

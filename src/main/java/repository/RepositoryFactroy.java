@@ -1,25 +1,24 @@
 package repository;
 
-import repository.custom.SuplierRepository;
-import repository.custom.impl.MedicineRepositoryImpl;
-import repository.custom.impl.OrderRepositoryImpl;
-import repository.custom.impl.RecentActivityRepositoryImpl;
-import repository.custom.impl.SuplierRepositoryImpl;
+import repository.custom.SuplierOrderRepository;
+import repository.custom.impl.*;
 import util.RepositoryType;
 
 public class RepositoryFactroy {
     private static RepositoryFactroy instance;
 
     private final MedicineRepositoryImpl medicineRepository;
-    private final OrderRepositoryImpl orderRepository;
+    private final BuyerOrderRepositoryImpl buyerOrderRepository;
     private final RecentActivityRepositoryImpl recentActivityRepository;
     private final SuplierRepositoryImpl suplierRepository;
+    private final SuplierOrderRepository suplierOrderRepository;
 
     private RepositoryFactroy(){
         medicineRepository=new MedicineRepositoryImpl();
-        orderRepository=new OrderRepositoryImpl();
+        buyerOrderRepository=new BuyerOrderRepositoryImpl();
         recentActivityRepository=new RecentActivityRepositoryImpl();
         suplierRepository=new SuplierRepositoryImpl();
+        suplierOrderRepository=new SuplierOrderRepositoryImpl();
     }
 
     public static RepositoryFactroy getInstance(){return instance==null?instance=new RepositoryFactroy():instance;}
@@ -27,9 +26,10 @@ public class RepositoryFactroy {
     public <T extends SuperRepository>T getRepositoryType(RepositoryType repositoryType){
         switch (repositoryType){
             case MEDICINE: return (T) medicineRepository;
-            case ORDER:return (T) orderRepository;
+            case BUYERORDER:return (T) buyerOrderRepository;
             case RECENTACTIVITY:return (T) recentActivityRepository;
             case SUPLIER:return (T) suplierRepository;
+            case SUPLIERORDER:  return (T) suplierRepository;
         }
         return null;
     }

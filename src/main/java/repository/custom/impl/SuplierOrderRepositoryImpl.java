@@ -1,12 +1,17 @@
 package repository.custom.impl;
 
+import model.dto.SaleDTO;
 import model.entity.SuplierOrder;
-import repository.custom.OrderRepository;
+import repository.custom.SuplierOrderRepository;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRepositoryImpl implements OrderRepository {
+public class SuplierOrderRepositoryImpl implements SuplierOrderRepository {
+
     @Override
     public boolean create(SuplierOrder suplierOrder) throws SQLException {
         return false;

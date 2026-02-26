@@ -11,11 +11,8 @@ import java.time.LocalTime;
 @Getter
 @ToString
 public class SaleDTO {
-    private String saleId;
-    private String itemCode;
-    private String category;
-    private double soldPrice;
-    private int soldQty;
+    private Long saleId;
+    private Double soldPrice;
     private LocalDate date;
     private LocalTime time;
 }
