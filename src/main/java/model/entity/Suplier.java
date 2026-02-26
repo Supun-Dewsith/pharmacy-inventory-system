@@ -1,16 +1,15 @@
-package model.tm;
+package model.entity;
 
 import lombok.*;
-import model.dto.SuplierOrderDTO;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @ToString
-public class SuplierTM {
+public class Suplier {
     private Long id;
     private String name;
     private String contactPerson;
@@ -18,5 +17,5 @@ public class SuplierTM {
     private Integer leadTime;
     private String email;
     private String status;
-    private List<SuplierOrderDTO> orders;
+    private List<SuplierOrder> orders;
 }

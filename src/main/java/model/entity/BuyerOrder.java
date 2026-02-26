@@ -1,18 +1,21 @@
-package model.dto;
+package model.entity;
 
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @ToString
-public class SaleDTO {
-    private Long saleId;
-    private Double soldPrice;
+public class BuyerOrder {
+    private Long Id;
+    private String code;
+    private Double totalPrice;
     private LocalDate date;
     private LocalTime time;
+    private List<Medicine> cart;
 }

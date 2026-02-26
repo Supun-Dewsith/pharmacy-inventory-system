@@ -1,4 +1,4 @@
-package model.dto;
+package model.entity;
 
 import lombok.*;
 
@@ -7,12 +7,12 @@ import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @ToString
-public class SaleDTO {
-    private Long saleId;
-    private Double soldPrice;
+public class RecentActivity {
+    private Long id;
+    private String acticity;
     private LocalDate date;
     private LocalTime time;
 }

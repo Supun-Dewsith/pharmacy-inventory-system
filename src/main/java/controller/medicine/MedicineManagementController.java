@@ -132,7 +132,6 @@ public class MedicineManagementController implements Initializable {
 
         tblMedicine.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue)->{
             if(newValue!=null){
-                System.out.println(newValue.getMedCode());
                 updateDetailView(newValue);
                 updateSelectedRow(newValue);
             }

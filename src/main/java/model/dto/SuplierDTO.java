@@ -17,6 +17,6 @@ public class SuplierDTO {
     private Integer leadTime;
     private String email;
     private String status;
-    private List<OrderDTO> orders;
+    private List<SuplierOrderDTO> orders;
 
 }

@@ -5,8 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import lombok.Setter;
-import model.dto.OrderDTO;
 import model.dto.SuplierDTO;
+import model.dto.SuplierOrderDTO;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class AddNewSuplierFormController {
                 1,
                 txtEmail.getText(),
                 txtStatus.getText(),
-                new ArrayList<OrderDTO>()
+                new ArrayList<SuplierOrderDTO>()
         ));
     }
 

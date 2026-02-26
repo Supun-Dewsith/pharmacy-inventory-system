@@ -14,10 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import model.dto.ChartAreaDTO;
-import model.dto.MedicineDTO;
-import model.dto.RecentActivityDTO;
-import model.dto.SaleDTO;
+import model.dto.*;
+import model.entity.Medicine;
 import model.tm.ExpiryWatchListTM;
 import model.tm.LowStockTM;
 import model.tm.RecentAcitvityLogTM;
@@ -34,6 +32,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainDashBoardController implements Initializable {
     private final MainDashBoardService mainDashBoardService = ServiceFactory.getInstance().getServiceType(ServiceType.MAINDASHBOARD);
@@ -238,16 +237,16 @@ public class MainDashBoardController implements Initializable {
     private void setSalesPerfomanceAreaChart(){
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        List<SaleDTO> allSalseData = null;
+        List<BuyerOrderDTO> byerOrderDTOS = null;
         try {
-            allSalseData = mainDashBoardService.getAllSalseData();
+            byerOrderDTOS = mainDashBoardService.getAllBuyerOrders();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        Map<LocalDate, Double> revanuePerDay = allSalseData.stream()
+        Map<LocalDate, Double> revanuePerDay = byerOrderDTOS.stream()
                 .collect(Collectors.groupingBy(
-                        SaleDTO::getDate, Collectors.summingDouble(s -> s.getSoldPrice() * s.getSoldQty())
+                        BuyerOrderDTO::getDate, Collectors.summingDouble(s->s.getTotalPrice())
                 ));
 
         List<ChartAreaDTO> chartAreaDTOS = revanuePerDay.entrySet().stream()
@@ -299,7 +298,7 @@ public class MainDashBoardController implements Initializable {
         bussyHourAnalysistBarChart.getData().add(series);
     }
 
-    public void loadSalsePieChart(){
+    public void loadStockPieCharts(){
         ObservableList<PieChart.Data> piChartData = FXCollections.observableArrayList();
         try {
             List<MedicineDTO> medicineDTOS = mainDashBoardService.getAll();
@@ -318,20 +317,20 @@ public class MainDashBoardController implements Initializable {
         categuryBreakdownPieChart.setData(piChartData);
     }
 
-    private void loadStockPieCharts(){
+    private void loadSalsePieChart(){
         try {
-            List<SaleDTO> allSalseData = mainDashBoardService.getAllSalseData();
+            List<BuyerOrderDTO> allSalseData = mainDashBoardService.getAllBuyerOrders();
             LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
-            Map<String, Double> collect = allSalseData.stream()
+            Map<String, Long> categoryCount = allSalseData.stream()
                     //i used !isBefore because isAfter exclude last day
-                    .filter(saleDTO -> !saleDTO.getDate().isBefore(sevenDaysAgo))
+                    .filter(order -> !order.getDate().isBefore(sevenDaysAgo))
+                    .flatMap(byerOrderDTO -> byerOrderDTO.getCart().stream())
                     .collect(Collectors.groupingBy(
-                            SaleDTO::getCategory,
-                            Collectors.summingDouble(salse -> salse.getSoldQty())
+                            Medicine::getCategory,Collectors.counting()
                     ));
 
             ObservableList<PieChart.Data> piChartData1 = FXCollections.observableArrayList();
-            collect.entrySet().stream()
+            categoryCount.entrySet().stream()
                     .forEach(entry -> piChartData1.add(new PieChart.Data(entry.getKey().toString(),entry.getValue())));
             categuryBreakdownPieChartInSales.setData(piChartData1);
             categuryBreakdownPieChartInSales.setLegendVisible(false);

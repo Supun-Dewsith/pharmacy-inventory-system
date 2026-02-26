@@ -115,7 +115,6 @@ public class BillingController implements Initializable {
     }
 
     private void addToCart(MedicineTM medicineTM){
-        System.out.println("add");
         cartList.add(new CartTM(
                 medicineTM.getMedCode(),
                 medicineTM.getUnitPrice(),
