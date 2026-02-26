@@ -10,7 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.LotDTO;
-import model.dto.OrderDTO;
+import model.dto.SuplierOrderDTO;
 import model.tm.DeleveryDetailsTM;
 import model.tm.FinancialTM;
 import model.tm.MedAndQualityTM;
@@ -59,7 +59,7 @@ public class SuplierInfoFormController implements Initializable {
     @FXML
     private TableView<MedAndQualityTM> tblMedAndQuality;
 
-    public void setDeleveryDetailsTable(List<OrderDTO> orderDTOS){
+    public void setDeleveryDetailsTable(List<SuplierOrderDTO> orderDTOS){
         ObservableList<DeleveryDetailsTM> deleveryDetailsTMS = FXCollections.observableArrayList();
         orderDTOS.forEach(orderDTO -> {
             deleveryDetailsTMS.add(new DeleveryDetailsTM(

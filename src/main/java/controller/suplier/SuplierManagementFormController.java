@@ -25,6 +25,7 @@ import util.ServiceType;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -91,11 +92,19 @@ public class SuplierManagementFormController implements Initializable {
     }
 
     protected void addNewSuplier(SuplierDTO suplierDTO){
-        suplierManagementService.addNewSuplier(suplierDTO);
+        try {
+            suplierManagementService.addNewSuplier(suplierDTO);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected void updateSuplier(SuplierDTO updatedSuplierDTO){
-        suplierManagementService.updateSuplier(updatedSuplierDTO);
+        try {
+            suplierManagementService.updateSuplier(updatedSuplierDTO);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -163,7 +172,12 @@ public class SuplierManagementFormController implements Initializable {
     }
 
     private void loadSuplierTable(){
-        List<SuplierDTO> suplierData = suplierManagementService.getSuplierData();
+        List<SuplierDTO> suplierData = null;
+        try {
+            suplierData = suplierManagementService.getSuplierData();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         ObservableList<SuplierTM> suplierTMS = FXCollections.observableArrayList();
         suplierData.forEach(suplierDTO -> {
             suplierTMS.add(new SuplierTM(

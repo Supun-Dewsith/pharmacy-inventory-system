@@ -29,7 +29,7 @@ public class RepositoryFactroy {
             case BUYERORDER:return (T) buyerOrderRepository;
             case RECENTACTIVITY:return (T) recentActivityRepository;
             case SUPLIER:return (T) suplierRepository;
-            case SUPLIERORDER:  return (T) suplierRepository;
+            case SUPLIERORDER:  return (T) suplierOrderRepository;
         }
         return null;
     }

@@ -1,7 +1,7 @@
 package model.tm;
 
 import lombok.*;
-import model.dto.OrderDTO;
+import model.dto.SuplierOrderDTO;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public class SuplierTM {
     private Integer leadTime;
     private String email;
     private String status;
-    private List<OrderDTO> orders;
+    private List<SuplierOrderDTO> orders;
 }

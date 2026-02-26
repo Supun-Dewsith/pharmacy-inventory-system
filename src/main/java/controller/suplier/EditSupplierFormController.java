@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import model.dto.OrderDTO;
 import model.dto.SuplierDTO;
+import model.dto.SuplierOrderDTO;
 import model.tm.SuplierTM;
 
 import java.net.URL;
@@ -69,7 +69,7 @@ public class EditSupplierFormController{
                 0,
                 txtEmail.getText(),
                 txtStatus.getText(),
-                new ArrayList<OrderDTO>()
+                new ArrayList<SuplierOrderDTO>()
         ));
     }
 

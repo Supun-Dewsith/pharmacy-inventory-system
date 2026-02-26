@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -196,6 +197,10 @@ public class ExpiryStockAlertsController implements Initializable {
         colouringRows();
         loadExpiringTable();
         loadLowStockTable();
+
+    }
+
+    public void btnSuplierRequestOnAction(ActionEvent actionEvent) {
 
     }
 }

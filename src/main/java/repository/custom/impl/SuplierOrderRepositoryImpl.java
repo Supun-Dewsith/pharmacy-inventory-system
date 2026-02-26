@@ -1,6 +1,8 @@
 package repository.custom.impl;
 
 import model.dto.SaleDTO;
+import model.entity.Lot;
+import model.entity.Suplier;
 import model.entity.SuplierOrder;
 import repository.custom.SuplierOrderRepository;
 

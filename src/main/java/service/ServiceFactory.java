@@ -14,7 +14,7 @@ public class ServiceFactory {
     private final RepoartsAnalyticsServiceImpl repoartsAnalyticsService;
     private final SuplierManagementServiceImpl suplierManagementService;
 
-    public ServiceFactory() {
+    private ServiceFactory() {
         expiryStockAlertsService = new ExpiryStockAlertsServiceImpl();
         repoartsAnalyticsService = new RepoartsAnalyticsServiceImpl();
         billingService = new BillingServiceImpl();

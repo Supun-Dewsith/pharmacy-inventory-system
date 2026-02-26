@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class OrderDTO {
+public class SuplierOrderDTO {
     private Long orderID;
     private Long suplierID;
     private LocalDate orderDate;

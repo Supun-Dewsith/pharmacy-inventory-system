@@ -16,5 +16,5 @@ public class SuplierOrder {
     private Long suplierID;
     private LocalDate orderDate;
     private LocalDate ReceivedDate;
-    private List<LotDTO> lots;
+    private List<Lot> lots;
 }

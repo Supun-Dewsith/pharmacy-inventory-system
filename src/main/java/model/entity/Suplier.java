@@ -1,7 +1,6 @@
 package model.entity;
 
 import lombok.*;
-import model.dto.OrderDTO;
 
 import java.util.List;
 
@@ -18,5 +17,5 @@ public class Suplier {
     private Integer leadTime;
     private String email;
     private String status;
-    private List<OrderDTO> orders;
+    private List<SuplierOrder> orders;
 }

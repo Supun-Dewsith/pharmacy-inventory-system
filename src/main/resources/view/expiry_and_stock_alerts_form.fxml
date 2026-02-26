@@ -86,12 +86,7 @@
                <children>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <buttons>
-                        <JFXButton style="-fx-background-color: #CFCFCF;" text="Edit">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton style="-fx-background-color: #CFCFCF;" text="Send Request">
+                        <JFXButton onAction="#btnSuplierRequestOnAction" style="-fx-background-color: #CFCFCF;" text="Send Request To Suplier">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
