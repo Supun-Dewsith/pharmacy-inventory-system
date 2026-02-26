@@ -1,16 +1,11 @@
-package model.entity;
+package model.dto;
 
-import lombok.*;
+import model.entity.BuyerOrder;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
-public class Customer {
+public class CustomerDTO {
     private String id;
     private String title;
     private String name;
@@ -18,5 +13,5 @@ public class Customer {
     private String address;
     private String phone;
     private String email;
-    private List<BuyerOrder> orders;
+    private List<BuyerOrderDTO> orders;
 }
