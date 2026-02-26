@@ -63,11 +63,11 @@ public class MainDashBoardServiceImpl implements MainDashBoardService {
     }
 
     @Override
-    public List<ByerOrderDTO> getAllByerOrders() throws SQLException {
+    public List<BuyerOrderDTO> getAllBuyerOrders() throws SQLException {
         List<BuyerOrder> all = buyerOrderRepository.getAll();
-        List<ByerOrderDTO> byerOrderDTOS = new ArrayList<>();
+        List<BuyerOrderDTO> byerOrderDTOS = new ArrayList<>();
         all.forEach(buyerOrder -> {
-            byerOrderDTOS.add(new ByerOrderDTO(
+            byerOrderDTOS.add(new BuyerOrderDTO(
                     buyerOrder.getCode(),
                     buyerOrder.getTotalPrice(),
                     buyerOrder.getDate(),

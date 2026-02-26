@@ -237,16 +237,16 @@ public class MainDashBoardController implements Initializable {
     private void setSalesPerfomanceAreaChart(){
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        List<ByerOrderDTO> byerOrderDTOS = null;
+        List<BuyerOrderDTO> byerOrderDTOS = null;
         try {
-            byerOrderDTOS = mainDashBoardService.getAllByerOrders();
+            byerOrderDTOS = mainDashBoardService.getAllBuyerOrders();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         Map<LocalDate, Double> revanuePerDay = byerOrderDTOS.stream()
                 .collect(Collectors.groupingBy(
-                        ByerOrderDTO::getDate, Collectors.summingDouble(s->s.getTotalPrice())
+                        BuyerOrderDTO::getDate, Collectors.summingDouble(s->s.getTotalPrice())
                 ));
 
         List<ChartAreaDTO> chartAreaDTOS = revanuePerDay.entrySet().stream()
@@ -319,7 +319,7 @@ public class MainDashBoardController implements Initializable {
 
     private void loadSalsePieChart(){
         try {
-            List<ByerOrderDTO> allSalseData = mainDashBoardService.getAllByerOrders();
+            List<BuyerOrderDTO> allSalseData = mainDashBoardService.getAllBuyerOrders();
             LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
             Map<String, Long> categoryCount = allSalseData.stream()
                     //i used !isBefore because isAfter exclude last day

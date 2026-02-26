@@ -10,7 +10,7 @@ import java.util.List;
 public interface MainDashBoardService extends SuperService {
     public List<MedicineDTO> getAll() throws SQLException;
     public List<RecentActivityDTO> getAllActivity() throws SQLException;
-    public List<ByerOrderDTO> getAllByerOrders() throws SQLException;
+    public List<BuyerOrderDTO> getAllBuyerOrders() throws SQLException;
     public List<PrescriptionDTO> getAllPrescriptionData() throws SQLException;
 
 

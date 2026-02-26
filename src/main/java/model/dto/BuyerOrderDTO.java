@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ByerOrderDTO {
+public class BuyerOrderDTO {
     private String code;
     private double totalPrice;
     private LocalDate date;
