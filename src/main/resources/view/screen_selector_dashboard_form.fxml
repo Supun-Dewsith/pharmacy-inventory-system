@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane fx:id="borderPane" prefHeight="768.0" prefWidth="1224.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ScreenSelectorDashboardController">
    <left>
       <VBox alignment="CENTER_LEFT" prefHeight="768.0" prefWidth="112.0" style="-fx-background-color: #E7E7E7;" BorderPane.alignment="CENTER">
@@ -28,6 +27,14 @@
                </VBox.margin>
             </JFXButton>
             <JFXButton onAction="#btnBillingOnAction" prefHeight="87.0" prefWidth="201.0" style="-fx-background-color: #CFCFCF;" text="Billing">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton onAction="#btnCustomersOnAction" prefHeight="87.0" prefWidth="201.0" style="-fx-background-color: #CFCFCF;" text="Customers">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

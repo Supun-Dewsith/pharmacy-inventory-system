@@ -71,4 +71,14 @@ public class ScreenSelectorDashboardController {
 
     public void btnReportsAndAnalyticsOnAction(ActionEvent actionEvent) {
     }
+
+    public void btnCustomersOnAction(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/customer_management_form.fxml"));
+        try {
+            Parent screen = loader.load();
+            borderPane.setCenter(screen);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
