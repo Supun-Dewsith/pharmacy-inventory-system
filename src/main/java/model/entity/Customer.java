@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 public class Customer {
-    private String id;
+    private Long id;
     private String title;
     private String name;
     private LocalDate dob;

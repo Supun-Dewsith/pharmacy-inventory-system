@@ -1,13 +1,20 @@
 package model.tm;
 
+import lombok.*;
 import model.dto.BuyerOrderDTO;
 import model.entity.BuyerOrder;
 
 import java.time.LocalDate;
 import java.util.List;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class CustomerTM {
-    private String id;
+    private Long id;
     private String title;
     private String name;
     private LocalDate dob;
