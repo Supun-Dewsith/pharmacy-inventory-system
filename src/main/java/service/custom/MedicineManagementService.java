@@ -9,7 +9,8 @@ import java.util.List;
 public interface MedicineManagementService extends SuperService {
     public List<MedicineDTO> getAllMed() throws SQLException;
 
-    boolean addNewMedicine(MedicineDTO medicineDTO);
-    boolean updateMedicine(MedicineDTO medicineDTO);
+    boolean addNewMedicine(MedicineDTO medicineDTO) throws SQLException;
+    boolean updateMedicine(MedicineDTO medicineDTO) throws SQLException;
 
+    boolean deleteMed(Long id) throws SQLException;
 }

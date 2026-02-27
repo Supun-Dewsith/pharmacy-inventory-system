@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import lombok.Setter;
 import model.dto.MedicineDTO;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class AddNewMedicineFormController {
@@ -77,11 +78,12 @@ public class AddNewMedicineFormController {
                 );
     }
 
-    public void btnAddMedicineOnAction(ActionEvent actionEvent) {
+    public void btnAddMedicineOnAction(ActionEvent actionEvent) throws SQLException {
         if(!isInputValid()){
             return;
         }
         medicineManagementController.addNewMedicine(getMedData());
+
     }
 
     private boolean isInputValid() {

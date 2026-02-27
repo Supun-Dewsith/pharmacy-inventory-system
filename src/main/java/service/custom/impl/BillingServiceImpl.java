@@ -1,6 +1,7 @@
 package service.custom.impl;
 
 import javafx.collections.ObservableList;
+import model.dto.BuyerOrderSaveRequestDTO;
 import model.dto.CartDTO;
 import model.dto.MedicineDTO;
 import model.entity.Medicine;
@@ -55,5 +56,11 @@ public class BillingServiceImpl implements BillingService {
             total+=cartTM.getTotal();
         }
         return total;
+    }
+
+    @Override
+    public boolean saveOrder(BuyerOrderSaveRequestDTO buyerOrderSaveRequestDTO) throws SQLException {
+        System.out.println(buyerOrderSaveRequestDTO.toString());
+        return false;
     }
 }

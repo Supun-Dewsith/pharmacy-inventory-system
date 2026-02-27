@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +24,7 @@ import model.dto.CustomerDTO;
 import model.dto.CustomerSaveRequestDTO;
 import model.dto.CustomerUpdateRequestDTO;
 import model.tm.CustomerTM;
+import model.tm.MedicineTM;
 import service.ServiceFactory;
 import service.custom.impl.CustomerManagementServiceImpl;
 import util.ServiceType;
@@ -30,7 +33,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
 
 public class CustomerManagementFormController implements Initializable {
     @FXML
@@ -91,23 +96,57 @@ public class CustomerManagementFormController implements Initializable {
 
     protected void addnewCustomer(CustomerSaveRequestDTO customerSaveRequestDTO){
         try {
-            customerManagementService.addNewCustomer(customerSaveRequestDTO);
+            boolean isAdded =  customerManagementService.addNewCustomer(customerSaveRequestDTO);
+            if (isAdded) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer Added Successfully!").show();
+                loadCustomerTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed!").show();
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
 
     protected void updateCustomer(CustomerUpdateRequestDTO customerUpdateRequestDTO){
         try {
-            customerManagementService.updateCustomer(customerUpdateRequestDTO);
+            boolean isUpdated = customerManagementService.updateCustomer(customerUpdateRequestDTO);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer Updated Successfully!").show();
+                loadCustomerTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Update Failed!").show();
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        CustomerTM selectedCustomer = getSelectedRow();
 
+        if (selectedCustomer == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Customer to delete!").show();
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Customer?");
+        Optional<ButtonType> result = confirm.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                boolean isDeleted = customerManagementService.deleteCustomer(selectedCustomer.getId());
+                if (isDeleted) {
+                    new Alert(Alert.AlertType.INFORMATION, "Customer Deleted Successfully!").show();
+                    loadCustomerTable();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Delete failed! Customer might not exist.").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+            }
+        }
     }
 
     @FXML
@@ -120,6 +159,7 @@ public class CustomerManagementFormController implements Initializable {
             Parent screen = loader.load();
             EditCustomerFormController controller = loader.getController();
             controller.setCustomerManagementFormController(this);
+            controller.updateTxtFields();
             gridPane.add(screen,1,0);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -133,8 +173,27 @@ public class CustomerManagementFormController implements Initializable {
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
             if(newValue!=null){
                 setSelectedRow(newValue);
+                updateDetailView(newValue);
             }
         });
+    }
+
+    private void updateDetailView(CustomerTM newValue){
+
+        gridPane.getChildren().removeIf(node ->
+                GridPane.getColumnIndex(node) != null  &&  GridPane.getColumnIndex(node) == 1
+        );
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/customer_Info_form.fxml"));
+        try {
+            Parent screen = loader.load();
+            CustomerInfoFormController controller = loader.getController();
+            controller.setCustomerData(newValue);
+            gridPane.add(screen,1,0);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void loadCustomerTable(){
@@ -155,7 +214,7 @@ public class CustomerManagementFormController implements Initializable {
             });
             tblCustomer.setItems(customerTMS);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
 

@@ -11,40 +11,49 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import model.dto.CartDTO;
-import model.dto.MedicineDTO;
+import model.dto.*;
+import model.entity.Customer;
 import model.tm.CartTM;
+import model.tm.CustomerTM;
 import model.tm.MedicineTM;
 import org.w3c.dom.ls.LSOutput;
 import service.ServiceFactory;
 import service.custom.BillingService;
+import service.custom.CustomerManagementService;
 import util.ServiceType;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class BillingController implements Initializable {
-    private final BillingService billingService = ServiceFactory.getInstance().getServiceType(ServiceType.BILLING);
+
+
+    @FXML
+    private TableColumn<?, ?> colPhone;
+
+    @FXML
+    private TableColumn<?, ?> colAddress;
 
     @FXML
     private TableColumn<?, ?> colBrand;
 
     @FXML
-    private TableColumn<?, ?> colCartPrice;
-
-    @FXML
     private TableColumn<?, ?> colCartMedCode;
 
     @FXML
-    private TableColumn<CartTM, Integer> colCartQTY;
+    private TableColumn<?, ?> colCartPrice;
 
     @FXML
-    private TableColumn<?, ?> colMedCode;
+    private TableColumn<CartTM,Integer> colCartQTY;
 
     @FXML
     private TableColumn<?, ?> colCartTotal;
@@ -53,13 +62,28 @@ public class BillingController implements Initializable {
     private TableColumn<?, ?> colCategary;
 
     @FXML
+    private TableColumn<?, ?> colCuatName;
+
+    @FXML
+    private TableColumn<?, ?> colCustId;
+
+    @FXML
+    private TableColumn<?, ?> colDOB;
+
+    @FXML
+    private TableColumn<?, ?> colEmail;
+
+    @FXML
+    private TableColumn<?, ?> colMedCode;
+
+    @FXML
     private TableColumn<?, ?> colPrice;
 
     @FXML
     private TableColumn<?, ?> colProductName;
 
     @FXML
-    private TableColumn<?, ?> colQTY;
+    private TableColumn<?,?> colQTY;
 
     @FXML
     private Label lblDateTime;
@@ -71,10 +95,24 @@ public class BillingController implements Initializable {
     private TableView<CartTM> tblCart;
 
     @FXML
+    private TableView<CustomerTM> tblCustomer;
+
+    @FXML
     private TableView<MedicineTM> tblMedicine;
 
     @FXML
     private JFXTextField txtSearchByName;
+
+    @FXML
+    private JFXTextField txtSearchByName1;
+
+    private final BillingService billingService = ServiceFactory.getInstance().getServiceType(ServiceType.BILLING);
+
+    private final CustomerManagementService customerManagementService = ServiceFactory.getInstance().getServiceType(ServiceType.CUSTOMER);
+
+    @Getter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
+    private CustomerTM selectedCustomer;
 
     @FXML
     void btnClearCartOnAction(ActionEvent event) {
@@ -83,13 +121,14 @@ public class BillingController implements Initializable {
 
     @FXML
     void btnConfirmOnAction(ActionEvent event) {
-
+        addNewOrder();
     }
 
     @FXML
     void btnPrintReceiptOnAction(ActionEvent event) {
 
     }
+
 
     @FXML
     void btnScanBarCodeOnAction(ActionEvent event) {
@@ -102,12 +141,63 @@ public class BillingController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mapTable();
+        mapCustomerTable();
         mapCartTable();
         loadTable();
-        //bind to cart data for auto update
+        loadCustomerTable();
         tblCart.setItems(cartList);
         initializeQTYColumn();
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
+            if(newValue!=null){
+                setSelectedCustomer(newValue);
+            }
+        });
 
+    }
+
+    private void addNewOrder(){
+        if(getSelectedCustomer()==null){
+            new Alert(Alert.AlertType.ERROR, "Select a Customer!").show();
+            return;
+        }
+        if(cartList.isEmpty()){
+            new Alert(Alert.AlertType.ERROR, "Cart is empty!").show();
+            return;
+        }
+        BuyerOrderSaveRequestDTO buyerOrderSaveRequestDTO = new BuyerOrderSaveRequestDTO();
+        buyerOrderSaveRequestDTO.setCustId(getSelectedCustomer().getId());
+        buyerOrderSaveRequestDTO.setTotalPrice(calculateTotal());
+
+        LocalDate today = LocalDate.now();
+        buyerOrderSaveRequestDTO.setDate(today);
+
+        LocalTime timeNow = LocalTime.now();
+        buyerOrderSaveRequestDTO.setTime(timeNow);
+
+        ArrayList<BuyerOrderItemDTO> buyerOrderItemDTOS = new ArrayList<>();
+        cartList.forEach(cartTM -> buyerOrderItemDTOS.add(mapCartTMtoBuyerOrderItemDTO(cartTM)));
+        buyerOrderSaveRequestDTO.setCart(buyerOrderItemDTOS);
+
+        try {
+            billingService.saveOrder(buyerOrderSaveRequestDTO);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private BuyerOrderItemDTO mapCartTMtoBuyerOrderItemDTO(CartTM cartTM){
+        return new BuyerOrderItemDTO(
+          cartTM.getMedId(),
+          cartTM.getMedCode(),
+          cartTM.getQty(),
+          cartTM.getTotal()
+        );
+    }
+
+    private Double calculateTotal(){
+        return cartList.stream()
+                .mapToDouble(cartItem -> cartItem.getTotal())
+                .sum();
     }
 
     private void calculateTotal(ObservableList<CartTM> cartTMS){
@@ -153,6 +243,37 @@ public class BillingController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    private void loadCustomerTable(){
+        try {
+
+            List<CustomerDTO> customerDTOS = customerManagementService.getCustomerData();
+            ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
+            customerDTOS.forEach(customerDTO -> {
+                customerTMS.add(new CustomerTM(
+                        customerDTO.getId(),
+                        customerDTO.getTitle(),
+                        customerDTO.getName(),
+                        customerDTO.getDob(),
+                        customerDTO.getAddress(),
+                        customerDTO.getPhone(),
+                        customerDTO.getEmail(),
+                        customerDTO.getOrders()
+                ));
+            });
+            tblCustomer.setItems(customerTMS);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void mapCustomerTable(){
+        colCustId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colCuatName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
     }
 
     private void mapTable(){

@@ -58,8 +58,8 @@ public class CustomertoDTOMapper {
         BuyerOrderItemDTO buyerOrderItemDTO = new BuyerOrderItemDTO();
         buyerOrderItemDTO.setMedId(buyerOrderItem.getMedId());
         buyerOrderItemDTO.setMedCode(buyerOrderItem.getMedCode());
-        buyerOrderItemDTO.setCategory(buyerOrderItem.getCategory());
-        buyerOrderItemDTO.setPrice(buyerOrderItem.getPrice());
+        //buyerOrderItemDTO.setCategory(buyerOrderItem.getCategory());
+        //buyerOrderItemDTO.setPrice(buyerOrderItem.getPrice());
         buyerOrderItemDTO.setQty(buyerOrderItem.getQty());
         buyerOrderItemDTO.setTotal(buyerOrderItem.getTotal());
 

@@ -1,0 +1,4 @@
+db.url=db_url
+db.user=your_username
+db.password=your_password
+db.driver=database_driver

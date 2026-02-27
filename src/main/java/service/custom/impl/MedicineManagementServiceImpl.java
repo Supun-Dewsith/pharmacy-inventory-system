@@ -41,14 +41,48 @@ public class MedicineManagementServiceImpl implements MedicineManagementService 
     }
 
     @Override
-    public boolean addNewMedicine(MedicineDTO medicineDTO) {
-        System.out.println(medicineDTO.toString());
-        return false;
+    public boolean addNewMedicine(MedicineDTO medicineDTO) throws SQLException {
+        return medicineRepository.create(new Medicine(
+                medicineDTO.getId(),
+                medicineDTO.getItemCode(),
+                medicineDTO.getMedName(),
+                medicineDTO.getBrand(),
+                medicineDTO.getBatchNumber(),
+                medicineDTO.getDescription(),
+                medicineDTO.getCategory(),
+                medicineDTO.getUnitPrice(),
+                medicineDTO.getBuyingPrice(),
+                medicineDTO.getStock(),
+                medicineDTO.getMinLevel(),
+                medicineDTO.getPackSize(),
+                medicineDTO.getExpiryDate(),
+                medicineDTO.getSupplierId()
+        ));
     }
 
     @Override
-    public boolean updateMedicine(MedicineDTO medicineDTO) {
-        System.out.println(medicineDTO.toString());
+    public boolean updateMedicine(MedicineDTO medicineDTO) throws SQLException {
+        return medicineRepository.update(new Medicine(
+                medicineDTO.getId(),
+                medicineDTO.getItemCode(),
+                medicineDTO.getMedName(),
+                medicineDTO.getBrand(),
+                medicineDTO.getBatchNumber(),
+                medicineDTO.getDescription(),
+                medicineDTO.getCategory(),
+                medicineDTO.getUnitPrice(),
+                medicineDTO.getBuyingPrice(),
+                medicineDTO.getStock(),
+                medicineDTO.getMinLevel(),
+                medicineDTO.getPackSize(),
+                medicineDTO.getExpiryDate(),
+                medicineDTO.getSupplierId()
+        ));
+    }
+
+    @Override
+    public boolean deleteMed(Long id) throws SQLException {
+        medicineRepository.deleteById(id);
         return false;
     }
 

@@ -12,4 +12,5 @@ public interface SuplierManagementService extends SuperService {
     boolean addNewSuplier(SuplierDTO suplierDTO) throws SQLException;
     boolean updateSuplier(SuplierDTO suplierDTO) throws SQLException;
 
+    boolean deleteSuplier(Long id) throws SQLException;
 }

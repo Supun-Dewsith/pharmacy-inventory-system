@@ -14,6 +14,7 @@ import model.dto.MedicineDTO;
 import model.tm.MedicineTM;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -64,7 +65,7 @@ public class EditMedFormController {
     @Getter(AccessLevel.PRIVATE)
     private Long currentMedId;
 
-    public void btnEditMedicineOnAction(ActionEvent actionEvent) {
+    public void btnEditMedicineOnAction(ActionEvent actionEvent) throws SQLException {
         if(!isInputValid()){
             return;
         }

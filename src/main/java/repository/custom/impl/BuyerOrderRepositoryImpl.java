@@ -52,11 +52,14 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
 
             List<BuyerOrderItem> cart = new ArrayList<>();
 
-            cart.add(new BuyerOrderItem(101L, "MED-PM-001", "Analgesics", 5.50, 2, 11.00));
-            cart.add(new BuyerOrderItem(102L, "MED-AM-042", "Antibiotics", 12.75, 1, 12.75));
-            cart.add(new BuyerOrderItem(105L, "MED-VH-019", "Vitamins", 8.00, 3, 24.00));
-            cart.add(new BuyerOrderItem(110L, "MED-AS-008", "Antiseptics", 4.20, 5, 21.00));
-            cart.add(new BuyerOrderItem(112L, "MED-CP-102", "Cough Syrup", 15.00, 1, 15.00));
+            cart.add(new BuyerOrderItem((long)2, "MED-AM-042", 1, 12.75));
+            cart.add(new BuyerOrderItem((long)3, "MED-VH-019",3, 24.00));
+            cart.add(new BuyerOrderItem((long)4, "MED-AS-008", 5, 21.00));
+            cart.add(new BuyerOrderItem((long)4, "MED-CP-102", 1, 15.00));
+            cart.add(new BuyerOrderItem((long)8, "MED-AM-042", 1, 12.75));
+            cart.add(new BuyerOrderItem((long)3, "MED-VH-019",3, 24.00));
+            cart.add(new BuyerOrderItem((long)1, "MED-AS-008", 5, 21.00));
+            cart.add(new BuyerOrderItem((long)4, "MED-CP-102", 1, 15.00));
 
             buyerOrders.add(new BuyerOrder(
                     (long)i,

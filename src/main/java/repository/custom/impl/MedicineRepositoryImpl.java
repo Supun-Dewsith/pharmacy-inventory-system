@@ -12,21 +12,25 @@ import java.util.List;
 public class MedicineRepositoryImpl implements MedicineRepository {
     @Override
     public boolean create(Medicine medicine) throws SQLException {
+        System.out.println(medicine.toString());
         return false;
     }
 
     @Override
     public boolean update(Medicine medicine) throws SQLException {
+        System.out.println(medicine.toString());
         return false;
     }
 
     @Override
-    public boolean deleteById(Long aLong) throws SQLException {
+    public boolean deleteById(Long id) throws SQLException {
+        System.out.println(id);
         return false;
     }
 
     @Override
-    public Medicine getById(Long aLong) throws SQLException {
+    public Medicine getById(Long id) throws SQLException {
+        System.out.println(id);
         return null;
     }
 

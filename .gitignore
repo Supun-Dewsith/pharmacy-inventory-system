@@ -38,9 +38,10 @@ build/
 .DS_Store
 
 ### Database & Secrets ###
-# Ignore the actual config file with your real password
+# Ignore the actual config file with real password
 src/main/resources/config.properties
 src/main/resources/application.properties
+src/main/resources/database.properties
 
 # Ignore local environment files
 .env

@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox prefHeight="703.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customer.CustomerInfoFormController">
    <children>
       <GridPane prefHeight="717.0" prefWidth="370.0" VBox.vgrow="ALWAYS">
@@ -33,7 +32,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TableView fx:id="tblDelleveryDetails" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <TableView fx:id="tblOrderDetails" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <columns>
                   <TableColumn fx:id="colOrderId" prefWidth="75.0" text="Order ID" />
                   <TableColumn fx:id="colOrderDate" prefWidth="75.0" text="Order Date" />
