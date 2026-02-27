@@ -326,7 +326,7 @@ public class MainDashBoardController implements Initializable {
                     .filter(order -> !order.getDate().isBefore(sevenDaysAgo))
                     .flatMap(byerOrderDTO -> byerOrderDTO.getCart().stream())
                     .collect(Collectors.groupingBy(
-                            Medicine::getCategory,Collectors.counting()
+                            BuyerOrderItemDTO::getCategory,Collectors.counting()
                     ));
 
             ObservableList<PieChart.Data> piChartData1 = FXCollections.observableArrayList();

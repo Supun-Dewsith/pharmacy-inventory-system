@@ -1,5 +1,6 @@
 package repository;
 
+import repository.custom.CustomerRepository;
 import repository.custom.SuplierOrderRepository;
 import repository.custom.impl.*;
 import util.RepositoryType;
@@ -12,6 +13,7 @@ public class RepositoryFactroy {
     private final RecentActivityRepositoryImpl recentActivityRepository;
     private final SuplierRepositoryImpl suplierRepository;
     private final SuplierOrderRepository suplierOrderRepository;
+    private final CustomerRepository customerRepository;
 
     private RepositoryFactroy(){
         medicineRepository=new MedicineRepositoryImpl();
@@ -19,6 +21,7 @@ public class RepositoryFactroy {
         recentActivityRepository=new RecentActivityRepositoryImpl();
         suplierRepository=new SuplierRepositoryImpl();
         suplierOrderRepository=new SuplierOrderRepositoryImpl();
+        customerRepository = new CustomerRepositoryImpl();
     }
 
     public static RepositoryFactroy getInstance(){return instance==null?instance=new RepositoryFactroy():instance;}
@@ -30,6 +33,7 @@ public class RepositoryFactroy {
             case RECENTACTIVITY:return (T) recentActivityRepository;
             case SUPLIER:return (T) suplierRepository;
             case SUPLIERORDER:  return (T) suplierOrderRepository;
+            case CUSTOMER: return (T) customerRepository;
         }
         return null;
     }

@@ -116,6 +116,7 @@ public class BillingController implements Initializable {
 
     private void addToCart(MedicineTM medicineTM){
         cartList.add(new CartTM(
+                medicineTM.getId(),
                 medicineTM.getMedCode(),
                 medicineTM.getUnitPrice(),
                 1
@@ -165,7 +166,7 @@ public class BillingController implements Initializable {
     }
 
     private void mapCartTable(){
-        colCartMedCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colCartMedCode.setCellValueFactory(new PropertyValueFactory<>("medCode"));
         colCartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colCartQTY.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colCartTotal.setCellValueFactory(new PropertyValueFactory<>("total"));

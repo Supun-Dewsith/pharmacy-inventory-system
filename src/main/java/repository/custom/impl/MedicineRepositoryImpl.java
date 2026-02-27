@@ -34,8 +34,8 @@ public class MedicineRepositoryImpl implements MedicineRepository {
     public List<Medicine> getAll() throws SQLException {
         List<Medicine> medicineList = new ArrayList<>();
         //test data
-        medicineList.add(new Medicine((long)1,"MED-101", "Amoxicillin", "Amoxil", "BN-7721", "500mg Capsules", "Antibiotic", 15.50, 10.00, 450, 50, "10x10 Blister", LocalDate.of(2027, 5, 12), "SUP-001"));
-        medicineList.add(new Medicine((long)2,"MED-102", "Paracetamol", "Panadol", "L-4409", "500mg Tablets", "Analgesic", 4.25, 2.10, 1200, 100, "1000 Bulk Pack", LocalDate.of(2026, 12, 1), "SUP-002"));
+        medicineList.add(new Medicine((long)1,"MED-101", "Amoxicillin", "Amoxil", "BN-7721", "500mg Capsules", "Antibiotic", 15.50, 10.00, 4, 50, "10x10 Blister", LocalDate.of(2025, 5, 12), "SUP-001"));
+        medicineList.add(new Medicine((long)2,"MED-102", "Paracetamol", "Panadol", "L-4409", "500mg Tablets", "Analgesic", 4.25, 2.10, 1200, 100, "1000 Bulk Pack", LocalDate.of(2024, 12, 1), "SUP-002"));
         medicineList.add(new Medicine((long)3,"MED-103", "Cetirizine", "Zyrtec", "BN-9902", "10mg Tablets", "Antihistamine", 12.00, 7.50, 300, 30, "30 Tabs Pack", LocalDate.of(2027, 2, 15), "SUP-001"));
         medicineList.add(new Medicine((long)4,"MED-104", "Metformin", "Glucophage", "TX-1142", "850mg Tablets", "Antidiabetic", 18.75, 11.20, 550, 40, "14x4 Strip", LocalDate.of(2026, 9, 20), "SUP-003"));
         medicineList.add(new Medicine((long)5,"MED-105", "Omeprazole", "Prilosec", "BN-3381", "20mg Capsules", "Antacid", 24.50, 15.00, 180, 25, "28 Caps Bottle", LocalDate.of(2027, 1, 30), "SUP-002"));

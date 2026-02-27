@@ -67,7 +67,7 @@ public class SuplierManagementFormController implements Initializable {
     @Setter
     protected SuplierTM selectedRow;
 
-    private final SuplierManagementService suplierManagementService = ServiceFactory.getInstance().getServiceType(ServiceType.SUPLIERMANAGEMENT);
+    private final SuplierManagementService suplierManagementService = ServiceFactory.getInstance().getServiceType(ServiceType.SUPLIER);
 
     @FXML
     void btnAddNewSuplierOnAction(ActionEvent event) {

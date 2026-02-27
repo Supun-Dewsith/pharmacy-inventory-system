@@ -12,13 +12,15 @@ import lombok.*;
 @Getter
 @ToString
 public class CartTM {
-    private String code;
+    private Long medId;
+    private String medCode;
     private DoubleProperty price = new SimpleDoubleProperty();
     private IntegerProperty qty = new SimpleIntegerProperty();
     private DoubleProperty total = new SimpleDoubleProperty();
 
-    public CartTM(String code,double price, int qty){
-        this.code=code;
+    public CartTM(Long medId,String medCode,double price, int qty){
+        this.medId=medId;
+        this.medCode=medCode;
         this.price.set(price);
         this.qty.set(qty);
         this.total.bind(this.price.multiply(this.qty));

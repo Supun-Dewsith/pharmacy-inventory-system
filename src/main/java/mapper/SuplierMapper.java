@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class SuplierMapper {
     public static final SuplierMapper INSTANCE = new SuplierMapper();
-    //public static final SuplierMapper INSTANCE = null;
 
     private SuplierMapper(){}
 

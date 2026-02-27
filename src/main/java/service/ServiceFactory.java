@@ -13,6 +13,7 @@ public class ServiceFactory {
     private final MedicineManagementServiceImpl medicineManagementService;
     private final RepoartsAnalyticsServiceImpl repoartsAnalyticsService;
     private final SuplierManagementServiceImpl suplierManagementService;
+    private final CustomerManagementServiceImpl customerManagementService;
 
     private ServiceFactory() {
         expiryStockAlertsService = new ExpiryStockAlertsServiceImpl();
@@ -21,6 +22,7 @@ public class ServiceFactory {
         mainDashBoardService=new MainDashBoardServiceImpl();
         medicineManagementService = new MedicineManagementServiceImpl();
         suplierManagementService = new SuplierManagementServiceImpl();
+        customerManagementService = new CustomerManagementServiceImpl();
     }
 
 
@@ -35,7 +37,8 @@ public class ServiceFactory {
             case MAINDASHBOARD: return (T) mainDashBoardService;
             case MEDICINEMANAGEMENT: return (T) medicineManagementService;
             case REPOARTSANALYTICS: return (T) repoartsAnalyticsService;
-            case SUPLIERMANAGEMENT: return (T) suplierManagementService;
+            case SUPLIER: return (T) suplierManagementService;
+            case CUSTOMER: return (T) customerManagementService;
         }
         return null;
     }

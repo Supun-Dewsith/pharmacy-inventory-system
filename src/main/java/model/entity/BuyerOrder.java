@@ -5,6 +5,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,5 +18,5 @@ public class BuyerOrder {
     private Double totalPrice;
     private LocalDate date;
     private LocalTime time;
-    private List<Medicine> cart;
+    private List<BuyerOrderItem> cart;
 }
