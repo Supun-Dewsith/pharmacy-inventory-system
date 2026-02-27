@@ -18,5 +18,5 @@ public class BuyerOrder {
     private Double totalPrice;
     private LocalDate date;
     private LocalTime time;
-    private Map<Medicine,Integer> cart;
+    private List<BuyerOrderItem> cart;
 }

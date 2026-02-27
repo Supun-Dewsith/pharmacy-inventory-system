@@ -1,10 +1,7 @@
 package service.custom.impl;
 
 import model.dto.*;
-import model.entity.BuyerOrder;
-import model.entity.Medicine;
-import model.entity.RecentActivity;
-import model.entity.SuplierOrder;
+import model.entity.*;
 import repository.RepositoryFactroy;
 import repository.custom.BuyerOrderRepository;
 import repository.custom.MedicineRepository;
@@ -68,14 +65,34 @@ public class MainDashBoardServiceImpl implements MainDashBoardService {
         List<BuyerOrderDTO> byerOrderDTOS = new ArrayList<>();
         all.forEach(buyerOrder -> {
             byerOrderDTOS.add(new BuyerOrderDTO(
+                    buyerOrder.getId(),
                     buyerOrder.getCode(),
                     buyerOrder.getTotalPrice(),
                     buyerOrder.getDate(),
                     buyerOrder.getTime(),
-                    buyerOrder.getCart()
+                    mapBuyerOrderItemDTOList(buyerOrder.getCart())
             ));
         });
         return byerOrderDTOS;
+    }
+
+    private List<BuyerOrderItemDTO> mapBuyerOrderItemDTOList(List<BuyerOrderItem> buyerOrderItems){
+        ArrayList<BuyerOrderItemDTO> buyerOrderItemDTOS = new ArrayList<>();
+        buyerOrderItems.forEach(buyerOrderItem -> {
+            buyerOrderItemDTOS.add(mapBuyerOrderItemDTO(buyerOrderItem));
+        });
+        return buyerOrderItemDTOS;
+    }
+
+    private BuyerOrderItemDTO mapBuyerOrderItemDTO(BuyerOrderItem buyerOrderItem){
+        return new BuyerOrderItemDTO(
+                buyerOrderItem.getMedId(),
+                buyerOrderItem.getMedCode(),
+                buyerOrderItem.getCategory(),
+                buyerOrderItem.getPrice(),
+                buyerOrderItem.getQty(),
+                buyerOrderItem.getTotal()
+        );
     }
 
     @Override
