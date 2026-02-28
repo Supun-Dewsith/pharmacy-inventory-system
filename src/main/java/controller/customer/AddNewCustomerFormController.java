@@ -54,8 +54,8 @@ public class AddNewCustomerFormController implements Initializable {
                 txtCustomerName.getText().trim(),
                 dateDOB.getValue(),
                 txtAddress.getText().trim(),
-                txtEmail.getText().trim(),
-                txtPhone.getText().trim()
+                txtPhone.getText().trim(),
+                txtEmail.getText().trim()
         ));
     }
 

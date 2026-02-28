@@ -6,8 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import lombok.Setter;
+import model.dto.CustomerSaveRequestDTO;
+import model.dto.CustomerUpdateRequestDTO;
 import model.tm.CustomerTM;
 
 import java.net.URL;
@@ -37,11 +40,59 @@ public class EditCustomerFormController implements Initializable {
     private CustomerManagementFormController customerManagementFormController;
 
     @FXML
-    void btnAddCustomerOnAction(ActionEvent event) {
-
+    void btnEditCustomerOnAction(ActionEvent event) {
+        if(!isInputValid()){
+            return;
+        }
+        getCustomerInfo();
     }
 
-     void updateTxtFields(){
+    private void getCustomerInfo() {
+        customerManagementFormController.updateCustomer(new CustomerUpdateRequestDTO(
+                null,
+                cmbTitle.getValue().toString(),
+                txtCustomerName.getText().trim(),
+                dateDOB.getValue(),
+                txtAddress.getText().trim(),
+                txtPhone.getText().trim(),
+                txtEmail.getText().trim()
+        ));
+    }
+
+    private boolean isInputValid() {
+        String errorMessage = "";
+
+        if (cmbTitle.getSelectionModel().isEmpty()) {
+            errorMessage += "No valid title selected.\n";
+        }
+        if (txtCustomerName.getText() == null || txtCustomerName.getText().trim().isEmpty()) {
+            errorMessage += "No valid customer name.\n";
+        }
+        if (txtAddress.getText() == null || txtAddress.getText().trim().isEmpty()) {
+            errorMessage += "No valid address.\n";
+        }
+        if (dateDOB.getValue() == null) {
+            errorMessage += "No valid Date of Birth selected.\n";
+        }
+
+        if (!txtEmail.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            errorMessage += "No valid email address.\n";
+        }
+
+        if (!txtPhone.getText().matches("\\d{10}")) {
+            errorMessage += "No valid phone number (10 digits required).\n";
+        }
+
+        if (errorMessage.isEmpty()) {
+            return true;
+        } else {
+            new Alert(Alert.AlertType.ERROR, errorMessage).show();
+            return false;
+        }
+    }
+
+
+    void updateTxtFields(){
         CustomerTM selectedRow = customerManagementFormController.getSelectedRow();
         if(selectedRow != null){
             txtCustomerName.setText(selectedRow.getName());

@@ -14,6 +14,7 @@ import java.util.Map;
 @ToString
 public class BuyerOrder {
     private Long Id;
+    private Long custId;
     private String code;
     private Double totalPrice;
     private LocalDate date;

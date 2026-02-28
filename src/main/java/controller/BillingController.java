@@ -179,9 +179,15 @@ public class BillingController implements Initializable {
         buyerOrderSaveRequestDTO.setCart(buyerOrderItemDTOS);
 
         try {
-            billingService.saveOrder(buyerOrderSaveRequestDTO);
+            boolean isSaved = billingService.saveOrder(buyerOrderSaveRequestDTO);
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Order Saved Successfully!").show();
+                loadCustomerTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Saving failed!").show();
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
 

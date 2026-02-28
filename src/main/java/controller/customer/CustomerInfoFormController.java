@@ -10,14 +10,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import model.dto.BuyerOrderDTO;
 import model.dto.BuyerOrderItemDTO;
+import model.dto.CustomerDTO;
 import model.tm.BuyerOrderDetailsTM;
 import model.tm.BuyerOrderItemTM;
 import model.tm.CustomerTM;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CustomerInfoFormController implements Initializable{
@@ -31,7 +37,7 @@ public class CustomerInfoFormController implements Initializable{
     private TableColumn<?, ?> colOrderDate;
 
     @FXML
-    private TableColumn<?, ?> colOrderId;
+    private TableColumn<?, ?> colOrderCode;
 
     @FXML
     private TableColumn<?, ?> colQty;
@@ -48,35 +54,51 @@ public class CustomerInfoFormController implements Initializable{
     @FXML
     private TableView<BuyerOrderItemTM> tblMedAndQuality;
 
+    @Getter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
+    private CustomerTM selectedCustomer;
+
     public void setCustomerData(CustomerTM selectedCustomer) {
         if (selectedCustomer == null) return;
+        setSelectedCustomer(selectedCustomer);
+
         lblMedName.setText(selectedCustomer.getName());
 
         ObservableList<BuyerOrderDetailsTM> orderList = FXCollections.observableArrayList();
-        ObservableList<BuyerOrderItemTM> medicineList = FXCollections.observableArrayList();
 
         for (BuyerOrderDTO order : selectedCustomer.getOrders()) {
             orderList.add(new BuyerOrderDetailsTM(
+                    order.getId(),
                     order.getCode(),
                     order.getDate(),
                     order.getTotalPrice()
             ));
-
-            for (BuyerOrderItemDTO item : order.getCart()) {
-                medicineList.add(new BuyerOrderItemTM(
-                        item.getMedCode(),
-                        //item.getMedName(),
-                        null,
-                        item.getQty()
-                ));
-            }
         }
         tblOrderDetails.setItems(orderList);
-        tblMedAndQuality.setItems(medicineList);
+    }
+
+    private List<BuyerOrderItemTM> getOrderItemTMs(Long orderId){
+        BuyerOrderDTO buyerOrderDTO = getSelectedCustomer().getOrders().stream()
+                .filter(order -> order.getId()==orderId)
+                .findFirst()
+                .orElse(null);
+        ArrayList<BuyerOrderItemTM> buyerOrderItemTMSTMS = new ArrayList<>();
+        buyerOrderDTO.getCart().forEach(buyerOrderItemDTO -> {
+            buyerOrderItemTMSTMS.add(new BuyerOrderItemTM(
+                    buyerOrderItemDTO.getMedCode(),
+                    null,
+                    buyerOrderItemDTO.getQty()
+            ));
+        });
+        return buyerOrderItemTMSTMS;
+    }
+
+    private void loadMedAndQualityTable(Long orderId){
+        tblMedAndQuality.setItems(FXCollections.observableArrayList(getOrderItemTMs(orderId)));
     }
 
     private void mapOrderDetailsTable(){
-        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderid"));
+        colOrderCode.setCellValueFactory(new PropertyValueFactory<>("orderCode"));
         colOrderDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colTotalProce.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
@@ -91,5 +113,10 @@ public class CustomerInfoFormController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mapOrderDetailsTable();
         mapMedAndQualityTable();
+        tblOrderDetails.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
+            if(newValue!=null){
+                loadMedAndQualityTable(newValue.getOrderId());
+            }
+        });
     }
 }

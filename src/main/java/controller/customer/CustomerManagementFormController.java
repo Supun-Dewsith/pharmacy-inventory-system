@@ -109,6 +109,7 @@ public class CustomerManagementFormController implements Initializable {
     }
 
     protected void updateCustomer(CustomerUpdateRequestDTO customerUpdateRequestDTO){
+        customerUpdateRequestDTO.setId(selectedRow.getId());
         try {
             boolean isUpdated = customerManagementService.updateCustomer(customerUpdateRequestDTO);
             if (isUpdated) {

@@ -10,7 +10,8 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class BuyerOrderDetailsTM {
-    private String orderid;
+    private Long orderId;
+    private String orderCode;
     private LocalDate date;
     private Double price;
 }

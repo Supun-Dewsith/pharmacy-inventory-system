@@ -17,6 +17,7 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
 
     @Override
     public boolean create(BuyerOrder buyerOrder) throws SQLException {
+        System.out.println(buyerOrder.toString());
         return false;
     }
 
@@ -52,16 +53,17 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
 
             List<BuyerOrderItem> cart = new ArrayList<>();
 
-            cart.add(new BuyerOrderItem((long)2, "MED-AM-042", 1, 12.75));
-            cart.add(new BuyerOrderItem((long)3, "MED-VH-019",3, 24.00));
-            cart.add(new BuyerOrderItem((long)4, "MED-AS-008", 5, 21.00));
-            cart.add(new BuyerOrderItem((long)4, "MED-CP-102", 1, 15.00));
-            cart.add(new BuyerOrderItem((long)8, "MED-AM-042", 1, 12.75));
-            cart.add(new BuyerOrderItem((long)3, "MED-VH-019",3, 24.00));
-            cart.add(new BuyerOrderItem((long)1, "MED-AS-008", 5, 21.00));
-            cart.add(new BuyerOrderItem((long)4, "MED-CP-102", 1, 15.00));
+            cart.add(new BuyerOrderItem((long)1,(long)i,(long)2, "MED-AM-042", 1, 12.75));
+            cart.add(new BuyerOrderItem((long)2,(long)i,(long)3, "MED-VH-019",3, 24.00));
+            cart.add(new BuyerOrderItem((long)3,(long)i,(long)4, "MED-AS-008", 5, 21.00));
+            cart.add(new BuyerOrderItem((long)4,(long)i,(long)4, "MED-CP-102", 1, 15.00));
+            cart.add(new BuyerOrderItem((long)5,(long)i,(long)8, "MED-AM-042", 1, 12.75));
+            cart.add(new BuyerOrderItem((long)6,(long)i,(long)3, "MED-VH-019",3, 24.00));
+            cart.add(new BuyerOrderItem((long)7,(long)i,(long)1, "MED-AS-008", 5, 21.00));
+            cart.add(new BuyerOrderItem((long)8,(long)i,(long)4, "MED-CP-102", 1, 15.00));
 
             buyerOrders.add(new BuyerOrder(
+                    (long)i,
                     (long)i,
                     items[randomIndex],
                     prices[randomIndex],

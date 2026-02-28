@@ -8,6 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 public class BuyerOrderItem {
+    private Long id;
+    private Long orderId;
     private Long medId;
     private String medCode;
     //private String category;

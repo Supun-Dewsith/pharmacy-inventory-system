@@ -46,7 +46,7 @@ public class CustomerManagementServiceImpl implements CustomerManagementService 
 
     @Override
     public boolean updateCustomer(CustomerUpdateRequestDTO customerUpdateRequestDTO) throws SQLException {
-        return customerRepository.create(new Customer(
+        return customerRepository.update(new Customer(
                 customerUpdateRequestDTO.getId(),
                 customerUpdateRequestDTO.getTitle(),
                 customerUpdateRequestDTO.getName(),
@@ -60,7 +60,6 @@ public class CustomerManagementServiceImpl implements CustomerManagementService 
 
     @Override
     public boolean deleteCustomer(Long id) throws SQLException {
-        System.out.println(id);
-        return false;
+        return customerRepository.deleteById(id);
     }
 }

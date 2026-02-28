@@ -34,7 +34,7 @@
             </Label>
             <TableView fx:id="tblOrderDetails" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <columns>
-                  <TableColumn fx:id="colOrderId" prefWidth="75.0" text="Order ID" />
+                  <TableColumn fx:id="colOrderCode" prefWidth="75.0" text="Order Code" />
                   <TableColumn fx:id="colOrderDate" prefWidth="75.0" text="Order Date" />
                   <TableColumn fx:id="colTotalProce" prefWidth="75.0" text="Total Price" />
                </columns>
