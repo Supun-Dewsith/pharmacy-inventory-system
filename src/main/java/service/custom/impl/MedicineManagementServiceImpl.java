@@ -82,8 +82,7 @@ public class MedicineManagementServiceImpl implements MedicineManagementService 
 
     @Override
     public boolean deleteMed(Long id) throws SQLException {
-        medicineRepository.deleteById(id);
-        return false;
+        return medicineRepository.deleteById(id);
     }
 
 }

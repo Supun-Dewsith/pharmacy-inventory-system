@@ -1,9 +1,13 @@
 package repository.custom.impl;
 
+import db.DBConnection;
 import model.dto.MedicineDTO;
 import model.entity.Medicine;
 import repository.custom.MedicineRepository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,20 +16,68 @@ import java.util.List;
 public class MedicineRepositoryImpl implements MedicineRepository {
     @Override
     public boolean create(Medicine medicine) throws SQLException {
-        System.out.println(medicine.toString());
-        return false;
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            String sql = "INSERT INTO medicine (item_code, med_name, brand, batch_number, description, " +
+                    "category, unit_price, buying_price, stock, min_level, pack_size, " +
+                    "expiry_date, supplier_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement pstm = connection.prepareStatement(sql);
+
+            pstm.setString(1, medicine.getItemCode());
+            pstm.setString(2, medicine.getMedName());
+            pstm.setString(3, medicine.getBrand());
+            pstm.setString(4, medicine.getBatchNumber());
+            pstm.setString(5, medicine.getDescription());
+            pstm.setString(6, medicine.getCategory());
+            pstm.setDouble(7, medicine.getUnitPrice());
+            pstm.setDouble(8, medicine.getBuyingPrice());
+            pstm.setInt(9, medicine.getStock());
+            pstm.setInt(10, medicine.getMinLevel());
+            pstm.setString(11, medicine.getPackSize());
+            pstm.setObject(12, medicine.getExpiryDate());
+            pstm.setString(13, medicine.getSupplierId());
+
+            return pstm.executeUpdate() > 0;
+
     }
 
     @Override
     public boolean update(Medicine medicine) throws SQLException {
-        System.out.println(medicine.toString());
-        return false;
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        String sql = "UPDATE medicine SET item_code=?, med_name=?, brand=?, batch_number=?, " +
+                "description=?, category=?, unit_price=?, buying_price=?, stock=?, " +
+                "min_level=?, pack_size=?, expiry_date=?, supplier_id=? WHERE id=?";
+
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, medicine.getItemCode());
+        pstm.setString(2, medicine.getMedName());
+        pstm.setString(3, medicine.getBrand());
+        pstm.setString(4, medicine.getBatchNumber());
+        pstm.setString(5, medicine.getDescription());
+        pstm.setString(6, medicine.getCategory());
+        pstm.setDouble(7, medicine.getUnitPrice());
+        pstm.setDouble(8, medicine.getBuyingPrice());
+        pstm.setInt(9, medicine.getStock());
+        pstm.setInt(10, medicine.getMinLevel());
+        pstm.setString(11, medicine.getPackSize());
+        pstm.setObject(12, medicine.getExpiryDate());
+        pstm.setString(13, medicine.getSupplierId());
+
+        pstm.setLong(14, medicine.getId());
+
+        return pstm.executeUpdate() > 0;
     }
 
     @Override
     public boolean deleteById(Long id) throws SQLException {
         System.out.println(id);
-        return false;
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM medicine WHERE id=?");
+        preparedStatement.setLong(1,id);
+        return preparedStatement.executeUpdate()>0;
     }
 
     @Override
@@ -37,17 +89,34 @@ public class MedicineRepositoryImpl implements MedicineRepository {
     @Override
     public List<Medicine> getAll() throws SQLException {
         List<Medicine> medicineList = new ArrayList<>();
-        //test data
-        medicineList.add(new Medicine((long)1,"MED-101", "Amoxicillin", "Amoxil", "BN-7721", "500mg Capsules", "Antibiotic", 15.50, 10.00, 4, 50, "10x10 Blister", LocalDate.of(2025, 5, 12), "SUP-001"));
-        medicineList.add(new Medicine((long)2,"MED-102", "Paracetamol", "Panadol", "L-4409", "500mg Tablets", "Analgesic", 4.25, 2.10, 1200, 100, "1000 Bulk Pack", LocalDate.of(2024, 12, 1), "SUP-002"));
-        medicineList.add(new Medicine((long)3,"MED-103", "Cetirizine", "Zyrtec", "BN-9902", "10mg Tablets", "Antihistamine", 12.00, 7.50, 300, 30, "30 Tabs Pack", LocalDate.of(2027, 2, 15), "SUP-001"));
-        medicineList.add(new Medicine((long)4,"MED-104", "Metformin", "Glucophage", "TX-1142", "850mg Tablets", "Antidiabetic", 18.75, 11.20, 550, 40, "14x4 Strip", LocalDate.of(2026, 9, 20), "SUP-003"));
-        medicineList.add(new Medicine((long)5,"MED-105", "Omeprazole", "Prilosec", "BN-3381", "20mg Capsules", "Antacid", 24.50, 15.00, 180, 25, "28 Caps Bottle", LocalDate.of(2027, 1, 30), "SUP-002"));
-        medicineList.add(new Medicine((long)6,"MED-106", "Atorvastatin", "Lipitor", "L-6671", "10mg Tablets", "Statins", 32.00, 20.50, 210, 20, "30 Tabs Pack", LocalDate.of(2027, 8, 10), "SUP-004"));
-        medicineList.add(new Medicine((long)7,"MED-107", "Ibuprofen", "Advil", "BN-5540", "400mg Tablets", "NSAID", 8.90, 4.50, 640, 50, "20 Tabs Strip", LocalDate.of(2026, 11, 5), "SUP-001"));
-        medicineList.add(new Medicine((long)8,"MED-108", "Salbutamol", "Ventolin", "V-9002", "100mcg Inhaler", "Bronchodilator", 45.00, 28.00, 95, 15, "200 Dose Unit", LocalDate.of(2027, 3, 25), "SUP-005"));
-        medicineList.add(new Medicine((long)9,"MED-109", "Losartan", "Cozaar", "BN-2219", "50mg Tablets", "Antihypertensive", 21.30, 13.40, 290, 30, "30 Tabs Pack", LocalDate.of(2026, 7, 14), "SUP-003"));
-        medicineList.add(new Medicine((long)10,"MED-110", "Azithromycin", "Zithromax", "BN-8831", "250mg Tablets", "Antibiotic", 38.00, 24.00, 145, 10, "6 Tabs Pack", LocalDate.of(2027, 6, 18), "SUP-004"));
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM medicine";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            Medicine medicine = new Medicine();
+
+            medicine.setId(resultSet.getLong("id"));
+            medicine.setItemCode(resultSet.getString("item_code"));
+            medicine.setMedName(resultSet.getString("med_name"));
+            medicine.setBrand(resultSet.getString("brand"));
+            medicine.setBatchNumber(resultSet.getString("batch_number"));
+            medicine.setDescription(resultSet.getString("description"));
+            medicine.setCategory(resultSet.getString("category"));
+            medicine.setUnitPrice(resultSet.getDouble("unit_price"));
+            medicine.setBuyingPrice(resultSet.getDouble("buying_price"));
+            medicine.setStock(resultSet.getInt("stock"));
+            medicine.setMinLevel(resultSet.getInt("min_level"));
+            medicine.setPackSize(resultSet.getString("pack_size"));
+
+            medicine.setExpiryDate(resultSet.getObject("expiry_date", LocalDate.class));
+
+            medicine.setSupplierId(resultSet.getString("supplier_id"));
+
+            medicineList.add(medicine);
+        }
         return medicineList;
     }
+
 }
