@@ -182,7 +182,7 @@ public class BillingController implements Initializable {
             boolean isSaved = billingService.saveOrder(buyerOrderSaveRequestDTO);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Order Saved Successfully!").show();
-                loadCustomerTable();
+                loadTable();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Saving failed!").show();
             }

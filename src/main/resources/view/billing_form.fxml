@@ -128,7 +128,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="txtSearchByName1" prefHeight="25.0" prefWidth="710.0" promptText="Search Customer by Name" GridPane.columnIndex="1">
+                        <JFXTextField fx:id="txtSearchByName1" prefHeight="25.0" prefWidth="710.0" promptText="Search Medicine by Name" GridPane.columnIndex="1">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>

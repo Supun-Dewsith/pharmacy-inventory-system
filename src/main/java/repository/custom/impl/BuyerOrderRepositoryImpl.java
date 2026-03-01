@@ -8,10 +8,7 @@ import model.entity.Medicine;
 import model.entity.SuplierOrder;
 import repository.custom.BuyerOrderRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,8 +19,74 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
 
     @Override
     public boolean create(BuyerOrder buyerOrder) throws SQLException {
-        System.out.println(buyerOrder.toString());
-        return false;
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        try {
+            //transaction start here
+            connection.setAutoCommit(false);
+
+            String sql = "INSERT INTO buyerorder (cust_id, order_code, total_price, order_date, order_time) VALUES(?,?,?,?,?)";
+            String sql_2 = "INSERT INTO buyerorderitem (order_id, med_id, med_code, qty, total_price) VALUES(?,?,?,?,?)";
+
+            //get generated orderId
+            PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+
+            pstm.setLong(1, buyerOrder.getCustId());
+            pstm.setString(2, buyerOrder.getCode());
+            pstm.setDouble(3, buyerOrder.getTotalPrice());
+            pstm.setObject(4, buyerOrder.getDate());
+            pstm.setTime(5, Time.valueOf(buyerOrder.getTime()));
+
+
+            if (pstm.executeUpdate() > 0) {
+                ResultSet generatedKeys = pstm.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    long newOrderId = generatedKeys.getLong(1);
+
+                    PreparedStatement pstm_2 = connection.prepareStatement(sql_2);
+
+                    for (BuyerOrderItem buyerOrderItem : buyerOrder.getCart()) {
+                            pstm_2.setLong(1, newOrderId);
+                            pstm_2.setLong(2, buyerOrderItem.getMedId());
+                            pstm_2.setString(3, buyerOrderItem.getMedCode());
+                            pstm_2.setInt(4, buyerOrderItem.getQty());
+                            pstm_2.setDouble(5, buyerOrderItem.getTotal());
+
+                            stockDeduction(buyerOrderItem.getMedId(), buyerOrderItem.getQty(), connection);
+
+                        if (pstm_2.executeUpdate() <= 0) {
+                            connection.rollback();
+                            return false;
+                        }
+                    }
+                    connection.commit();
+                    return true;
+                }
+            }
+            connection.rollback();
+            return false;
+
+        }catch (SQLException e){
+            connection.rollback();
+            throw e;
+        }finally {
+            connection.setAutoCommit(true);
+        }
+    }
+
+
+    private void stockDeduction(Long medId, Integer qty, Connection connection) throws SQLException{
+        String sql = "UPDATE medicine SET stock = stock - ? WHERE id = ?";
+
+        try(PreparedStatement pstm = connection.prepareStatement(sql)){
+            pstm.setInt(1,qty);
+            pstm.setLong(2,medId);
+
+            if(pstm.executeUpdate()==0){
+                throw new SQLException("Updating stock failed, no medicine found with ID: " + medId);
+            }
+        }
     }
 
     @Override
