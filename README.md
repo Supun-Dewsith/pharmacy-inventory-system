@@ -13,7 +13,7 @@
 - [System Overview](#system-overview)
 - [Project Vision](#project-vision)
 - [Tech Stack](#tech-stack)
-- [Executive Summary (The "Why")](#executive-summary)
+- [Executive Summary](#executive-summary)
 - [Core Features](#core-features)
 - [Stakeholder Management](#stakeholder-management)
 - [Software Architecture](#software-architecture)
