@@ -14,7 +14,7 @@
 
 | **Main Dashboard** | **Medicine Management** |
 | :---: | :---: |
-|<img src="screenshots/dashboard.png" width="500"> | <img src="screenshots/medicine.png" width="500">|
+|<img src="screenshoots/dashboard.png" width="500"> | <img src="screenshoots/medicine.png" width="500">|
 | *Real-time analytics & critical alerts* | *Comprehensive CRUD & Inventory tracking* |
 
 ---
@@ -29,7 +29,7 @@ The **Pharmacy Management System (V)** is more than just a CRUD application. It 
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 1. Tech Stack
 * **Language:** Java 17+
 * **UI Framework:** JavaFX with Scene Builder (FXML)
 * **Database:** MySQL 8.0
