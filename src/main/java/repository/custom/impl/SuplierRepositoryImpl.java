@@ -15,21 +15,25 @@ import java.util.List;
 public class SuplierRepositoryImpl implements SuplierRepository {
     @Override
     public boolean create(Suplier suplier) throws SQLException {
+        System.out.println(suplier.toString());
         return false;
     }
 
     @Override
     public boolean update(Suplier suplier) throws SQLException {
+        System.out.println(suplier.toString());
         return false;
     }
 
     @Override
-    public boolean deleteById(Long aLong) throws SQLException {
+    public boolean deleteById(Long id) throws SQLException {
+        System.out.println(id);
         return false;
     }
 
     @Override
-    public Suplier getById(Long aLong) throws SQLException {
+    public Suplier getById(Long id) throws SQLException {
+        System.out.println(id);
         return null;
     }
 

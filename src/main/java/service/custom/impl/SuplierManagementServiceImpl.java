@@ -32,14 +32,35 @@ public class SuplierManagementServiceImpl implements SuplierManagementService {
 
     @Override
     public boolean addNewSuplier(SuplierDTO suplierDTO) throws SQLException{
-        System.out.println(suplierDTO.toString());
-        return false;
+        return suplierRepository.create(new Suplier(
+                null,
+                suplierDTO.getName(),
+                suplierDTO.getContactPerson(),
+                suplierDTO.getPhone(),
+                suplierDTO.getLeadTime(),
+                suplierDTO.getEmail(),
+                suplierDTO.getStatus(),
+                null
+        ));
     }
 
     @Override
     public boolean updateSuplier(SuplierDTO updatedSuplierDTO) throws SQLException{
-        System.out.println(updatedSuplierDTO.toString());
+        return suplierRepository.create(new Suplier(
+                updatedSuplierDTO.getId(),
+                updatedSuplierDTO.getName(),
+                updatedSuplierDTO.getContactPerson(),
+                updatedSuplierDTO.getPhone(),
+                updatedSuplierDTO.getLeadTime(),
+                updatedSuplierDTO.getEmail(),
+                updatedSuplierDTO.getStatus(),
+                null
+        ));
+    }
 
+    @Override
+    public boolean deleteSuplier(Long id) throws SQLException {
+        System.out.println(id);
         return false;
     }
 

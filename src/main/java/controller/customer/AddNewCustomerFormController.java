@@ -2,8 +2,10 @@ package controller.customer;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import lombok.Getter;
@@ -12,9 +14,13 @@ import model.dto.CustomerDTO;
 import model.dto.CustomerSaveRequestDTO;
 import model.entity.Customer;
 
-public class AddNewCustomerFormController {
+import java.net.URL;
+import java.util.Arrays;
+import java.util.ResourceBundle;
+
+public class AddNewCustomerFormController implements Initializable {
     @FXML
-    private JFXComboBox<?> cmbTitle;
+    private JFXComboBox cmbTitle;
 
     @FXML
     private DatePicker dateDOB;
@@ -48,8 +54,8 @@ public class AddNewCustomerFormController {
                 txtCustomerName.getText().trim(),
                 dateDOB.getValue(),
                 txtAddress.getText().trim(),
-                txtEmail.getText().trim(),
-                txtPhone.getText().trim()
+                txtPhone.getText().trim(),
+                txtEmail.getText().trim()
         ));
     }
 
@@ -85,4 +91,10 @@ public class AddNewCustomerFormController {
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        cmbTitle.setItems(
+                FXCollections.observableArrayList(
+                        Arrays.asList("Mr","Ms","Miss")));
+    }
 }

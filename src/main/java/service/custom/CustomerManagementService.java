@@ -14,4 +14,5 @@ public interface CustomerManagementService extends SuperService {
     boolean addNewCustomer(CustomerSaveRequestDTO customerSaveRequestDTO) throws SQLException;
     boolean updateCustomer(CustomerUpdateRequestDTO customerUpdateRequestDTO) throws SQLException;
 
+    boolean deleteCustomer(Long id) throws SQLException;
 }

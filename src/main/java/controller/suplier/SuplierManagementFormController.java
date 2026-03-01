@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import lombok.Setter;
 import model.dto.SuplierDTO;
+import model.tm.MedicineTM;
 import model.tm.SuplierTM;
 import service.ServiceFactory;
 import service.custom.SuplierManagementService;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SuplierManagementFormController implements Initializable {
@@ -93,24 +96,58 @@ public class SuplierManagementFormController implements Initializable {
 
     protected void addNewSuplier(SuplierDTO suplierDTO){
         try {
-            suplierManagementService.addNewSuplier(suplierDTO);
+            boolean isAdded = suplierManagementService.addNewSuplier(suplierDTO);
+            if (isAdded) {
+                new Alert(Alert.AlertType.INFORMATION, "Supplier Added Successfully!").show();
+                loadSuplierTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed!").show();
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
 
     protected void updateSuplier(SuplierDTO updatedSuplierDTO){
         try {
-            suplierManagementService.updateSuplier(updatedSuplierDTO);
+            boolean isUpdated = suplierManagementService.updateSuplier(updatedSuplierDTO);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Supplier Updated Successfully!").show();
+                loadSuplierTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Update Failed!").show();
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
 
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        SuplierTM selectedSuplier = getSelectedRow();
 
+        if (selectedSuplier == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a Supplier to delete!").show();
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Supplier?");
+        Optional<ButtonType> result = confirm.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                boolean isDeleted = suplierManagementService.deleteSuplier(selectedSuplier.getId());
+                if (isDeleted) {
+                    new Alert(Alert.AlertType.INFORMATION, "Supplier Deleted Successfully!").show();
+                    loadSuplierTable();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Delete failed! Supplier might not exist.").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+            }
+        }
     }
 
     @FXML
@@ -176,7 +213,7 @@ public class SuplierManagementFormController implements Initializable {
         try {
             suplierData = suplierManagementService.getSuplierData();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
         ObservableList<SuplierTM> suplierTMS = FXCollections.observableArrayList();
         suplierData.forEach(suplierDTO -> {

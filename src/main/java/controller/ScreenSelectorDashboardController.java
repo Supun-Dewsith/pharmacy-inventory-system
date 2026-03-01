@@ -1,5 +1,6 @@
 package controller;
 
+import controller.customer.CustomerManagementFormController;
 import controller.medicine.MedicineManagementController;
 import controller.suplier.SuplierManagementFormController;
 import javafx.event.ActionEvent;
@@ -16,7 +17,10 @@ public class ScreenSelectorDashboardController {
     private BorderPane borderPane;
 
     public void btnDashboardFormOnAction(ActionEvent actionEvent) {
+        loadDashboard();
+    }
 
+    public void loadDashboard(){
         try {
             Parent screen = FXMLLoader.load(getClass().getResource("/view/main_dashboard_form.fxml"));
             borderPane.setCenter(screen);
@@ -76,6 +80,8 @@ public class ScreenSelectorDashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/customer_management_form.fxml"));
         try {
             Parent screen = loader.load();
+            CustomerManagementFormController controller = loader.getController();
+            controller.setAddNewCustomerForm();
             borderPane.setCenter(screen);
         } catch (IOException e) {
             throw new RuntimeException(e);

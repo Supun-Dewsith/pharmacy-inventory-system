@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MedicineManagementController implements Initializable {
@@ -83,7 +85,29 @@ public class MedicineManagementController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        MedicineTM selectedItem = getSelectedRow();
 
+        if (selectedItem == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select an item to delete!").show();
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this medicine?");
+        Optional<ButtonType> result = confirm.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                boolean isDeleted = medicineManagementService.deleteMed(selectedItem.getId());
+                if (isDeleted) {
+                    new Alert(Alert.AlertType.INFORMATION, "Medicine Deleted Successfully!").show();
+                    loadTable();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Delete failed! Item might not exist.").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+            }
+        }
     }
 
     @FXML
@@ -117,12 +141,34 @@ public class MedicineManagementController implements Initializable {
 
     private final MedicineManagementService medicineManagementService = ServiceFactory.getInstance().getServiceType(ServiceType.MEDICINEMANAGEMENT);
 
-    public boolean addNewMedicine(MedicineDTO medicineDTO){
-        return medicineManagementService.addNewMedicine(medicineDTO);
+    public void addNewMedicine(MedicineDTO medicineDTO){
+        try {
+            boolean isAdded = medicineManagementService.addNewMedicine(medicineDTO);
+            if (isAdded) {
+                new Alert(Alert.AlertType.INFORMATION, "Medicine Added Successfully!").show();
+                loadTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+        }
+
     }
 
-    public boolean updateMedicine(MedicineDTO medicineDTO){
-        return medicineManagementService.updateMedicine(medicineDTO);
+    public void updateMedicine(MedicineDTO medicineDTO){
+        try {
+            boolean isUpdated = medicineManagementService.updateMedicine(medicineDTO);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Medicine Updated Successfully!").show();
+                loadTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Update Failed!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+        }
+
     }
 
     @Override
@@ -188,7 +234,7 @@ public class MedicineManagementController implements Initializable {
 
             tblMedicine.setItems(FXCollections.observableArrayList(medicineTMS));
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
 

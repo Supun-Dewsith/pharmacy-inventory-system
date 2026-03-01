@@ -74,7 +74,7 @@
                       <TableColumn fx:id="colCuatName" prefWidth="75.0" text="Name" />
                         <TableColumn fx:id="colDOB" prefWidth="75.0" text="DOB" />
                         <TableColumn fx:id="colAddress" prefWidth="75.0" text="Address" />
-                        <TableColumn fx:id="cilPhone" prefWidth="75.0" text="Phone" />
+                        <TableColumn fx:id="colPhone" prefWidth="75.0" text="Phone" />
                         <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
                     </columns>
                      <columnResizePolicy>
@@ -96,7 +96,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="67.0" text="Customers Table">
+                        <Label prefHeight="67.0" text="Select Customer">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

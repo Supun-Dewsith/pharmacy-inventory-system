@@ -13,21 +13,25 @@ import java.util.List;
 public class RecentActivityRepositoryImpl implements RecentActivityRepository {
     @Override
     public boolean create(RecentActivity recentActivity) throws SQLException {
+        System.out.println(recentActivity.toString());
         return false;
     }
 
     @Override
     public boolean update(RecentActivity recentActivity) throws SQLException {
+        System.out.println(recentActivity.toString());
         return false;
     }
 
     @Override
-    public boolean deleteById(Long aLong) throws SQLException {
+    public boolean deleteById(Long id) throws SQLException {
+        System.out.println(id);
         return false;
     }
 
     @Override
-    public RecentActivity getById(Long aLong) throws SQLException {
+    public RecentActivity getById(Long id) throws SQLException {
+        System.out.println(id);
         return null;
     }
 

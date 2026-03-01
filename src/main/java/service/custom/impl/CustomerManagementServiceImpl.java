@@ -22,23 +22,44 @@ public class CustomerManagementServiceImpl implements CustomerManagementService 
     @Override
     public List<CustomerDTO> getCustomerData() throws SQLException {
         List<Customer> all = customerRepository.getAll();
-
         List<CustomerDTO> customerDTOS = new ArrayList<>();
-
         all.forEach(customer -> {
             customerDTOS.add(customertoDTOMapper.toDTO(customer));
-                }
+        }
         );
         return customerDTOS;
     }
 
     @Override
     public boolean addNewCustomer(CustomerSaveRequestDTO customerSaveRequestDTO) throws SQLException {
-        return false;
+        return customerRepository.create(new Customer(
+                null,
+                customerSaveRequestDTO.getTitle(),
+                customerSaveRequestDTO.getName(),
+                customerSaveRequestDTO.getDob(),
+                customerSaveRequestDTO.getAddress(),
+                customerSaveRequestDTO.getPhone(),
+                customerSaveRequestDTO.getEmail(),
+                null
+        ));
     }
 
     @Override
     public boolean updateCustomer(CustomerUpdateRequestDTO customerUpdateRequestDTO) throws SQLException {
-        return false;
+        return customerRepository.update(new Customer(
+                customerUpdateRequestDTO.getId(),
+                customerUpdateRequestDTO.getTitle(),
+                customerUpdateRequestDTO.getName(),
+                customerUpdateRequestDTO.getDob(),
+                customerUpdateRequestDTO.getAddress(),
+                customerUpdateRequestDTO.getPhone(),
+                customerUpdateRequestDTO.getEmail(),
+                null
+        ));
+    }
+
+    @Override
+    public boolean deleteCustomer(Long id) throws SQLException {
+        return customerRepository.deleteById(id);
     }
 }

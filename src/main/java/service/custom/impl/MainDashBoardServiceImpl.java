@@ -88,8 +88,8 @@ public class MainDashBoardServiceImpl implements MainDashBoardService {
         return new BuyerOrderItemDTO(
                 buyerOrderItem.getMedId(),
                 buyerOrderItem.getMedCode(),
-                buyerOrderItem.getCategory(),
-                buyerOrderItem.getPrice(),
+                //buyerOrderItem.getCategory(),
+                //buyerOrderItem.getPrice(),
                 buyerOrderItem.getQty(),
                 buyerOrderItem.getTotal()
         );
