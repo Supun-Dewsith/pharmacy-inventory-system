@@ -8,10 +8,7 @@ import model.entity.Medicine;
 import model.entity.SuplierOrder;
 import repository.custom.BuyerOrderRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,8 +19,46 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
 
     @Override
     public boolean create(BuyerOrder buyerOrder) throws SQLException {
-        System.out.println(buyerOrder.toString());
-        return false;
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        String sql = "INSERT INTO buyerorder (cust_id, order_code, total_price, order_date, order_time) VALUES(?,?,?,?,?)";
+        String sql_2 = "INSERT INTO buyerorderitem (order_id, med_id, med_code, qty, total_price) VALUES(?,?,?,?,?)";
+
+        //get generated orderId
+        PreparedStatement pstm = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+
+
+        pstm.setLong(1, buyerOrder.getCustId());
+        pstm.setString(2, buyerOrder.getCode());
+        pstm.setDouble(3, buyerOrder.getTotalPrice());
+        pstm.setObject(4, buyerOrder.getDate());
+        pstm.setTime(5, Time.valueOf(buyerOrder.getTime()));
+
+
+        if(pstm.executeUpdate()>0) {
+            ResultSet generatedKeys = pstm.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                long newOrderId = generatedKeys.getLong(1);
+
+                for (BuyerOrderItem buyerOrderItem : buyerOrder.getCart()) {
+                    try {
+                        PreparedStatement pstm_2 = connection.prepareStatement(sql_2);
+                        pstm_2.setLong(1, newOrderId);
+                        pstm_2.setLong(2, buyerOrderItem.getMedId());
+                        pstm_2.setString(3, buyerOrderItem.getMedCode());
+                        pstm_2.setInt(4, buyerOrderItem.getQty());
+                        pstm_2.setDouble(5, buyerOrderItem.getTotal());
+                        if(!(pstm_2.executeUpdate()>0)){
+                            return false;
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     @Override

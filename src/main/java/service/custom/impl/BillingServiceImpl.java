@@ -88,7 +88,6 @@ public class BillingServiceImpl implements BillingService {
         });
         buyerOrder.setCart(buyerOrderItems);
 
-        buyerOrderRepository.create(buyerOrder);
-        return false;
+        return buyerOrderRepository.create(buyerOrder);
     }
 }
