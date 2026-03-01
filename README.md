@@ -3,7 +3,7 @@
 [![Java Version](https://img.shields.io/badge/Java-17%2B-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
 [![JavaFX](https://img.shields.io/badge/JavaFX-17-blue?style=for-the-badge&logo=java&logoColor=white)](https://openjfx.io/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Architecture](https://img.shields.io/badge/Architecture-Layered_MVC-green?style=for-the-badge)](https://en.wikipedia.org/wiki/Multitier_architecture)
+[![Architecture](https://img.shields.io/badge/Architecture-Layered_-green?style=for-the-badge)](https://en.wikipedia.org/wiki/Multitier_architecture)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 > **A desktop solution designed to streamline pharmaceutical operations, inventory precision, and data-driven decision making.**
