@@ -158,7 +158,7 @@
                               <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
                            </HBox.margin>
                            <children>
-                              <Label text="Pending Validations">
+                              <Label text="Pending Orders">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -222,7 +222,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <PieChart fx:id="categuryBreakdownPieChart" GridPane.rowIndex="1" />
+                        <PieChart fx:id="categuryBreakdownPieChart" stylesheets="@../css/pieChart.css" GridPane.rowIndex="1" />
                         <Label prefHeight="17.0" prefWidth="511.0" text="Stock Category Breakdown">
                            <font>
                               <Font name="System Bold" size="14.0" />

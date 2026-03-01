@@ -61,7 +61,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton onAction="#btnPrintReceiptOnAction" style="-fx-background-color: #CFCFCF;" text="Print Receipt">
+                        <JFXButton onAction="#btnGenerateInvoiceOnAction" style="-fx-background-color: #CFCFCF;" text="Generate Invoice">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

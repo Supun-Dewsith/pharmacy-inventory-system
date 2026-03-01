@@ -8,17 +8,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import model.dto.*;
 import model.entity.Medicine;
-import model.tm.ExpiryWatchListTM;
-import model.tm.LowStockTM;
-import model.tm.RecentAcitvityLogTM;
+import model.tm.*;
 import service.ServiceFactory;
 import service.custom.MainDashBoardService;
 import util.ServiceType;
@@ -113,6 +108,7 @@ public class MainDashBoardController implements Initializable {
         mapTblLowStock();
         mapTblExpiryWatchlist();
         mapRecntActivityTable();
+        colouringRows();
         loadLowStockTable();
         loadExpiryWatchListTable();
         loadRecentActivityTable();
@@ -211,6 +207,64 @@ public class MainDashBoardController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
     }
+
+
+
+
+
+    private void colouringRows(){
+        tblExpiryWatchlist.setRowFactory(tv->new TableRow<ExpiryWatchListTM>(){
+            @Override
+            protected void updateItem(ExpiryWatchListTM expiringMedTM, boolean empty){
+                super.updateItem(expiringMedTM,empty);
+
+                if(expiringMedTM == null || empty){
+                    setStyle("");
+                }else{
+                    LocalDate now = LocalDate.now();
+                    LocalDate expiryDate = expiringMedTM.getExpiryDate();
+
+                    if(expiryDate.isBefore(now)){
+                        setStyle("-fx-background-color: #ff7675;");
+                    }else if(expiryDate.isBefore(now.plusMonths(3))){
+                        setStyle("-fx-background-color: #fab1a0;");
+                    }else if(expiryDate.isBefore(now.plusMonths(6))){
+                        setStyle("-fx-background-color: #ffeaa7;");
+                    }else{
+                        setStyle("");
+                    }
+                }
+            }
+        });
+
+        tblLowStock.setRowFactory(tv->new TableRow<LowStockTM>(){
+            @Override
+            protected void updateItem(LowStockTM lowStockMedTM,boolean empty){
+                super.updateItem(lowStockMedTM,empty);
+
+                if(lowStockMedTM==null||empty){
+                    setStyle("");
+                }else{
+                    Integer minStock = lowStockMedTM.getMinLevel();
+                    Integer currentStock = lowStockMedTM.getStock();
+                    double stockPresentage = currentStock/(double)minStock*100;
+
+                    if(stockPresentage<50){
+                        setStyle("-fx-background-color: #ff7675;");
+                    }else if(stockPresentage<100){
+                        setStyle("-fx-background-color: #fab1a0;");
+                    }else{
+                        setStyle("");
+                    }
+                }
+            }
+        });
+    }
+
+
+
+
+
 
     private void mapRecntActivityTable(){
         colActivity.setCellValueFactory(new PropertyValueFactory<>("acticity"));
