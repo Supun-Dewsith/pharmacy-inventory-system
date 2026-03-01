@@ -6,7 +6,7 @@
 [![Architecture](https://img.shields.io/badge/Architecture-Layered_MVC-green?style=for-the-badge)](https://en.wikipedia.org/wiki/Multitier_architecture)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-> **An enterprise-grade desktop solution designed to streamline pharmaceutical operations, inventory precision, and data-driven decision making.**
+> **A desktop solution designed to streamline pharmaceutical operations, inventory precision, and data-driven decision making.**
 
 ---
 ##  Table of Contents
