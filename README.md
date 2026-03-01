@@ -129,6 +129,35 @@ The **Pharmacy Management System (V)** is built using a **Layered Architecture**
 * **Data Access Layer (`repository`):** Handles all database interactions (CRUD operations) through a structured repository pattern.
 * **Data Model Layer (`model`):** Utilizes **DTOs** (Data Transfer Objects) for safe data movement and **Entities** for database mapping.
 
+### **Architecture Flow Diagram**
+
+```text
+┌───────────────────────────────────────────────┐
+│              Presentation Layer               │
+│         (JavaFX UI & Controllers)             │
+└──────────────────────┬────────────────────────┘
+                       │   ▲
+          DTOs (Data)  │   │  DTOs
+                       ▼   │
+┌───────────────────────────────────────────────┐
+│                 Service Layer                 │
+│         (Core Business Logic & Rules)         │
+└──────────────────────┬────────────────────────┘
+                       │   ▲
+     Entities (Models) │   │  Entities
+                       ▼   │
+┌───────────────────────────────────────────────┐
+│               Data Access Layer               │
+│        (Repositories & Custom CRUD)           │
+└──────────────────────┬────────────────────────┘
+                       │   ▲
+        SQL Operations │   │  ResultSets
+                       ▼   │
+┌───────────────────────────────────────────────┐
+│                MySQL Database                 │
+│             (pharmacy_v schema)               │
+└───────────────────────────────────────────────┘
+```
 ---
 
 ##   Technical Implementation & Design Patterns
