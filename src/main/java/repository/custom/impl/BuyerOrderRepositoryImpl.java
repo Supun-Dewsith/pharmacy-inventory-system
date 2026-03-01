@@ -21,44 +21,56 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
     public boolean create(BuyerOrder buyerOrder) throws SQLException {
         Connection connection = DBConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO buyerorder (cust_id, order_code, total_price, order_date, order_time) VALUES(?,?,?,?,?)";
-        String sql_2 = "INSERT INTO buyerorderitem (order_id, med_id, med_code, qty, total_price) VALUES(?,?,?,?,?)";
+        try {
+            //transaction start here
+            connection.setAutoCommit(false);
 
-        //get generated orderId
-        PreparedStatement pstm = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            String sql = "INSERT INTO buyerorder (cust_id, order_code, total_price, order_date, order_time) VALUES(?,?,?,?,?)";
+            String sql_2 = "INSERT INTO buyerorderitem (order_id, med_id, med_code, qty, total_price) VALUES(?,?,?,?,?)";
 
-
-        pstm.setLong(1, buyerOrder.getCustId());
-        pstm.setString(2, buyerOrder.getCode());
-        pstm.setDouble(3, buyerOrder.getTotalPrice());
-        pstm.setObject(4, buyerOrder.getDate());
-        pstm.setTime(5, Time.valueOf(buyerOrder.getTime()));
+            //get generated orderId
+            PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 
-        if(pstm.executeUpdate()>0) {
-            ResultSet generatedKeys = pstm.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                long newOrderId = generatedKeys.getLong(1);
+            pstm.setLong(1, buyerOrder.getCustId());
+            pstm.setString(2, buyerOrder.getCode());
+            pstm.setDouble(3, buyerOrder.getTotalPrice());
+            pstm.setObject(4, buyerOrder.getDate());
+            pstm.setTime(5, Time.valueOf(buyerOrder.getTime()));
 
-                for (BuyerOrderItem buyerOrderItem : buyerOrder.getCart()) {
-                    try {
-                        PreparedStatement pstm_2 = connection.prepareStatement(sql_2);
-                        pstm_2.setLong(1, newOrderId);
-                        pstm_2.setLong(2, buyerOrderItem.getMedId());
-                        pstm_2.setString(3, buyerOrderItem.getMedCode());
-                        pstm_2.setInt(4, buyerOrderItem.getQty());
-                        pstm_2.setDouble(5, buyerOrderItem.getTotal());
-                        if(!(pstm_2.executeUpdate()>0)){
+
+            if (pstm.executeUpdate() > 0) {
+                ResultSet generatedKeys = pstm.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    long newOrderId = generatedKeys.getLong(1);
+
+                    PreparedStatement pstm_2 = connection.prepareStatement(sql_2);
+
+                    for (BuyerOrderItem buyerOrderItem : buyerOrder.getCart()) {
+                            pstm_2.setLong(1, newOrderId);
+                            pstm_2.setLong(2, buyerOrderItem.getMedId());
+                            pstm_2.setString(3, buyerOrderItem.getMedCode());
+                            pstm_2.setInt(4, buyerOrderItem.getQty());
+                            pstm_2.setDouble(5, buyerOrderItem.getTotal());
+
+                        if (pstm_2.executeUpdate() <= 0) {
+                            connection.rollback();
                             return false;
                         }
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
                     }
+                    connection.commit();
+                    return true;
                 }
             }
-        }
+            connection.rollback();
+            return false;
 
-        return true;
+        }catch (SQLException e){
+            connection.rollback();
+            throw e;
+        }finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     @Override
