@@ -2,6 +2,8 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,20 +22,24 @@ import model.entity.Customer;
 import model.tm.CartTM;
 import model.tm.CustomerTM;
 import model.tm.MedicineTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import org.w3c.dom.ls.LSOutput;
 import service.ServiceFactory;
 import service.custom.BillingService;
 import service.custom.CustomerManagementService;
 import util.ServiceType;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class BillingController implements Initializable {
 
@@ -125,7 +132,7 @@ public class BillingController implements Initializable {
     }
 
     @FXML
-    void btnPrintReceiptOnAction(ActionEvent event) {
+    void btnGenerateInvoiceOnAction(ActionEvent event) {
 
     }
 
@@ -135,11 +142,16 @@ public class BillingController implements Initializable {
 
     }
 
+    @Setter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.PRIVATE)
+    private BuyerOrderSaveRequestDTO buyerOrderSaveRequestDTO;
+
 
     private ObservableList<CartTM> cartList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadDateAndTime();
         mapTable();
         mapCustomerTable();
         mapCartTable();
@@ -154,8 +166,63 @@ public class BillingController implements Initializable {
         });
 
     }
+    private void loadDateAndTime(){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //lblDate.setText(simpleDateFormat.format(date));
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            LocalTime now = LocalTime.now();
+            //lblTime.setText(now.format(dateTimeFormatter));
+            lblDateTime.setText(simpleDateFormat.format(date)+" | "+now.format(dateTimeFormatter));
+        }), new KeyFrame(Duration.seconds(1))
+        );
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+    }
+
+    public void generateReceipt(BuyerOrderSaveRequestDTO buyerOrder) {
+        try {
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(buyerOrder.getCart());
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("orderId", buyerOrder.getCode());
+            parameters.put("customerName", buyerOrder.getCustId());
+            parameters.put("total", buyerOrder.getTotalPrice());
+
+            InputStream input = getClass().getResourceAsStream("/reports/PharmacyReceipt.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            JasperViewer.viewReport(jasperPrint, false);
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "receipts/" + buyerOrder.getCode() + ".pdf");
+
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void addNewOrder(){
+        getAllNewOrderData();
+        try {
+            boolean isSaved = billingService.saveOrder(buyerOrderSaveRequestDTO);
+            if (isSaved) {
+                new Alert(Alert.AlertType.INFORMATION, "Order Saved Successfully!").show();
+                loadTable();
+                //generateReceipt(buyerOrderSaveRequestDTO);
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Saving failed!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+        }
+    }
+
+    private void getAllNewOrderData(){
         if(getSelectedCustomer()==null){
             new Alert(Alert.AlertType.ERROR, "Select a Customer!").show();
             return;
@@ -164,9 +231,11 @@ public class BillingController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Cart is empty!").show();
             return;
         }
-        BuyerOrderSaveRequestDTO buyerOrderSaveRequestDTO = new BuyerOrderSaveRequestDTO();
+        buyerOrderSaveRequestDTO = new BuyerOrderSaveRequestDTO();
         buyerOrderSaveRequestDTO.setCustId(getSelectedCustomer().getId());
         buyerOrderSaveRequestDTO.setTotalPrice(calculateTotal());
+
+
 
         LocalDate today = LocalDate.now();
         buyerOrderSaveRequestDTO.setDate(today);
@@ -177,18 +246,6 @@ public class BillingController implements Initializable {
         ArrayList<BuyerOrderItemDTO> buyerOrderItemDTOS = new ArrayList<>();
         cartList.forEach(cartTM -> buyerOrderItemDTOS.add(mapCartTMtoBuyerOrderItemDTO(cartTM)));
         buyerOrderSaveRequestDTO.setCart(buyerOrderItemDTOS);
-
-        try {
-            boolean isSaved = billingService.saveOrder(buyerOrderSaveRequestDTO);
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Order Saved Successfully!").show();
-                loadTable();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Saving failed!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
-        }
     }
 
     private BuyerOrderItemDTO mapCartTMtoBuyerOrderItemDTO(CartTM cartTM){
