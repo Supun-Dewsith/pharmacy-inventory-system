@@ -53,6 +53,8 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
                             pstm_2.setInt(4, buyerOrderItem.getQty());
                             pstm_2.setDouble(5, buyerOrderItem.getTotal());
 
+                            stockDeduction(buyerOrderItem.getMedId(), buyerOrderItem.getQty(), connection);
+
                         if (pstm_2.executeUpdate() <= 0) {
                             connection.rollback();
                             return false;
@@ -70,6 +72,20 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
             throw e;
         }finally {
             connection.setAutoCommit(true);
+        }
+    }
+
+
+    private void stockDeduction(Long medId, Integer qty, Connection connection) throws SQLException{
+        String sql = "UPDATE medicine SET stock = stock - ? WHERE id = ?";
+
+        try(PreparedStatement pstm = connection.prepareStatement(sql)){
+            pstm.setInt(1,qty);
+            pstm.setLong(2,medId);
+
+            if(pstm.executeUpdate()==0){
+                throw new SQLException("Updating stock failed, no medicine found with ID: " + medId);
+            }
         }
     }
 
