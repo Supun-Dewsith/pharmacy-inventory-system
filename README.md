@@ -120,8 +120,12 @@ The system is engineered with a **fluid layout**, ensuring that the interface re
 * **Proportional Scaling:** Tables and charts expand to utilize available white space effectively.
 * **HCI Focused Layouts:** Menus and buttons remain within "easy-to-click" zones regardless of resolution.
 
+**Technical Implementation of Responsiveness:**
+* **Nested `GridPane` Logic:** Used for complex forms to maintain perfect label-to-input alignment. By setting specific **Column Constraints** to percentage-based widths, the forms scale smoothly without overlapping.
+* **Layout Priorities:** Implemented **VGrow (Always)** and **HGrow (Always)** properties within Scene Builder to ensure data-heavy components like the `TableView` and `BarChart` automatically expand to fill available window space.
+* **Smart Nesting:** Utilized a combination of `VBox` and `HBox` containers with proper **Spacing** and **Alignment** settings to ensure toolbars and navigation menus remain centered or docked regardless of resolution.
+* **AnchorPane Constraints:** Applied specific Top/Bottom/Left/Right anchors to ensure the main UI wrapper stretches to the edges of the user's screen.
 ---
-
 
 ##   Stakeholder Management
 
