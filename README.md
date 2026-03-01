@@ -327,5 +327,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ##  Author
 
-* **Supun Dewsith**
+**Supun Dewsith** — *SE Undergraduate*
+
+[LinkedIn](https://www.linkedin.com/in/supun-dewsith-347b61364/) | [GitHub](https://github.com/Supun-Dewsith)
 
