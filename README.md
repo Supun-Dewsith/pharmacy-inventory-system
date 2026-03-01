@@ -27,13 +27,17 @@
 
 ##  System Overview
 
-| **Main Dashboard** | **Medicine Management** |
+|  Main Dashboard |  Medicine Management |
 | :---: | :---: |
-|<img src="screenshoots/dashboard.png" width="500"> | <img src="screenshoots/medicine.png" width="500">|
-| *Real-time analytics & critical alerts* | *Comprehensive CRUD & Inventory tracking* |
-|<img src="screenshoots/billing.png" width="500"> | <img src="screenshoots/expiryAndStocks.png" width="500">|
-| *Billing system* | *Comprehensive Expiry & Stock tracking* |
+| <img src="screenshoots/dashboard.png" width="500"> | <img src="screenshoots/medicine.png" width="500"> |
+| *Real-time analytics, busy hour tracking, and critical alerts.* | *Advanced CRUD operations and deep-dive inventory specs.* |
 
+<br>
+
+|  Point of Sale (Billing) |  Expiry & Stock Alerts |
+| :---: | :---: |
+| <img src="screenshoots/billing.png" width="500"> | <img src="screenshoots/expiryAndStocks.png" width="500"> |
+| *Dynamic cart management with automated invoice generation.* | *Color-coded urgency watchlists and rapid supplier requesting.* |
 ---
 
 ##  Project Vision
@@ -71,26 +75,35 @@ The **Pharmacy Management System (V)** was engineered to bridge this gap. By imp
 
 ##   Core Features
 
-###  **Intelligent Dashboard**
+###  **1. Intelligent Dashboard**
 * **Critical Alerts:** Instant visibility into Pending Orders, Out of Stock counts, and Cold Chain Temperature alerts.
 * **Data Visualization:** Interactive Pie Charts for Category Breakdowns and Line Graphs for 100-day Sales Performance.
 * **Busy Hour Analysis:** A bar chart visualization that helps managers understand peak traffic times (6 AM – 7 PM).
 
-###  **Medicine & Inventory Management**
+###  **2. Medicine & Inventory Management**
 * **Smart Grid View:** A comprehensive table featuring Brand, Category, Stock levels, and Expiry Dates.
 * **Detailed Sidebar:** Click any row to see a deep-dive into Batch Numbers, Buying vs. Selling prices, and pharmacological descriptions.
 * **Advanced CRUD:** Integrated "Add/Edit/Delete" functionality with input validation to prevent data corruption.
 
-###  **Dynamic Billing & CRM**
+###  **3. Dynamic Billing & CRM**
 * **Dual-Search Interface:** Search by Customer Name or Medicine Name simultaneously to build a cart.
 * **Barcode Readiness:** Designed for quick "Scan Barcode" integration to speed up the checkout process.
 * **Automated Invoicing:** Real-time "Total" calculation with "Generate Invoice" capabilities for professional record-keeping.
 
-###  **Expiry & Stock Watchdog**
-* **Color-Coded Urgency:** * 🔴 **Red:** Expired or Critical Stock (Below 50% of Min Level).
-    * 🟠 **Orange:** Expiring within 3 months or Low Stock.
-    * 🟡 **Yellow:** Expiring within 6 months.
-* **Supplier Integration:** One-click "Send Request to Supplier" button to automate the re-ordering process.
+###  **4. Expiry & Stock Watchdog**
+To ensure patient safety and operational efficiency, the system splits critical alerts into two dedicated tracking modules, utilizing HCI visual cues to prevent errors:
+
+**1. Expiry Tracking System:**
+* 🔴 **Red (Critical):** Medication has already **Expired** and must be pulled from shelves.
+* 🟠 **Light Red (Warning):** Expiring within **3 months** (High priority for clearance).
+* 🟡 **Yellow (Notice):** Expiring within **6 months** (Active watchlist).
+
+**2. Low Stock Alerts:**
+* 🔴 **Red (Critical Stock):** Inventory is severely depleted (Dropped **below 50%** of the assigned minimum level).
+* 🟠 **Light Red (Low Stock):** Inventory has dropped **below the minimum** required level.
+
+**3. Automated Supplier Integration:**
+* A built-in **"Send Request to Supplier"** capability allows managers to instantly generate re-order requests for flagged items directly from the alerts screen, streamlining the supply chain.
 
 ---
 
