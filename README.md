@@ -107,6 +107,22 @@ To ensure patient safety and operational efficiency, the system splits critical 
 
 ---
 
+##  Responsive UI Design
+The system is engineered with a **fluid layout**, ensuring that the interface remains functional and visually consistent across different screen resolutions and window sizes.
+
+| Mobile/Small Window View | Desktop/Expanded View |
+| :---: | :---: |
+| <img src="screenshoots/medicineSmall.png" width="300"> | <img src="screenshoots/medicine.png" width="600"> |
+| *Adaptive sidebar & collapsed menu* | *Full-width data visualization* |
+
+**Key Responsive Features:**
+* **Dynamic Anchoring:** UI elements automatically reposition based on parent container resizing.
+* **Proportional Scaling:** Tables and charts expand to utilize available white space effectively.
+* **HCI Focused Layouts:** Menus and buttons remain within "easy-to-click" zones regardless of resolution.
+
+---
+
+
 ##   Stakeholder Management
 
 ### **Customer Management**
