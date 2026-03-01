@@ -174,7 +174,7 @@ The project uses a `SuperRepository` interface and specific implementations like
 The `DBConnection` class in the `db` package ensures that only one connection instance to the **MySQL** database exists at any given time, optimizing system resources.
 
 ### **4. Mapper Pattern**
-To maintain strict separation between the database and the UI, I implemented custom mappers like `CustomertoDTOMapper` to convert database entities into transfer objects seamlessly.
+To maintain strict separation between the database and the UI, I implemented custom mappers like `CustomertoDTOMapper` and `SuplierMapper` to convert database entities into transfer objects seamlessly.
 
 ### **5. HCI & UI Logic**
 * **Dynamic Styling:** Table cells are dynamically formatted to provide visual alerts for "Low Stock" and "Expired" items.
@@ -263,6 +263,29 @@ Pharmacy-Management-System/
 │   │   │   ├── Main.java
 │   │   │   └── Starter.java
 │   │   └── resources/
+│   │       ├── css/
+│   │       │   ├── pieChart.css
+│   │       │   └── style.css
+│   │       ├── view/
+│   │       │   ├── add_new_customer_form.fxml
+│   │       │   ├── add_new_medicine_form.fxml
+│   │       │   ├── add_new_suplier_form.fxml
+│   │       │   ├── billing_form.fxml
+│   │       │   ├── customer_info_form.fxml
+│   │       │   ├── customer_management_form.fxml
+│   │       │   ├── edit_customer_form.fxml
+│   │       │   ├── edit_med_form.fxml
+│   │       │   ├── edit_supplier_form.fxml
+│   │       │   ├── expiry_and_stock_alerts_form.fxml
+│   │       │   ├── main_dashboard_form.fxml
+│   │       │   ├── medicine_Info_form.fxml
+│   │       │   ├── medicine_management_form.fxml
+│   │       │   ├── reports_and_analytics_form.fxml
+│   │       │   ├── screen_selector_dashboard_form.fxml
+│   │       │   ├── suplier_Info_form.fxml
+│   │       │   ├── suplier_management_form(old).fxml
+│   │       │   └── suplier_management_form.fxml
+│   │       └── database.properties.example
 │   └── test/
 ├── target/
 ├── .gitignore
