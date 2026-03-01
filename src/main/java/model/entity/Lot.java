@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @ToString
 public class Lot {
     private Long LotID;
+    private Long orderId;
     private String lotNumber;
     private LocalDate expiryDate;
     private String qualityInspectionResults;

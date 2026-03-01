@@ -46,7 +46,7 @@ public class SuplierManagementServiceImpl implements SuplierManagementService {
 
     @Override
     public boolean updateSuplier(SuplierDTO updatedSuplierDTO) throws SQLException{
-        return suplierRepository.create(new Suplier(
+        return suplierRepository.update(new Suplier(
                 updatedSuplierDTO.getId(),
                 updatedSuplierDTO.getName(),
                 updatedSuplierDTO.getContactPerson(),
@@ -60,8 +60,7 @@ public class SuplierManagementServiceImpl implements SuplierManagementService {
 
     @Override
     public boolean deleteSuplier(Long id) throws SQLException {
-        System.out.println(id);
-        return false;
+        return suplierRepository.deleteById(id);
     }
 
 }

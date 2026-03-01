@@ -322,17 +322,15 @@ public class MainDashBoardController implements Initializable {
             List<BuyerOrderDTO> allSalseData = mainDashBoardService.getAllBuyerOrders();
             List<MedicineDTO> allMed = mainDashBoardService.getAll();
             LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
+
+            Map<Long, String> medIdToCategory = allMed.stream()
+                    .collect(Collectors.toMap(MedicineDTO::getId, MedicineDTO::getCategory));
+
             Map<String, Long> categoryCount = allSalseData.stream()
-                    //i used !isBefore because isAfter exclude last day
                     .filter(order -> !order.getDate().isBefore(sevenDaysAgo))
-                    .flatMap(byerOrderDTO -> byerOrderDTO.getCart().stream())
-                    .map(buyerOrderItemDTO -> allMed.stream()
-                            .filter(medicineDTO -> medicineDTO.getId().equals(buyerOrderItemDTO.getMedId()))
-                            .findFirst()
-                            .map(MedicineDTO::getCategory)
-                            .orElse("Unknown"))
-                    .collect(Collectors.groupingBy(categury-> categury,Collectors.counting())
-                    );
+                    .flatMap(order -> order.getCart().stream())
+                    .map(item -> medIdToCategory.getOrDefault(item.getMedId(), "Unknown"))
+                    .collect(Collectors.groupingBy(category -> category, Collectors.counting()));
 
             ObservableList<PieChart.Data> piChartData1 = FXCollections.observableArrayList();
             categoryCount.entrySet().stream()
