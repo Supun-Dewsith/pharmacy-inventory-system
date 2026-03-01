@@ -110,9 +110,9 @@ To ensure patient safety and operational efficiency, the system splits critical 
 ##  Responsive UI Design
 The system is engineered with a **fluid layout**, ensuring that the interface remains functional and visually consistent across different screen resolutions and window sizes.
 
-| Mobile/Small Window View | Desktop/Expanded View |
+| Small Window View | Expanded View |
 | :---: | :---: |
-| <img src="screenshoots/medicineSmall.png" width="300"> | <img src="screenshoots/medicine.png" width="600"> |
+| <img src="screenshoots/medicineSmall.png" width="500"> | <img src="screenshoots/medicine.png" width="500"> |
 | *Adaptive sidebar & collapsed menu* | *Full-width data visualization* |
 
 **Key Responsive Features:**
