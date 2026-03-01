@@ -47,7 +47,7 @@ The **Pharmacy Management System** is more than just a CRUD application. It is a
 ---
 
 ##   Tech Stack
-* **Language:** Java 21+
+* **Language:** Java 17+
 * **UI Framework:** JavaFX with Scene Builder (FXML)
 * **Database:** MySQL 8.0
 * **Design Pattern:** Singleton (DB Connection), Factory (UI Components), Layered Architecture (Controller-Service-Repository)
