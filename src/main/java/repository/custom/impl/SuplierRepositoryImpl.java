@@ -1,13 +1,12 @@
 package repository.custom.impl;
 
+import db.DBConnection;
 import model.dto.LotDTO;
 import model.dto.SuplierDTO;
-import model.entity.Lot;
-import model.entity.Suplier;
-import model.entity.SuplierOrder;
+import model.entity.*;
 import repository.custom.SuplierRepository;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +14,39 @@ import java.util.List;
 public class SuplierRepositoryImpl implements SuplierRepository {
     @Override
     public boolean create(Suplier suplier) throws SQLException {
-        System.out.println(suplier.toString());
-        return false;
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "INSERT INTO supplier (name, contact_person, phone, lead_time, email, status) VALUES(?,?,?,?,?,?)";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1,suplier.getName());
+        pstm.setString(2,suplier.getContactPerson());
+        pstm.setObject(3,suplier.getPhone());
+        pstm.setString(4,suplier.getLeadTime().toString());
+        pstm.setString(5,suplier.getEmail());
+        pstm.setString(6,suplier.getStatus());
+        return pstm.executeUpdate()>0;
     }
 
     @Override
     public boolean update(Suplier suplier) throws SQLException {
-        System.out.println(suplier.toString());
-        return false;
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "UPDATE supplier SET name=?, contact_person=?, phone=?, lead_time=?, email=?, status=? WHERE id=?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1,suplier.getName());
+        pstm.setString(2,suplier.getContactPerson());
+        pstm.setObject(3,suplier.getPhone());
+        pstm.setString(4,suplier.getLeadTime().toString());
+        pstm.setString(5,suplier.getEmail());
+        pstm.setString(6,suplier.getStatus());
+        pstm.setLong(7,suplier.getId());
+        return pstm.executeUpdate()>0;
     }
 
     @Override
     public boolean deleteById(Long id) throws SQLException {
-        System.out.println(id);
-        return false;
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM supplier WHERE id=?");
+        preparedStatement.setString(1,id.toString());
+        return preparedStatement.executeUpdate()>0;
     }
 
     @Override
@@ -40,47 +58,71 @@ public class SuplierRepositoryImpl implements SuplierRepository {
     @Override
     public List<Suplier> getAll() throws SQLException {
         List<Suplier> suppliers = new ArrayList<>();
-        //test data
-        // 1. Supplier: MediLife Pharma
-        Suplier s1 = new Suplier(1L, "MediLife Pharma", "Dr. Amal Perera", "0771234567", 3, "contact@medilife.lk", "Active", new ArrayList<>());
-        SuplierOrder o1 = new SuplierOrder(101L, 1L, LocalDate.of(2026, 1, 10), LocalDate.of(2026, 1, 13), new ArrayList<>());
-        o1.getLots().add(new Lot(501L, "L-9920", LocalDate.of(2028, 5, 20), "Passed - Sealed", 150.00));
-        s1.getOrders().add(o1);
 
-        // 2. Supplier: Global Health Supplies
-        Suplier s2 = new Suplier(2L, "Global Health", "Sarah Jenkins", "0112987654", 7, "sales@globalhealth.com", "Active", new ArrayList<>());
-        SuplierOrder o2 = new SuplierOrder(102L, 2L, LocalDate.of(2026, 2, 1), LocalDate.of(2026, 2, 8), new ArrayList<>());
-        o2.getLots().add(new Lot(502L, "B-4412", LocalDate.of(2027, 12, 10), "Passed - Cold Chain OK", 450.00));
-        s2.getOrders().add(o2);
+        String sql_1 = "SELECT * FROM supplier";
+        String sql_2 = "SELECT * FROM supplier_order WHERE supplier_id=?";
+        String sql_3 = "SELECT * FROM lot WHERE order_id=?";
 
-        // 3. Supplier: BioTech Labs (Delayed Supplier)
-        Suplier s3 = new Suplier(3L, "BioTech Labs", "Mark Fernando", "0714455667", 14, "orders@biotech.lk", "Active", new ArrayList<>());
-        SuplierOrder o3 = new SuplierOrder(103L, 3L, LocalDate.of(2026, 1, 5), LocalDate.of(2026, 1, 19), new ArrayList<>());
-        o3.getLots().add(new Lot(503L, "BT-001", LocalDate.of(2026, 6, 15), "Passed", 1200.00));
-        s3.getOrders().add(o3);
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement_1 = connection.prepareStatement(sql_1);
+        ResultSet resultSet_1 = preparedStatement_1.executeQuery();
 
-        // 4. Supplier: QuickMeds Distributing
-        Suplier s4 = new Suplier(4L, "QuickMeds", "Nimali Silva", "0332211445", 2, "info@quickmeds.lk", "Active", new ArrayList<>());
-        SuplierOrder o4 = new SuplierOrder(104L, 4L, LocalDate.of(2026, 2, 20), LocalDate.of(2026, 2, 22), new ArrayList<>());
-        o4.getLots().add(new Lot(504L, "QM-987", LocalDate.of(2029, 1, 01), "Passed - Express Delivery", 85.00));
-        s4.getOrders().add(o4);
+        PreparedStatement preparedStatement_2 = connection.prepareStatement(sql_2);
+        PreparedStatement preparedStatement_3 = connection.prepareStatement(sql_3);
 
-        // 5. Supplier: Apex Care (Suspended)
-        Suplier s5 = new Suplier(5L, "Apex Care", "John Doe", "0759988776", 5, "admin@apexcare.lk", "Suspended", new ArrayList<>());
-        SuplierOrder o5 = new SuplierOrder(105L, 5L, LocalDate.of(2025, 12, 15), LocalDate.of(2025, 12, 20), new ArrayList<>());
-        o5.getLots().add(new Lot(505L, "AX-220", LocalDate.of(2026, 3, 15), "Failed - Damaged Box", 300.00));
-        s5.getOrders().add(o5);
-        s5.getOrders().add(o4);
-        s5.getOrders().add(o3);
-        s5.getOrders().add(o2);
-        s5.getOrders().add(o1);
+        while (resultSet_1.next()){
+            Suplier customer = new Suplier(
+                    Long.parseLong(resultSet_1.getString(1)),
+                    resultSet_1.getString(2),
+                    resultSet_1.getString(3),
+                    resultSet_1.getString(4),
+                    Integer.parseInt(resultSet_1.getString(5)),
+                    resultSet_1.getString(6),
+                    resultSet_1.getString(7),
+                    null
+            );
 
-        suppliers.add(s1);
-        suppliers.add(s2);
-        suppliers.add(s3);
-        suppliers.add(s4);
-        suppliers.add(s5);
+            List<SuplierOrder> suplierOrders = new ArrayList<>();
+            preparedStatement_2.setString(1,customer.getId().toString());
+            ResultSet resultSet_2 = preparedStatement_2.executeQuery();
 
+            while (resultSet_2.next()){
+
+                Date sqlDate = resultSet_2.getDate(4);
+                LocalDate receivedDate = (sqlDate != null)? sqlDate.toLocalDate():null;
+
+                SuplierOrder suplierOrder = new SuplierOrder(
+                        Long.parseLong(resultSet_2.getString(1)),
+                        Long.parseLong(resultSet_2.getString(2)),
+                        resultSet_2.getDate(3).toLocalDate(),
+                        receivedDate,
+                        null
+                );
+
+                List<Lot> lots = new ArrayList<>();
+                preparedStatement_3.setString(1,suplierOrder.getOrderID().toString());
+                ResultSet resultSet_3 = preparedStatement_3.executeQuery();
+
+                while (resultSet_3.next()){
+                    Lot lot = new Lot(
+                            Long.parseLong(resultSet_3.getString(1)),
+                            Long.parseLong(resultSet_3.getString(2)),
+                            resultSet_3.getString(3),
+                            resultSet_3.getDate(4).toLocalDate(),
+                            resultSet_3.getString(5),
+                            Double.parseDouble(resultSet_3.getString(6))
+
+                    );
+                    lots.add(lot);
+                }
+                suplierOrder.setLots(lots);
+                suplierOrders.add(suplierOrder);
+            }
+
+            customer.setOrders(suplierOrders);
+            suppliers.add(customer);
+        }
         return suppliers;
+
     }
 }

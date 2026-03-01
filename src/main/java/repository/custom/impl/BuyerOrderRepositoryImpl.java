@@ -1,5 +1,6 @@
 package repository.custom.impl;
 
+import db.DBConnection;
 import model.dto.SaleDTO;
 import model.entity.BuyerOrder;
 import model.entity.BuyerOrderItem;
@@ -7,10 +8,14 @@ import model.entity.Medicine;
 import model.entity.SuplierOrder;
 import repository.custom.BuyerOrderRepository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
@@ -39,39 +44,48 @@ public class BuyerOrderRepositoryImpl implements BuyerOrderRepository {
     @Override
     public List<BuyerOrder> getAll() throws SQLException {
         List<BuyerOrder> buyerOrders = new ArrayList<>();
-        LocalDate startDate = LocalDate.of(2026, 1, 4);
+        Connection connection = DBConnection.getInstance().getConnection();
+        //String sql = "SELECT * FROM buyerorder WHERE order_date<DATE_SUB(CURDATE(), INTERVAL 100 DAY)";
+        String sql = "SELECT * FROM buyerorder";
+        String sql_2 = "SELECT * FROM buyerorderItem WHERE order_id=?";
 
-        // Mock data arrays for variety
-        String[] items = {"MED-001", "MED-002", "MED-003", "MED-004", "MED-005"};
-        String[] cats = {"Antibiotic", "Analgesic", "Antihistamine", "Antidiabetic", "Antacid"};
-        double[] prices = {12.50, 5.00, 8.75, 15.20, 22.00};
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        PreparedStatement preparedStatement_2 = connection.prepareStatement(sql_2);
 
-        for (int i = 0; i < 100; i++) {
-            int randomIndex = i % 5; // Rotates through the mock data
-            LocalDate saleDate = startDate.plusDays(i);
-            int qty = 5 + (i % 10); // Varied quantity between 5 and 15
+        ResultSet resultSet = preparedStatement.executeQuery(sql);
+
+        while (resultSet.next()){
+            BuyerOrder buyerOrder = new BuyerOrder(
+                    Long.parseLong(resultSet.getString(1)),
+                    Long.parseLong(resultSet.getString(2)),
+                    resultSet.getString(3),
+                    Double.parseDouble(resultSet.getString(4)),
+                    resultSet.getDate(5).toLocalDate(),
+                    resultSet.getTime(6).toLocalTime(),
+                    null
+            );
+
 
             List<BuyerOrderItem> cart = new ArrayList<>();
+            preparedStatement_2.setString(1,buyerOrder.getId().toString());
+            ResultSet resultSet_3 = preparedStatement_2.executeQuery();
 
-            cart.add(new BuyerOrderItem((long)1,(long)i,(long)2, "MED-AM-042", 1, 12.75));
-            cart.add(new BuyerOrderItem((long)2,(long)i,(long)3, "MED-VH-019",3, 24.00));
-            cart.add(new BuyerOrderItem((long)3,(long)i,(long)4, "MED-AS-008", 5, 21.00));
-            cart.add(new BuyerOrderItem((long)4,(long)i,(long)4, "MED-CP-102", 1, 15.00));
-            cart.add(new BuyerOrderItem((long)5,(long)i,(long)8, "MED-AM-042", 1, 12.75));
-            cart.add(new BuyerOrderItem((long)6,(long)i,(long)3, "MED-VH-019",3, 24.00));
-            cart.add(new BuyerOrderItem((long)7,(long)i,(long)1, "MED-AS-008", 5, 21.00));
-            cart.add(new BuyerOrderItem((long)8,(long)i,(long)4, "MED-CP-102", 1, 15.00));
+            while (resultSet_3.next()){
+                BuyerOrderItem buyerOrderItem = new BuyerOrderItem(
+                        Long.parseLong(resultSet_3.getString(1)),
+                        Long.parseLong(resultSet_3.getString(2)),
+                        Long.parseLong(resultSet_3.getString(3)),
+                        resultSet_3.getString(4),
+                        Integer.parseInt(resultSet_3.getString(5)),
+                        Double.parseDouble(resultSet_3.getString(6))
 
-            buyerOrders.add(new BuyerOrder(
-                    (long)i,
-                    (long)i,
-                    items[randomIndex],
-                    prices[randomIndex],
-                    saleDate,
-                    LocalTime.of(10, 30).plusMinutes(i * 5),
-                    cart
-            ));
+                );
+                cart.add(buyerOrderItem);
+            }
+            buyerOrder.setCart(cart);
+            buyerOrders.add(buyerOrder);
         }
+
         return buyerOrders;
     }
 }
