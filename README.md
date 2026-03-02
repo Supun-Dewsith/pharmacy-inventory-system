@@ -15,6 +15,7 @@
 - [Tech Stack](#tech-stack)
 - [Executive Summary](#executive-summary)
 - [Core Features](#core-features)
+- [Responsive UI Dsign](#responsive-ui-design)
 - [Stakeholder Management](#stakeholder-management)
 - [Software Architecture](#software-architecture)
 - [Technical Implementation & Design Patterns](#technical-implementation--design-patterns)
