@@ -255,6 +255,7 @@ mvn clean install
 # Run the application
 mvn javafx:run
 ```
+---
 
 ##   Project Structure
 
