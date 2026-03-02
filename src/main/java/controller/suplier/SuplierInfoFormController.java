@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lombok.AccessLevel;
+import lombok.Setter;
 import model.dto.LotDTO;
 import model.dto.SuplierOrderDTO;
 import model.tm.DeleveryDetailsTM;
@@ -48,7 +50,7 @@ public class SuplierInfoFormController implements Initializable {
     private TableColumn<?, ?> colUnitCost;
 
     @FXML
-    private Label lblMedName;
+    private Label lblSupplierName;
 
     @FXML
     private TableView<DeleveryDetailsTM> tblDelleveryDetails;
@@ -58,6 +60,10 @@ public class SuplierInfoFormController implements Initializable {
 
     @FXML
     private TableView<MedAndQualityTM> tblMedAndQuality;
+
+    void setLblSupplierName(String name){
+        lblSupplierName.setText(name);
+    }
 
     public void setDeleveryDetailsTable(List<SuplierOrderDTO> orderDTOS){
         ObservableList<DeleveryDetailsTM> deleveryDetailsTMS = FXCollections.observableArrayList();

@@ -202,6 +202,7 @@ public class SuplierManagementFormController implements Initializable {
             Parent screen = loader.load();
             SuplierInfoFormController controller = loader.getController();
             controller.setDeleveryDetailsTable(suplierTM.getOrders());
+            controller.setLblSupplierName(suplierTM.getName());
             gridPane.add(screen,1,0);
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -26,7 +26,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="lblMedName" text="ABC Supliers">
+            <Label fx:id="lblSupplierName" text="ABC Supliers">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
