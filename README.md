@@ -319,7 +319,6 @@ Pharmacy-Management-System/
 │   │       │   ├── reports_and_analytics_form.fxml
 │   │       │   ├── screen_selector_dashboard_form.fxml
 │   │       │   ├── suplier_Info_form.fxml
-│   │       │   ├── suplier_management_form(old).fxml
 │   │       │   └── suplier_management_form.fxml
 │   │       └── database.properties.example
 │   └── test/
