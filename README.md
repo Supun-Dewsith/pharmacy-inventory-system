@@ -243,7 +243,7 @@ For security reasons, database credentials are not tracked in version control. Y
 ```text
 # Example database.properties configuration
 db.url=jdbc:mysql://localhost:3306/pharmacy_db
-db.user=root
+db.user=user_name
 db.password=your_local_password
 ```
 ### **Step 3: Build and Run**
