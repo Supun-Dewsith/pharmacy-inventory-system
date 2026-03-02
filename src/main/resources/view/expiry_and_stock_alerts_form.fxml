@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -21,44 +22,48 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="251.0" minHeight="4.0" percentHeight="7.0" prefHeight="4.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="251.0" minHeight="4.0" percentHeight="5.0" prefHeight="4.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="251.0" minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="251.0" minHeight="10.0" percentHeight="39.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="251.0" minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="251.0" minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="690.0" minHeight="10.0" percentHeight="39.0" prefHeight="689.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="690.0" minHeight="10.0" percentHeight="40.0" prefHeight="689.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="72.0" minHeight="10.0" percentHeight="5.0" prefHeight="27.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <GridPane prefHeight="91.0" prefWidth="1024.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <HBox>
                <children>
-                  <Label prefHeight="67.0" text="Expiry &amp; Stock Alerts">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <JFXTextField promptText="   Search" GridPane.columnIndex="1">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets right="10.0" />
-                     </GridPane.margin>
-                  </JFXTextField>
+                  <GridPane prefHeight="91.0" prefWidth="1024.0" style="-fx-background-color: #DBDBDB;" HBox.hgrow="ALWAYS">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label prefHeight="67.0" text="Expiry &amp; Stock Alerts">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <JFXTextField promptText="   Search" GridPane.columnIndex="1">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                     </children>
+                  </GridPane>
                </children>
-            </GridPane>
+            </HBox>
             <TableView fx:id="tblLowStockItems" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                <columns>
                   <TableColumn fx:id="colLowStockMedCode" prefWidth="331.0" text="Med Code" />

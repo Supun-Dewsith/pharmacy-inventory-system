@@ -18,132 +18,29 @@
 
 <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainDashBoardController">
    <children>
-      <GridPane prefHeight="711.0" prefWidth="1024.0" VBox.vgrow="ALWAYS">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="NEVER" />
-          <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="4.0" prefHeight="27.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" percentHeight="21.0" vgrow="ALWAYS" />
-            <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="4.0" prefHeight="30.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="21.0" prefHeight="30.0" vgrow="NEVER" />
-        </rowConstraints>
+      <GridPane VBox.vgrow="ALWAYS">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="95.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Label prefHeight="17.0" prefWidth="511.0" text="Low Stock" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label prefHeight="17.0" prefWidth="511.0" text="Busy Hours Analysis" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label prefHeight="67.0" text="Main Dashboard">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Label prefHeight="17.0" prefWidth="511.0" text="Expiry Watchlis" GridPane.rowIndex="4">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label prefHeight="17.0" prefWidth="511.0" text="Recent Activity Log" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </Label>
-            <TableView fx:id="tblLowStock" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
-               <columns>
-                  <TableColumn fx:id="colMedicineCodeLowStock" prefWidth="158.0" text="Medicine Code" />
-                  <TableColumn fx:id="colStock" prefWidth="140.0" text="Stock" />
-                  <TableColumn fx:id="colMinLevel" prefWidth="103.0" text="Min Level" />
-                  <TableColumn fx:id="colSuplier" text="Supplier" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </GridPane.margin>
-            </TableView>
-            <TableView fx:id="tblExpiryWatchlist" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
-               <columns>
-                  <TableColumn fx:id="colBatch" prefWidth="158.0" text="Batch" />
-                  <TableColumn fx:id="colMedicineCodeExpiry" prefWidth="140.0" text="Medicine Code" />
-                  <TableColumn fx:id="colExpiryDate" prefWidth="103.0" text="Expiry Date" />
-                  <TableColumn fx:id="colValue" text="Value ($)" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </GridPane.margin>
-            </TableView>
-            <BarChart fx:id="bussyHourAnalysistBarChart" GridPane.columnIndex="1" GridPane.rowIndex="3">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </BarChart>
-            <TableView fx:id="tblRecentActivityLog" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <columns>
-                  <TableColumn fx:id="colActivity" prefWidth="266.0" text="Activity" />
-                  <TableColumn fx:id="colDate" prefWidth="133.0" text="Date" />
-                  <TableColumn fx:id="colTime" prefWidth="91.0" text="Time" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </GridPane.margin>
-            </TableView>
-            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-               <children>
-                  <Label fx:id="lblDateTime" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="197.0" text="yyyy/MM/dd  | 00:00:00">
-                     <VBox.margin>
-                        <Insets right="20.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <GridPane GridPane.rowIndex="1">
+            <GridPane prefHeight="711.0" prefWidth="1024.0" GridPane.rowIndex="1">
               <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="62.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="4.0" prefHeight="27.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" percentHeight="21.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="4.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="21.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Critical Alerts">
+                  <Label prefHeight="17.0" prefWidth="511.0" text="Low Stock" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -151,119 +48,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;" styleClass="-fx-border-radius: 15;">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                           <children>
-                              <Label text="Pending Orders">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Label>
-                              <Label fx:id="lblPendingValidations" text="54">
-                                 <font>
-                                    <Font name="System Bold" size="36.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                           <children>
-                              <Label text="Out of Stock Count">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lblOutOfStockCount" text="22">
-                                 <font>
-                                    <Font name="System Bold" size="36.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-                           </HBox.margin>
-                           <children>
-                              <Label text="Cold Chain Temp Alert">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lblColdChainTempratireAlert" text="23.4°C">
-                                 <font>
-                                    <Font name="System Bold" size="36.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <GridPane GridPane.rowIndex="2">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <PieChart fx:id="categuryBreakdownPieChart" stylesheets="@../css/pieChart.css" GridPane.rowIndex="1" />
-                        <Label prefHeight="17.0" prefWidth="511.0" text="Stock Category Breakdown">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label prefHeight="17.0" prefWidth="511.0" text="Sales by Category (Last 7 days)" GridPane.columnIndex="1">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <PieChart fx:id="categuryBreakdownPieChartInSales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-               </children>
-            </GridPane>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <AreaChart fx:id="salesPerfomanceAreaChart" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </AreaChart>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Prescription Bottleneck Tracker">
+                  <Label prefHeight="17.0" prefWidth="511.0" text="Busy Hours Analysis" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -271,7 +56,51 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <BarChart fx:id="prescriptionBottlneckTrackerBarChart" GridPane.rowIndex="1">
+                  <Label prefHeight="17.0" prefWidth="511.0" text="Expiry Watchlis" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="511.0" text="Recent Activity Log" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TableView fx:id="tblLowStock" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                     <columns>
+                        <TableColumn fx:id="colMedicineCodeLowStock" prefWidth="158.0" text="Medicine Code" />
+                        <TableColumn fx:id="colStock" prefWidth="140.0" text="Stock" />
+                        <TableColumn fx:id="colMinLevel" prefWidth="103.0" text="Min Level" />
+                        <TableColumn fx:id="colSuplier" text="Supplier" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </GridPane.margin>
+                  </TableView>
+                  <TableView fx:id="tblExpiryWatchlist" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                     <columns>
+                        <TableColumn fx:id="colBatch" prefWidth="158.0" text="Batch" />
+                        <TableColumn fx:id="colMedicineCodeExpiry" prefWidth="140.0" text="Medicine Code" />
+                        <TableColumn fx:id="colExpiryDate" prefWidth="103.0" text="Expiry Date" />
+                        <TableColumn fx:id="colValue" text="Value ($)" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </GridPane.margin>
+                  </TableView>
+                  <BarChart fx:id="bussyHourAnalysistBarChart" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -279,16 +108,219 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </BarChart>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Sales Performance(Last 100 days)" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
+                  <TableView fx:id="tblRecentActivityLog" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <columns>
+                        <TableColumn fx:id="colActivity" prefWidth="266.0" text="Activity" />
+                        <TableColumn fx:id="colDate" prefWidth="133.0" text="Date" />
+                        <TableColumn fx:id="colTime" prefWidth="91.0" text="Time" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
                      </GridPane.margin>
-                  </Label>
+                  </TableView>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="62.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="511.0" text="Critical Alerts">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;" styleClass="-fx-border-radius: 15;">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <Label text="Pending Orders">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label fx:id="lblPendingValidations" text="54">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <Label text="Out of Stock Count">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblOutOfStockCount" text="22">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <Label text="Cold Chain Temp Alert">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblColdChainTempratireAlert" text="23.4°C">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <GridPane GridPane.rowIndex="2">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <PieChart fx:id="categuryBreakdownPieChart" stylesheets="@../css/pieChart.css" GridPane.rowIndex="1" />
+                              <Label prefHeight="17.0" prefWidth="511.0" text="Stock Category Breakdown">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label prefHeight="17.0" prefWidth="511.0" text="Sales by Category (Last 7 days)" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <PieChart fx:id="categuryBreakdownPieChartInSales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AreaChart fx:id="salesPerfomanceAreaChart" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </AreaChart>
+                        <Label prefHeight="17.0" prefWidth="511.0" text="Prescription Bottleneck Tracker">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <BarChart fx:id="prescriptionBottlneckTrackerBarChart" GridPane.rowIndex="1">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <Label prefHeight="17.0" prefWidth="511.0" text="Sales Performance(Last 100 days)" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #DBDBDB;">
+               <children>
+                  <GridPane prefHeight="37.0" prefWidth="1036.0" HBox.hgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <children>
+                              <Label prefHeight="67.0" text="Main Dashboard">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label fx:id="lblDateTime" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="197.0" text="yyyy/MM/dd  | 00:00:00">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets right="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>
