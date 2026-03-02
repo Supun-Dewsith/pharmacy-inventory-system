@@ -163,7 +163,7 @@
                             <TableColumn fx:id="colCartMedCode" prefWidth="93.0" text="Med Code" />
                             <TableColumn fx:id="colCartPrice" prefWidth="77.0" text="Price" />
                               <TableColumn fx:id="colCartQTY" prefWidth="55.0" text="QTY" />
-                              <TableColumn fx:id="colCartTotal" prefWidth="75.0" text="Total" />
+                              <TableColumn fx:id="colCartTotal" prefWidth="75.0" text="Total($)" />
                           </columns>
                            <GridPane.margin>
                               <Insets right="10.0" />
@@ -172,26 +172,29 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #CFCFCF;" GridPane.rowIndex="1">
-                           <buttons>
-                              <Label fx:id="lblTotal" minWidth="63.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" text="00.0">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Total : ">
+                        <HBox style="-fx-background-color: #CFCFCF;" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                           <children>
+                              <Label prefHeight="35.0" text="Total : ">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                                  <padding>
                                     <Insets right="10.0" />
                                  </padding>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
                               </Label>
-                           </buttons>
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </ButtonBar>
+                              <Label fx:id="lblTotal" minWidth="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="191.0" text="\$0.00" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <buttons>
                               <JFXButton onAction="#btnRemoveItemOnAction" style="-fx-background-color: #CFCFCF;" text="Remove">

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -26,14 +27,21 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="lblSupplierName" text="ABC Supliers">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
+            <HBox style="-fx-background-color: #DBDBDB;">
+               <children>
+                  <Label fx:id="lblSupplierName" prefHeight="27.0" prefWidth="145.0" text="ABC Supliers">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
-            </Label>
+            </HBox>
             <TableView fx:id="tblDelleveryDetails" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
               <columns>
                   <TableColumn fx:id="colOrderId" prefWidth="75.0" text="Order ID" />

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -24,14 +25,24 @@
             <RowConstraints minHeight="10.0" percentHeight="45.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="lblMedName" text="Customer Name">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
+            <HBox style="-fx-background-color: #DBDBDB;">
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
-            </Label>
+               <children>
+                  <Label fx:id="lblMedName" text="Customer Name">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
             <TableView fx:id="tblOrderDetails" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <columns>
                   <TableColumn fx:id="colOrderCode" prefWidth="75.0" text="Order Code" />

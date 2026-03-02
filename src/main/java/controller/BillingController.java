@@ -264,7 +264,8 @@ public class BillingController implements Initializable {
     }
 
     private void calculateTotal(ObservableList<CartTM> cartTMS){
-        lblTotal.setText(billingService.calculateTotal(cartTMS).toString());
+        double total = billingService.calculateTotal(cartTMS);
+        lblTotal.setText(String.format("$%.2f", total));
     }
 
     private void addToCart(MedicineTM medicineTM){

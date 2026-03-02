@@ -12,14 +12,21 @@
 
 <VBox prefHeight="703.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customer.EditCustomerFormController">
    <children>
-      <Label text="Edit Customer">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
+      <HBox style="-fx-background-color: #DBDBDB;">
          <VBox.margin>
-            <Insets left="10.0" top="20.0" />
+            <Insets top="20.0" />
          </VBox.margin>
-      </Label>
+         <children>
+            <Label text="Edit Customer">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
       <HBox maxHeight="25.0" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
             <JFXComboBox fx:id="cmbTitle" minWidth="33.0" prefHeight="25.0" prefWidth="107.0" promptText="Title" />
