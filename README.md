@@ -254,8 +254,20 @@ Pharmacy-Management-System/
 │   │   │   │   └── SuplierMapper.java
 │   │   │   ├── model/
 │   │   │   │   ├── dto/
+│   │   │   │   │   ├── CustomerDTO.java
+│   │   │   │   │   ├── MedicineDTO.java
+│   │   │   │   │   ├── SuplierDTO.java
+│   │   │   │   │   └── ... (Other Data Transfer Objects)
 │   │   │   │   ├── entity/
+│   │   │   │   │   ├── Customer.java
+│   │   │   │   │   ├── Medicine.java
+│   │   │   │   │   ├── Suplier.java
+│   │   │   │   │   └── ... (Database Entities)
 │   │   │   │   └── tm/
+│   │   │   │       ├── CustomerTM.java
+│   │   │   │       ├── MedicineTM.java
+│   │   │   │       ├── FinancialTM.java
+│   │   │   │       └── ... (JavaFX Table Models)
 │   │   │   ├── repository/
 │   │   │   │   ├── custom/
 │   │   │   │   │   ├── impl/
