@@ -131,12 +131,27 @@ The system is engineered with a **fluid layout**, ensuring that the interface re
 ##   Stakeholder Management
 
 ### **Customer Management**
-* Maintain a detailed registry of customer demographics (DOB, Address, Phone, Email).
-* Track purchase history to provide personalized pharmaceutical care.
+* **Detailed Patient Registry:** Maintains high-integrity data for every customer, including **DOB**, **Address**, and **Contact Information**, ensuring accurate identification for prescription dispensing.
+* **Integrated Purchase History:** Tracks complete **Order Codes**, **Order Dates**, and **Total Prices**, allowing pharmacists to review a patient's historical medication usage at a glance.
+* **Order-Level Granularity:** Provides a deep-dive into specific orders to see **Medicine Codes**, **Names**, and **Quantities (QTY)**, helping to prevent potential drug interactions.
+* **HCI-Optimized Search:** Features a "Search By Name" functionality to ensure rapid access to patient files in a high-traffic pharmacy environment.
+
+|                  Customer Directory                  |               Patient Order History & Details                |
+|:----------------------------------------------------:|:------------------------------------------------------------:|
+|  <img src="screenshoots/customer.png" width="500">   |  <img src="screenshoots/customer_details.png" width="500">   |
+| *Full searchable database with demographic overview* | *Real-time order tracking and itemized prescription history* |
 
 ### **Supplier Relations**
-* Monitor "Lead Time" in days to choose the most efficient suppliers.
-* Track supplier status (Active/Pending/Inactive) to ensure a reliable supply chain.
+* **Efficiency Analytics:** Tracks **Lead Time (Days)** for every supplier, enabling data-driven decisions on procurement speed.
+* **Lifecycle Monitoring:** Categorizes partners as **Active**, **Pending**, or **Inactive** to safeguard the ordering process.
+* **Quality Compliance:** Dedicated tracking for **Batch/Lot Numbers** and **Quality Inspection Results** (e.g., "Passed - High Purity").
+* **Financial Auditing:** Provides a transparent view of **Unit Cost** and **Total Cost** history for budget forecasting.
+
+
+|                   Supplier Registry                   |              Procurement & Quality Metadata               |
+|:-----------------------------------------------------:|:---------------------------------------------------------:|
+|   <img src="screenshoots/supliers.png" width="500">   | <img src="screenshoots/supplier_details.png" width="500"> |
+| *Searchable directory with real-time status tracking* |   *Deep-dive into delivery dates and financial history*   |
 
 ---
 
