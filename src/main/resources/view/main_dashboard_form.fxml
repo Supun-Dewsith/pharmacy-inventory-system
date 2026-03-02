@@ -40,37 +40,49 @@
                   <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="21.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Low Stock" GridPane.rowIndex="1">
+                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Low Stock" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Busy Hours Analysis" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Busy Hours Analysis" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Expiry Watchlis" GridPane.rowIndex="3">
+                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Expiry Watchlis" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="511.0" text="Recent Activity Log" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Recent Activity Log" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
                   <TableView fx:id="tblLowStock" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <columns>
@@ -131,13 +143,16 @@
                         <RowConstraints minHeight="10.0" percentHeight="62.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="17.0" prefWidth="511.0" text="Critical Alerts">
+                        <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Critical Alerts">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets left="20.0" />
+                              <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
                         </Label>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
@@ -211,21 +226,27 @@
                           </rowConstraints>
                            <children>
                               <PieChart fx:id="categuryBreakdownPieChart" stylesheets="@../css/pieChart.css" GridPane.rowIndex="1" />
-                              <Label prefHeight="17.0" prefWidth="511.0" text="Stock Category Breakdown">
+                              <Label prefHeight="17.0" prefWidth="511.0" style="-fx-background-color: #DBDBDB;" text="Stock Category Breakdown">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
                               </Label>
-                              <Label prefHeight="17.0" prefWidth="511.0" text="Sales by Category (Last 7 days)" GridPane.columnIndex="1">
+                              <Label prefHeight="17.0" prefWidth="511.0" style="-fx-background-color: #DBDBDB;" text="Sales by Category (Last 7 days)" GridPane.columnIndex="1">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
                               </Label>
                               <PieChart fx:id="categuryBreakdownPieChartInSales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
@@ -251,13 +272,16 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </AreaChart>
-                        <Label prefHeight="17.0" prefWidth="511.0" text="Prescription Bottleneck Tracker">
+                        <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Prescription Bottleneck Tracker">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets left="20.0" />
+                              <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
                         </Label>
                         <BarChart fx:id="prescriptionBottlneckTrackerBarChart" GridPane.rowIndex="1">
                           <xAxis>
@@ -267,13 +291,16 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </BarChart>
-                        <Label prefHeight="17.0" prefWidth="511.0" text="Sales Performance(Last 100 days)" GridPane.rowIndex="2">
+                        <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Sales Performance(Last 100 days)" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets left="20.0" />
+                              <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
                         </Label>
                      </children>
                   </GridPane>
