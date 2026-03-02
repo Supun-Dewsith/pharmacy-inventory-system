@@ -19,8 +19,9 @@
 - [Stakeholder Management](#stakeholder-management)
 - [Software Architecture](#software-architecture)
 - [Technical Implementation & Design Patterns](#technical-implementation--design-patterns)
+- [Installation](#installation)
 - [Project Structure](#project-structure)
-- [Future Roadmap](#️future-roadmap)
+- [Future Roadmap](#future-roadmap)
 - [License](#license)
 - [Author](#author)
 
@@ -216,6 +217,44 @@ To maintain strict separation between the database and the UI, I implemented cus
 * **Dynamic Styling:** Table cells are dynamically formatted to provide visual alerts for "Low Stock" and "Expired" items.
 * **Modular UI:** Each major feature (Medicine, Billing, Alerts) is isolated into its own FXML and Controller pair for better maintainability.
 
+
+---
+
+## Installation
+
+To run this project locally, follow these steps to configure your environment and database.
+
+### **Step 1: Clone the Repository**
+```bash
+git clone https://github.com/Supun-Dewsith/pharmacy-inventory-system.git
+cd pharmacy-inventory-system
+```
+
+### **Step 2: Database Configuration (Security Best Practice)**
+For security reasons, database credentials are not tracked in version control. You must configure your local connection properties:
+
+1. Create your database schema in MySQL (e.g., pharmacy_db) and execute your SQL dump to create the tables.
+
+2. Navigate to the src/main/resources/ directory.
+
+3. Locate the database.properties.example file and duplicate it, renaming the copy to database.properties.
+
+4. Open your new database.properties file and enter your local MySQL credentials:
+```text
+# Example database.properties configuration
+db.url=jdbc:mysql://localhost:3306/pharmacy_db
+db.user=root
+db.password=your_local_password
+```
+### **Step 3: Build and Run**
+Once the database is configured, use Maven to build the project and launch the JavaFX application:
+```text
+# Clean previous builds and install dependencies
+mvn clean install
+
+# Run the application
+mvn javafx:run
+```
 
 ##   Project Structure
 
