@@ -1,0 +1,46 @@
+
+/* Change the colors of Bar Charts
+.default-color0.chart-bar { -fx-bar-fill: #0D9488; } /* Primary Teal */
+.default-color1.chart-bar { -fx-bar-fill: #14B8A6; }
+.default-color2.chart-bar { -fx-bar-fill: #2DD4BF; }
+
+/* Styling the Area */
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(13, 148, 136, 0.2);
+}
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: #0D9488;
+    -fx-stroke-width: 3px;
+}
+
+/* Styling the symbols */
+.default-color0.chart-area-symbol {
+    -fx-background-color: #0D9488, white;
+    -fx-background-insets: 0, 2;
+}
+/* Remove the background grid lines */
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
+    -fx-stroke: transparent;
+}
+
+/* Apply to everything */
+.root, .label, .button, .table-view, .text {
+    -fx-font-family: "Segoe UI";
+}
+
+
+//*pieChart
+
+.default-color0.chart-pie  { -fx-pie-color: #042f2e; } /* Deepest */
+.default-color1.chart-pie  { -fx-pie-color: #134e4a; }
+.default-color2.chart-pie  { -fx-pie-color: #0f766e; }
+.default-color3.chart-pie  { -fx-pie-color: #0d9488; } /* Main Brand Teal */
+.default-color4.chart-pie  { -fx-pie-color: #14b8a6; }
+.default-color5.chart-pie  { -fx-pie-color: #2dd4bf; }
+.default-color6.chart-pie  { -fx-pie-color: #5eead4; }
+.default-color7.chart-pie  { -fx-pie-color: #99f6e4; }
+.default-color8.chart-pie  { -fx-pie-color: #ccfbf1; }
+.default-color9.chart-pie  { -fx-pie-color: #2af598; } /* Moving toward Mint */
+.default-color10.chart-pie { -fx-pie-color: #009688; }
+.default-color11.chart-pie { -fx-pie-color: #b2dfdb; } /* Lightest */

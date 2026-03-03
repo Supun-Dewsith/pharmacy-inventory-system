@@ -84,7 +84,7 @@ public class MainDashBoardController implements Initializable {
     private Label lblOutOfStockCount;
 
     @FXML
-    private Label lblPendingValidations;
+    private Label lblActiveSupliers;
 
     @FXML
     private BarChart<String, Number> prescriptionBottlneckTrackerBarChart;
@@ -105,6 +105,7 @@ public class MainDashBoardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadDateAndTime();
+        loadActiveSupliersLabel();
         mapTblLowStock();
         mapTblExpiryWatchlist();
         mapRecntActivityTable();
@@ -117,19 +118,31 @@ public class MainDashBoardController implements Initializable {
         loadBusyHourAnalysistBarChart();
         setPrescriptionBottlneckTrackerBarChart();
         setSalesPerfomanceAreaChart();
-        loadCriticleAlerts();
+        loadColdChainTemp();
     }
 
-    private void loadCriticleAlerts(){
+    private void loadColdChainTemp(){
+        Random random = new Random();
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4),event -> {
-            lblPendingValidations.setText(""+new Random().nextInt(100));
-            lblOutOfStockCount.setText(""+new Random().nextInt(100));
-            double temp = 20.0+ new Random().nextDouble(5);
+            double temp = 2.0 + random.nextDouble() * 6.0;
             lblColdChainTempratireAlert.setText(String.format("%.1f°C",temp));
         }));
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+    private void loadActiveSupliersLabel(){
+        List<SuplierDTO> suplierDTOS = null;
+        try {
+            suplierDTOS = mainDashBoardService.getallSupliers();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
+        }
+        int count = 0;
+        for(SuplierDTO suplierDTO:suplierDTOS){
+            count += "Active".equalsIgnoreCase(suplierDTO.getStatus()) ? 1 : 0;
+        }
+        lblActiveSupliers.setText(""+count);
     }
 
     private void loadDateAndTime(){
@@ -190,6 +203,7 @@ public class MainDashBoardController implements Initializable {
     private void loadLowStockTable(){
         try {
             List<MedicineDTO> all = mainDashBoardService.getAll();
+            loadLowStock(all);
             List<LowStockTM> lowStockTMS = new ArrayList<>();
 
             all.forEach(medicineDTO -> {
@@ -206,6 +220,15 @@ public class MainDashBoardController implements Initializable {
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage()).show();
         }
+    }
+
+    private void loadLowStock(List<MedicineDTO> all){
+        int stockCount = 0;
+
+        for(MedicineDTO medicineDTO:all){
+            stockCount+=(medicineDTO.getStock()==0)?1:0;
+        }
+        lblOutOfStockCount.setText(""+stockCount);
     }
 
 
@@ -260,9 +283,6 @@ public class MainDashBoardController implements Initializable {
             }
         });
     }
-
-
-
 
 
 

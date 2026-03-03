@@ -14,9 +14,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainDashBoardController">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #F9FAFB;" stylesheets="@../css/charts.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainDashBoardController">
    <children>
       <GridPane VBox.vgrow="ALWAYS">
          <columnConstraints>
@@ -40,7 +41,7 @@
                   <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="21.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Low Stock" GridPane.rowIndex="1">
+                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Low Stock" textFill="#111827" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -51,7 +52,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Busy Hours Analysis" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Busy Hours Analysis" textFill="#111827" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -62,7 +63,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Expiry Watchlis" GridPane.rowIndex="3">
+                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Expiry Watchlis" textFill="#111827" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -73,7 +74,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Recent Activity Log" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Recent Activity Log" textFill="#111827" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -143,7 +144,7 @@
                         <RowConstraints minHeight="10.0" percentHeight="62.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Critical Alerts">
+                        <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Critical Alerts" textFill="#111827">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -156,62 +157,86 @@
                         </Label>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;" styleClass="-fx-border-radius: 15;">
+                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #FFFFFF;" styleClass="stat-card">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="5.0" top="5.0" />
                                  </HBox.margin>
                                  <children>
-                                    <Label text="Pending Orders">
+                                    <SVGPath content="M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11 M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z M6 13h12 M6 17h12" fill="TRANSPARENT" scaleX="1.5" scaleY="1.5" stroke="BLACK" />
+                                    <Label text="Active Supliers" textFill="#808080">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
                                     </Label>
-                                    <Label fx:id="lblPendingValidations" text="54">
+                                    <Label fx:id="lblActiveSupliers" text="0">
                                        <font>
-                                          <Font name="System Bold" size="36.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                     </Label>
                                  </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;">
+                              <VBox fx:id="outOfStockCard" alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #FFFFFF;">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
                                  <children>
-                                    <Label text="Out of Stock Count">
+                                    <SVGPath content="M10 19a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M10 5a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M14 12a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M18 19a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M2 19a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M6 12a2 2 0 1 0 4 0a2 2 0 1 0-4 0" fill="TRANSPARENT" scaleX="1.5" scaleY="1.5" stroke="BLACK" />
+                                    <Label text="Out of Stock Count" textFill="GREY">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
                                     </Label>
-                                    <Label fx:id="lblOutOfStockCount" text="22">
+                                    <Label fx:id="lblOutOfStockCount" text="0">
                                        <font>
-                                          <Font name="System Bold" size="36.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #CFCFCF;">
+                              <VBox alignment="CENTER" prefHeight="35.0" prefWidth="482.0" style="-fx-background-color: #FFFFFF;">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                                  </HBox.margin>
                                  <children>
-                                    <Label text="Cold Chain Temp Alert">
+                                    <SVGPath content="M10 20l-1.25-2.5L6 18 M10 4l-1.25 2.5L6 6 M10.585 15H10 M2 12h6.5L10 9 M20 14.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z M4 10l1.5 2L4 14 M7 21l3-6-1.5-3 M7 3l3 6h2" fill="TRANSPARENT" scaleX="1.5" scaleY="1.5" stroke="BLACK" />
+                                    <Label text="Cold Chain Temp Alert" textFill="GREY">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
                                     </Label>
                                     <Label fx:id="lblColdChainTempratireAlert" text="23.4°C">
                                        <font>
-                                          <Font name="System Bold" size="36.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
                               </VBox>
                            </children>
                         </HBox>
@@ -225,7 +250,10 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <PieChart fx:id="categuryBreakdownPieChart" stylesheets="@../css/pieChart.css" GridPane.rowIndex="1" />
+                              <PieChart fx:id="categuryBreakdownPieChart" style="-fx-background-color: #FFFFFF;" stylesheets="@../css/pieChart.css" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </GridPane.margin></PieChart>
                               <Label prefHeight="17.0" prefWidth="511.0" style="-fx-background-color: #DBDBDB;" text="Stock Category Breakdown">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
@@ -248,7 +276,10 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <PieChart fx:id="categuryBreakdownPieChartInSales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <PieChart fx:id="categuryBreakdownPieChartInSales" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </GridPane.margin></PieChart>
                            </children>
                         </GridPane>
                      </children>
@@ -322,7 +353,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Label prefHeight="67.0" text="Main Dashboard">
+                              <Label prefHeight="67.0" text="Main Dashboard" textFill="#111827">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>

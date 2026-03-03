@@ -12,6 +12,7 @@ public interface MainDashBoardService extends SuperService {
     public List<RecentActivityDTO> getAllActivity() throws SQLException;
     public List<BuyerOrderDTO> getAllBuyerOrders() throws SQLException;
     public List<PrescriptionDTO> getAllPrescriptionData() throws SQLException;
+    public List<SuplierDTO> getallSupliers() throws SQLException;
 
 
 }

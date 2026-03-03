@@ -6,6 +6,7 @@ import repository.RepositoryFactroy;
 import repository.custom.BuyerOrderRepository;
 import repository.custom.MedicineRepository;
 import repository.custom.RecentActivityRepository;
+import repository.custom.SuplierRepository;
 import service.custom.MainDashBoardService;
 import util.RepositoryType;
 
@@ -19,7 +20,7 @@ public class MainDashBoardServiceImpl implements MainDashBoardService {
     MedicineRepository medicineRepository = RepositoryFactroy.getInstance().getRepositoryType(RepositoryType.MEDICINE);
     RecentActivityRepository recentActivityRepository = RepositoryFactroy.getInstance().getRepositoryType(RepositoryType.RECENTACTIVITY);
     BuyerOrderRepository buyerOrderRepository = RepositoryFactroy.getInstance().getRepositoryType(RepositoryType.BUYERORDER);
-
+    SuplierRepository suplierRepository = RepositoryFactroy.getInstance().getRepositoryType(RepositoryType.SUPLIER);
     @Override
     public List<MedicineDTO> getAll() throws SQLException {
         List<MedicineDTO> medicineList = new ArrayList<>();
@@ -44,6 +45,7 @@ public class MainDashBoardServiceImpl implements MainDashBoardService {
         });
         return medicineList;
     }
+
 
     @Override
     public List<RecentActivityDTO> getAllActivity() throws SQLException {
@@ -98,6 +100,27 @@ public class MainDashBoardServiceImpl implements MainDashBoardService {
     @Override
     public List<PrescriptionDTO> getAllPrescriptionData() throws SQLException {
         return List.of();
+    }
+
+    @Override
+    public List<SuplierDTO> getallSupliers() throws SQLException {
+        List<SuplierDTO> suplierDTOS = new ArrayList<>();
+        List<Suplier> supliers = suplierRepository.getAll();
+        supliers.forEach(
+                suplier -> {
+                    suplierDTOS.add(new SuplierDTO(
+                            suplier.getId(),
+                            suplier.getName(),
+                            suplier.getContactPerson(),
+                            suplier.getPhone(),
+                            suplier.getLeadTime(),
+                            suplier.getEmail(),
+                            suplier.getStatus(),
+                            null
+                    ));
+                }
+        );
+        return suplierDTOS;
     }
 
 
