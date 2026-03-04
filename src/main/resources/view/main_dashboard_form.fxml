@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #F9FAFB;" stylesheets="@../css/charts.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainDashBoardController">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #F9FAFB;" stylesheets="@../css/main_dashboard_style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainDashBoardController">
    <children>
       <GridPane VBox.vgrow="ALWAYS">
          <columnConstraints>
@@ -41,7 +41,7 @@
                   <RowConstraints maxHeight="0.0" minHeight="10.0" percentHeight="21.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Low Stock" textFill="#111827" GridPane.rowIndex="1">
+                  <Label prefHeight="20.0" prefWidth="1500.0" text="Low Stock" textFill="#111827" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -52,7 +52,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Busy Hours Analysis" textFill="#111827" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label prefHeight="17.0" prefWidth="1500.0" text="Busy Hours Analysis" textFill="#111827" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -63,7 +63,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Expiry Watchlis" textFill="#111827" GridPane.rowIndex="3">
+                  <Label prefHeight="20.0" prefWidth="1500.0" text="Expiry Watchlis" textFill="#111827" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -74,7 +74,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Recent Activity Log" textFill="#111827" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label prefHeight="17.0" prefWidth="1500.0" text="Recent Activity Log" textFill="#111827" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -85,7 +85,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <TableView fx:id="tblLowStock" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                  <TableView fx:id="tblLowStock" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" GridPane.rowIndex="2">
                      <columns>
                         <TableColumn fx:id="colMedicineCodeLowStock" prefWidth="158.0" text="Medicine Code" />
                         <TableColumn fx:id="colStock" prefWidth="140.0" text="Stock" />
@@ -99,7 +99,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                      </GridPane.margin>
                   </TableView>
-                  <TableView fx:id="tblExpiryWatchlist" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                  <TableView fx:id="tblExpiryWatchlist" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" GridPane.rowIndex="4">
                      <columns>
                         <TableColumn fx:id="colBatch" prefWidth="158.0" text="Batch" />
                         <TableColumn fx:id="colMedicineCodeExpiry" prefWidth="140.0" text="Medicine Code" />
@@ -113,15 +113,18 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                      </GridPane.margin>
                   </TableView>
-                  <BarChart fx:id="bussyHourAnalysistBarChart" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <BarChart fx:id="bussyHourAnalysistBarChart" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis side="LEFT" />
                     </yAxis>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" />
+                     </GridPane.margin>
                   </BarChart>
-                  <TableView fx:id="tblRecentActivityLog" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <TableView fx:id="tblRecentActivityLog" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <columns>
                         <TableColumn fx:id="colActivity" prefWidth="266.0" text="Activity" />
                         <TableColumn fx:id="colDate" prefWidth="133.0" text="Date" />
@@ -144,9 +147,9 @@
                         <RowConstraints minHeight="10.0" percentHeight="62.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Critical Alerts" textFill="#111827">
+                        <Label prefHeight="17.0" prefWidth="1500.0" text="Critical Alerts" textFill="#111827">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font size="14.0" />
                            </font>
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
@@ -254,7 +257,7 @@
                                  <GridPane.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </GridPane.margin></PieChart>
-                              <Label prefHeight="17.0" prefWidth="511.0" style="-fx-background-color: #DBDBDB;" text="Stock Category Breakdown">
+                              <Label prefHeight="17.0" prefWidth="511.0" text="Stock Category Breakdown">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -265,16 +268,13 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="17.0" prefWidth="511.0" style="-fx-background-color: #DBDBDB;" text="Sales by Category (Last 7 days)" GridPane.columnIndex="1">
+                              <Label prefHeight="17.0" prefWidth="511.0" text="Sales by Category (Last 7 days)" GridPane.columnIndex="1">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
                               </Label>
                               <PieChart fx:id="categuryBreakdownPieChartInSales" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
@@ -295,17 +295,20 @@
                       <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <AreaChart fx:id="salesPerfomanceAreaChart" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                        <AreaChart fx:id="salesPerfomanceAreaChart" style="-fx-background-color: #FFFFFF;" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
                           <yAxis>
                             <NumberAxis side="LEFT" />
                           </yAxis>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </GridPane.margin>
                         </AreaChart>
-                        <Label prefHeight="20.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Prescription Bottleneck Tracker">
+                        <Label prefHeight="20.0" prefWidth="1500.0" text="Prescription Bottleneck Tracker">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font size="14.0" />
                            </font>
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
@@ -314,15 +317,18 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <BarChart fx:id="prescriptionBottlneckTrackerBarChart" GridPane.rowIndex="1">
+                        <BarChart fx:id="prescriptionBottlneckTrackerBarChart" style="-fx-background-color: #FFFFFF;" GridPane.rowIndex="1">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
                           <yAxis>
                             <NumberAxis side="LEFT" />
                           </yAxis>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </GridPane.margin>
                         </BarChart>
-                        <Label prefHeight="17.0" prefWidth="1500.0" style="-fx-background-color: #DBDBDB;" text="Sales Performance(Last 100 days)" GridPane.rowIndex="2">
+                        <Label prefHeight="17.0" prefWidth="1500.0" text="Sales Performance(Last 100 days)" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -348,12 +354,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox>
+                        <HBox style="-fx-background-color: #FFFFFF;">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Label prefHeight="67.0" text="Main Dashboard" textFill="#111827">
+                              <Label prefHeight="67.0" styleClass="header-label" text="MAIN DASHBOARD" textFill="#111827">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -363,7 +369,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="1">
                            <children>
                               <Label fx:id="lblDateTime" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="197.0" text="yyyy/MM/dd  | 00:00:00">
                                  <font>

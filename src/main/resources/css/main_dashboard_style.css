@@ -1,6 +1,58 @@
+.label {
+    -fx-text-fill: #2c3e50; /* A modern dark blue-gray */
+}
 
-/* Change the colors of Bar Charts
-.default-color0.chart-bar { -fx-bar-fill: #0D9488; } /* Primary Teal */
+
+/*Tables*/
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #F8F9FA; /* Very light gray */
+    -fx-border-color: transparent transparent #E0E0E0 transparent; /* Bottom line only */
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #7F8C8D; /* Muted gray for headers */
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #F1F1F1 transparent; /* Thin separator line */
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 40;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #F4F7FB;
+}
+
+.table-view .table-column {
+    -fx-border-color: transparent;
+    -fx-alignment: center-left;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+
+
+
+
+/* Change the colors of Bar Charts*/
+.default-color0.chart-bar { -fx-bar-fill: #0D9488; }
 .default-color1.chart-bar { -fx-bar-fill: #14B8A6; }
 .default-color2.chart-bar { -fx-bar-fill: #2DD4BF; }
 
@@ -30,7 +82,7 @@
 }
 
 
-//*pieChart
+//*pieChart*/
 
 .default-color0.chart-pie  { -fx-pie-color: #042f2e; } /* Deepest */
 .default-color1.chart-pie  { -fx-pie-color: #134e4a; }
